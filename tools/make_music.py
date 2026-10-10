@@ -1037,6 +1037,541 @@ def espresso_boss_theme():
     return s
 
 
+# --------------------------------------------------------------------------
+# Shared helpers for the floor 3-6 songs (chord symbols -> voicings)
+# --------------------------------------------------------------------------
+
+_QUALITY = {
+    "": [0, 4, 7], "m": [0, 3, 7], "7": [0, 4, 7, 10], "maj7": [0, 4, 7, 11],
+    "m7": [0, 3, 7, 10], "m6": [0, 3, 7, 9], "dim": [0, 3, 6], "dim7": [0, 3, 6, 9],
+    "aug": [0, 4, 8], "sus": [0, 5, 7], "add9": [0, 4, 7, 14], "7b5": [0, 4, 6, 10],
+}
+
+
+def chord(name):
+    """'Ebmaj7' -> (pitch class of Eb, [0, 4, 7, 11])."""
+    root = name[0]
+    rest = name[1:]
+    if rest[:1] in ("b", "#") and not rest.startswith("b5"):
+        root, rest = root + rest[0], rest[1:]
+    return midi(root + "4") % 12, _QUALITY[rest]
+
+
+def place(pc, lo, hi):
+    """Lowest MIDI note with pitch class pc that is >= lo (must be <= hi)."""
+    m = midi(lo) + (pc - midi(lo)) % 12
+    assert m <= midi(hi), (pc, lo, hi)
+    return m
+
+
+def stab_voicing(name, lo="E4", hi="D#5"):
+    """Note + 0xy arpeggio. Triads from the root, 7th chords as a 3rd-5th-7th shell."""
+    pc, iv = chord(name)
+    if len(iv) >= 4:
+        base = place((pc + iv[1]) % 12, lo, hi)
+        return _name(base), ((iv[2] - iv[1]) << 4) | (iv[3] - iv[1])
+    return _name(place(pc, lo, hi)), (iv[1] << 4) | iv[2]
+
+
+def bass_note(name, lo="C2", hi="B2"):
+    return place(chord(name)[0], lo, hi)
+
+
+def phrases(track, items, bar, inst, **kw):
+    """items: (start_bar, text, n_bars). Checks every phrase length."""
+    for start_bar, text, n in items:
+        _len(text, n * bar)
+        melody(track, start_bar * bar, text, inst, **kw)
+
+
+def per_bar(chords_by_bar, bar_len, beats_per_chord):
+    """Expand ['A', 'D Dm', ...] into a chord per beat-slot."""
+    out = []
+    for item in chords_by_bar:
+        parts = item.split()
+        per = beats_per_chord // len(parts)
+        for p in parts:
+            out += [p] * per
+    return out
+
+
+# --------------------------------------------------------------------------
+# Song 7: open_office_theme  (A major, tpr 6, 160 BPM, typing percussion)
+# --------------------------------------------------------------------------
+
+OFFICE_KIT = [
+    noise("Kick", 11, -7, offsets=[27, 14, 6, -2, -8]),  # 0 note 24
+    noise("Snare", 10, -6, offsets=[18, 24, 22]),        # 1 note 24
+    noise("Key clack", 6, -7, length=2),                 # 2 note 55
+    noise("Key tap", 5, -7, length=2),                   # 3 note 58
+    noise("Spacebar", 7, -7, length=5),                  # 4 note 44
+    noise("Crash", 9, -2),                               # 5 note 50
+]
+OFFICE_DRUM = {"K": (0, 24), "S": (1, 24), "s": (1, 30), "k": (2, 55), "j": (3, 58),
+               "_": (4, 44), "C": (5, 50)}
+
+
+def open_office_theme():
+    s = Song("Open Plan", 6, 64,
+             [duty("Lead 50%", 2, 10, sweep=-1), duty("Chatter 12.5%", 0, 6, sweep=-7),
+              duty("Harmony 25%", 1, 6, sweep=-1)],
+             [wave_inst("Busy bass", 2)], OFFICE_KIT)
+    lead, chat, bass, drm = s.tracks
+    bar = 16
+    prog = ["A", "A", "F#m", "E",            # P0 intro: just the typing pool
+            "A", "F#m", "D", "E",            # P1 A
+            "A", "C#m", "D Dm", "E7",        # P2 A' (minor iv = nervous)
+            "F#m", "D", "Bm", "E",           # P3 B
+            "F#m", "D", "Bm E", "A",         # P4 B'
+            "F", "G", "F", "E7",             # P5 overwhelm (bVI-bVII)
+            "A", "F#m", "D", "E",            # P6 A + harmony
+            "A", "C#m", "D Dm", "E7"]        # P7 A'
+    hook = """
+      C#6:2 E6:2 C#6:1 B5:1 A5:2 E5:2 F#5:1 G#5:1 A5:4
+      A5:2 C#6:2 A5:1 G#5:1 F#5:2 C#5:2 D5:1 D#5:1 E5:4
+      F#5:2 A5:2 D6:2 C#6:1 B5:1 A5:4 F#5:4
+      G#5:2 B5:2 E6:4 D#6:2 D6:2 B5:4
+    """
+    hook2 = """
+      C#6:2 E6:2 C#6:1 B5:1 A5:2 E5:2 F#5:1 G#5:1 A5:4
+      G#5:2 B5:2 G#5:1 F#5:1 E5:2 C#5:2 D#5:1 E5:1 G#5:4
+      F#5:2 A5:2 D6:4 F5:2 A5:2 D6:4
+      E6:2 D6:2 B5:2 G#5:2 E5:4 r:4
+    """
+    part_b = """
+      C#6:4 B5:2 A5:2 F#5:4 A5:4
+      A5:4 F#5:2 D5:2 A5:4 B5:4
+      D6:4 C#6:2 B5:2 F#5:4 D6:4
+      E6:6 D#6:2 E6:2 F#6:2 G#6:4
+      A6:4 G#6:2 F#6:2 C#6:4 F#6:4
+      F#6:4 E6:2 D6:2 A5:4 F#5:4
+      D6:2 C#6:2 B5:4 B5:2 G#5:2 E5:4
+      A5:2 C#6:2 E6:2 A6:6 r:4
+    """
+    overwhelm = """
+      A5:1 C6:1 F6:1 C6:1 A5:1 C6:1 F6:1 C6:1 G6:2 F6:2 E6:2 C6:2
+      B5:1 D6:1 G6:1 D6:1 B5:1 D6:1 G6:1 D6:1 A6:2 G6:2 F6:2 D6:2
+      A5:1 C6:1 F6:1 C6:1 A5:1 C6:1 F6:1 C6:1 G6:2 F6:2 E6:2 C6:2
+      G#5:1 B5:1 E6:1 B5:1 G#5:1 B5:1 E6:1 B5:1 D6:2 C6:2 B5:2 G#5:2
+    """
+    harm = """
+      A5:2 C#6:2 A5:1 G#5:1 E5:2 C#5:2 D5:1 E5:1 E5:4
+      F#5:2 A5:2 F#5:1 E5:1 C#5:2 A4:2 B4:1 B4:1 C#5:4
+      D5:2 F#5:2 A5:2 A5:1 G#5:1 F#5:4 D5:4
+      E5:2 G#5:2 B5:4 B5:2 B5:2 G#5:4
+    """
+    phrases(lead, [(4, hook, 4), (8, hook2, 4), (12, part_b, 8), (20, overwhelm, 4),
+                   (24, hook, 4), (28, hook2, 4)], bar, 0, vib=0x31, vib_after=4, cut_gap=4)
+    phrases(chat, [(24, harm, 4)], bar, 2, cut_gap=4)
+
+    # Office chatter: two chord tones gabbling back and forth in an uneven rhythm.
+    talk = "x.xx.x.xx.x.xx.."
+    slots = per_bar(prog, bar, 2)
+    for b in range(len(prog)):
+        if 24 <= b < 28:
+            continue
+        for row, c in enumerate(talk):
+            if c != "x":
+                continue
+            name = slots[b * 2 + (row >= 8)]
+            pc, iv = chord(name)
+            lo = place((pc + iv[1]) % 12, "C5", "B5")
+            hi = place((pc + iv[2]) % 12, "C5", "B5")
+            if hi < lo:
+                hi += 12
+            chat.put(b * bar + row, pulse_idx(hi if (row // 2 + b) % 2 else lo), 1)
+
+    # Busy 8th-note bass: root, root, octave, fifth.
+    for b in range(len(prog)):
+        for h in range(2):
+            name = slots[b * 2 + h]
+            root = bass_note(name, "E2", "D#3")
+            for k, m in enumerate([root, root, root + 12, root + 7]):
+                bass.put(b * bar + h * 8 + k * 2, wave_idx(m), 0, FX_CUT, 4)
+
+    typing = ["K.kjSkjkK.kkSjkk", "Kkjk.kjSKjk.S.kj", "K.kkSkjkKkj.Skkj", "Kjkj.kSkK.kkSk_k"]
+    for b in range(len(prog)):
+        pat = typing[b % 4]
+        if b < 4:  # intro: keys only, no kit
+            pat = pat.replace("K", "k").replace("S", "_")
+        if b == 23:
+            pat = "KkKkSkSkKkKkSsSs"
+        if b in (4, 12, 20, 24):
+            pat = "C" + pat[1:]
+        drums(drm, b * bar, pat, kit=OFFICE_DRUM)
+    s.total_rows = len(prog) * bar
+    return s
+
+
+# --------------------------------------------------------------------------
+# Song 8: hr_theme  (Eb major 6/8 lullaby, tpr 8, 12 rows per bar)
+# --------------------------------------------------------------------------
+
+HR_KIT = [
+    noise("Soft kick", 7, -7, offsets=[27, 14, 6, -2, -8]),  # 0 note 24
+    noise("Brush", 4, -6, length=10),                        # 1 note 52
+    noise("Soft ride", 3, -4, length=20),                    # 2 note 60
+]
+HR_DRUM = {"K": (0, 24), "c": (1, 52), "r": (2, 60)}
+
+
+def hr_theme():
+    s = Song("Human Resources", 8, 48,
+             [duty("Lead 50%", 2, 9), duty("Music box 12.5%", 0, 5, sweep=-3),
+              duty("Harmony 25%", 1, 5, sweep=-1)],
+             [wave_inst("Sine bass", 0)], HR_KIT)
+    lead, box, bass, drm = s.tracks
+    bar = 12
+    prog = ["Ebmaj7", "Cm7", "Abmaj7", "Bb7",        # P0 A
+            "Ebmaj7", "Gaug", "Abmaj7", "Abm6",      # P1 A' (something is off)
+            "Abmaj7", "Gm7", "Fm7", "Bb7",           # P2 B
+            "Abmaj7", "Gm7", "Fm7", "E7",            # P3 B' (E7 -> Eb: creepy)
+            "Ebmaj7", "Cm7", "Abmaj7", "Bb7",        # P4 A + harmony
+            "Ebmaj7", "Edim7", "Fm7", "B",           # P5 music box gone wrong
+            "Ebmaj7", "Gaug", "Abmaj7", "Abm6",      # P6 A'
+            "Ebmaj7", "Cm7", "Fm7 Bb7", "Ebmaj7"]    # P7 home
+    a = """
+      G5:6 Bb5:2 G5:2 F5:2
+      Eb5:6 G5:2 Eb5:2 C5:2
+      C5:4 Eb5:2 G5:6
+      F5:6 D5:4 Bb4:2
+    """
+    a2 = """
+      G5:6 Bb5:2 G5:2 F5:2
+      B4:6 D#5:2 G5:2 B5:2
+      C6:6 Bb5:2 G5:2 Eb5:2
+      F5:6 B4:6
+    """
+    b = """
+      Eb5:2 G5:2 C6:2 Bb5:6
+      D5:2 F5:2 Bb5:2 G5:6
+      C5:2 Eb5:2 Ab5:2 G5:2 F5:4
+      D5:6 F5:6
+      Eb5:2 G5:2 C6:2 Bb5:6
+      D5:2 F5:2 Bb5:2 G5:6
+      Ab5:6 C6:6
+      G#5:6 D5:6
+    """
+    eerie = """
+      Bb5:2 G5:2 D6:2 Bb5:2 G5:2 Eb5:2
+      Bb5:2 G5:2 Db6:2 Bb5:2 G5:2 E5:2
+      Ab5:2 F5:2 C6:2 Ab5:2 F5:2 Eb5:2
+      F#5:2 D#5:2 B5:6 r:2
+    """
+    home = """
+      G5:6 Bb5:2 G5:2 F5:2
+      Eb5:6 G5:2 Eb5:2 C5:2
+      Ab5:6 F5:6
+      Eb5:10 r:2
+    """
+    harm = """
+      Eb5:6 G5:2 Eb5:2 D5:2
+      C5:6 Eb5:2 C5:2 G4:2
+      Ab4:4 C5:2 Eb5:6
+      D5:6 Bb4:4 F4:2
+    """
+    phrases(lead, [(0, a, 4), (4, a2, 4), (8, b, 8), (16, a, 4), (24, a2, 4), (28, home, 4)],
+            bar, 0, vib=0x22, vib_after=3, cut_gap=6)
+    phrases(lead, [(20, eerie, 4)], bar, 1)
+    phrases(box, [(16, harm, 4)], bar, 2, cut_gap=6)
+
+    # Music box: broken chord on every 8th (6 per bar), skipped under the harmony.
+    slots = per_bar(prog, bar, 2)
+    for bi in range(len(prog)):
+        if 16 <= bi < 20 or 20 <= bi < 24:
+            continue
+        for k in range(6):
+            pc, iv = chord(slots[bi * 2 + k // 3])
+            ivs = iv + [12] if len(iv) == 3 else iv
+            order = [0, 2, 3, 1, 3, 2]
+            m = place(pc, "C5", "B5") + ivs[order[k]]
+            box.put(bi * bar + k * 2, pulse_idx(m), 1)
+
+    # Bass: root on the dotted-quarter beats, fifth on the second.
+    for bi in range(len(prog)):
+        for h in range(2):
+            name = slots[bi * 2 + h]
+            root = bass_note(name, "Ab1", "G2")
+            pc, iv = chord(name)
+            m = root if h == 0 or len(prog[bi].split()) > 1 else root + iv[2]
+            bass.put(bi * bar + h * 6, wave_idx(m), 0)
+            bass.fx(bi * bar + h * 6 + 5, FX_CUT, 6)
+
+    for bi in range(len(prog)):
+        drums(drm, bi * bar, "K.r.r.c.r.r." if bi % 4 != 3 else "K.r.r.c.c.cc", kit=HR_DRUM)
+    s.total_rows = len(prog) * bar
+    return s
+
+
+# --------------------------------------------------------------------------
+# Song 9: server_room_theme  (D minor -> F major, tpr 9, 107 BPM, arpeggios)
+# --------------------------------------------------------------------------
+
+SERVER_KIT = [
+    noise("Fan whoosh", 4, -1, length=None),             # 0 note 44
+    noise("Disk tick", 5, -7, length=2),                 # 1 note 57
+    noise("Soft kick", 9, -7, offsets=[27, 14, 6, -2, -8]),  # 2 note 24
+    noise("Rim", 6, -7, length=3),                       # 3 note 48
+]
+SERVER_DRUM = {"F": (0, 44), "t": (1, 57), "K": (2, 24), "r": (3, 48)}
+
+
+def server_room_theme():
+    s = Song("Server Room", 9, 64,
+             [duty("Lead 25%", 1, 9), duty("Arp 12.5%", 0, 6, sweep=-6),
+              duty("Warm lead 50%", 2, 9)],
+             [wave_inst("Hum", 0)], SERVER_KIT)
+    lead, arp_tr, bass, drm = s.tracks
+    bar = 16
+    prog = ["Dm", "Dm", "Bbmaj7", "Csus",          # P0 hum
+            "Dm", "Bbmaj7", "Gm7", "A",            # P1 mysterious
+            "Dm", "Bbmaj7", "Gm7", "A",            # P2
+            "Fmaj7", "Cadd9", "Dm7", "Bbmaj7",     # P3 warm: meeting KEVIN
+            "Fmaj7", "C", "Bbmaj7", "Csus C",      # P4
+            "Dm", "Bbmaj7", "Gm7", "A"]            # P5 KEVIN's beeps
+    p1 = """
+      A5:8 F5:4 E5:4
+      D5:10 C5:2 D5:4
+      Bb5:8 A5:4 G5:4
+      C#5:4 E5:4 A5:8
+    """
+    p2 = """
+      A5:8 C6:4 D6:4
+      F6:8 E6:4 D6:4
+      D6:8 C6:4 Bb5:4
+      A5:16
+    """
+    warm = """
+      A5:4 C6:4 E6:8
+      D6:4 E6:4 G6:8
+      F6:6 E6:2 D6:4 C6:4
+      D6:12 r:4
+      A5:4 C6:4 F6:8
+      E6:4 D6:4 C6:8
+      D6:6 C6:2 A5:4 F5:4
+      G5:8 E5:8
+    """
+    kevin = """
+      D6:2 F6:2 A6:2 r:2 D6:2 F6:2 A6:2 r:2
+      D6:2 F6:2 Bb6:2 r:2 D6:2 F6:2 A6:4
+      G6:8 F6:4 D6:4
+      E6:8 C#6:8
+    """
+    phrases(lead, [(4, p1, 4), (8, p2, 4), (20, kevin, 4)], bar, 0, vib=0x32, vib_after=4)
+    phrases(lead, [(12, warm, 8)], bar, 2, vib=0x22, vib_after=4)
+
+    # 16th-note arpeggio, up and down the chord (the servers thinking).
+    shape = [0, 1, 2, 3, 2, 1, 0, 1, 0, 1, 2, 3, 4, 3, 2, 1]
+    slots = per_bar(prog, bar, 2)
+    for b in range(len(prog)):
+        for row in range(16):
+            pc, iv = chord(slots[b * 2 + row // 8])
+            ivs = (iv + [12, 16, 19])[:5] if len(iv) == 3 else (iv + [12])[:5]
+            m = place(pc, "D4", "C#5") + ivs[shape[row]]
+            arp_tr.put(b * bar + row, pulse_idx(m), 1)
+
+    # Hum: long root notes, re-struck each half bar, with a slow wobble.
+    for b in range(len(prog)):
+        for h in range(2):
+            root = bass_note(slots[b * 2 + h], "C2", "B2")
+            bass.put(b * bar + h * 8, wave_idx(root), 0)
+            for r in range(b * bar + h * 8 + 2, b * bar + h * 8 + 8):
+                bass.fx(r, FX_VIB, 0x81)
+
+    for b in range(len(prog)):
+        if b < 12:
+            pat = "F...t..tF...t.t." if b % 4 != 3 else "F...t..tF..tt.tt"
+        else:
+            pat = "K..tr.t.K.t.r.tt" if b % 4 != 3 else "K..tr.t.K.trr.rr"
+        drums(drm, b * bar, pat, kit=SERVER_DRUM)
+    s.total_rows = len(prog) * bar
+    return s
+
+
+# --------------------------------------------------------------------------
+# Song 10: final_boss_theme  (G minor, tpr 5, 192 BPM; intro once, then loop)
+# --------------------------------------------------------------------------
+
+def final_boss_theme():
+    s = Song("The Board", 5, 64,
+             [duty("Lead 50%", 2, 11), duty("Chug 25%", 1, 7, sweep=-5),
+              duty("Executive 12.5%", 0, 10), duty("Harmony 25%", 1, 7, sweep=-1)],
+             [wave_inst("Saw bass", 3)])
+    lead, chug, bass, drm = s.tracks
+    bar = 16
+    prog = ["Gm", "Db", "Gm", "D",          # P0 intro: the corporate motif
+            "Gm", "Eb", "Cm", "D",          # P1 A: Bufo's resolve
+            "Gm", "Eb", "Cm D", "Gm",       # P2 A'
+            "Gm", "Db", "Gm", "Db D",       # P3 the executives
+            "Bb", "F", "Eb", "D",           # P4 heroic lift
+            "Bb", "F", "Eb", "D",           # P5 climb
+            "Gm", "Gm", "Eb", "D",          # P6 breakdown
+            "Gm", "Eb", "Cm", "D",          # P7 A + harmony
+            "Gm", "Eb", "Cm D", "Gm"]       # P8 A'
+    corporate = """
+      G4:4 Db5:4 C5:8
+      Db5:4 C5:4 Ab4:8
+      G4:4 Db5:4 C5:4 Bb4:4
+      A4:8 F#4:4 D4:4
+    """
+    a1 = """
+      G5:2 Bb5:2 D6:4 C#6:2 D6:2 G6:4
+      G6:2 F6:2 Eb6:2 D6:2 Bb5:4 G5:4
+      C6:2 Eb6:2 G6:4 F6:2 Eb6:2 C6:4
+      D6:6 F#6:2 A6:4 F#6:4
+    """
+    a2 = """
+      G5:2 Bb5:2 D6:4 C#6:2 D6:2 Bb6:4
+      A6:2 G6:2 F6:2 Eb6:2 D6:4 Bb5:4
+      C6:4 Eb6:4 D6:4 F#6:4
+      G6:8 r:4 D5:2 G5:2
+    """
+    execs = """
+      G5:4 Db6:4 C6:8
+      Db6:4 C6:4 Ab5:8
+      G5:4 Db6:4 C6:4 Bb5:4
+      Ab5:4 F5:4 F#5:4 A5:4
+    """
+    heroic = """
+      D6:4 F6:4 Bb6:8
+      C6:4 F6:4 A6:8
+      Bb5:4 Eb6:4 G6:4 F6:2 Eb6:2
+      F#6:8 A6:8
+      D6:2 F6:2 Bb6:4 A6:2 F6:2 D6:4
+      C6:2 F6:2 A6:4 G6:2 F6:2 C6:4
+      Eb6:2 G6:2 Bb6:4 A6:2 G6:2 Eb6:4
+      D6:2 F#6:2 A6:4 C7:4 A6:4
+    """
+    held = """
+      Bb5:16
+      A5:16
+      G5:16
+      F#5:16
+    """
+    harm = """
+      D5:2 G5:2 Bb5:4 A5:2 Bb5:2 D6:4
+      Eb6:2 D6:2 Bb5:2 Bb5:2 G5:4 Eb5:4
+      G5:2 C6:2 Eb6:4 D6:2 C6:2 G5:4
+      A5:6 D6:2 F#6:4 D6:4
+    """
+    phrases(lead, [(0, corporate, 4), (12, execs, 4)], bar, 2, vib=0x43, vib_after=4)
+    phrases(lead, [(4, a1, 4), (8, a2, 4), (16, heroic, 8), (24, held, 4), (28, a1, 4),
+                   (32, a2, 4)], bar, 0, vib=0x42, vib_after=4)
+    phrases(chug, [(24, corporate, 4)], bar, 2, vib=0x43, vib_after=4)
+    phrases(chug, [(28, harm, 4)], bar, 3)
+
+    # Chug: arpeggiated chord on every 8th note, skipped where pulse 2 has a line.
+    slots = per_bar(prog, bar, 2)
+    for b in range(len(prog)):
+        if 24 <= b < 32:
+            continue
+        for k in range(8):
+            note, arp = stab_voicing(slots[b * 2 + k // 4], "D4", "C#5")
+            chord_stab(chug, b * bar + k * 2, note, arp, 1, rows=2)
+
+    # Bass: 16th-note ostinato (root root octave root); 8ths in the intro.
+    for b in range(len(prog)):
+        for h in range(2):
+            root = bass_note(slots[b * 2 + h], "D2", "C#3")
+            for beat in range(2):
+                base = b * bar + h * 8 + beat * 4
+                if b < 4:
+                    bass.put(base, wave_idx(root), 0, FX_CUT, 4)
+                    bass.put(base + 2, wave_idx(root), 0, FX_CUT, 4)
+                else:
+                    for k, m in enumerate([root, root, root + 12, root]):
+                        bass.put(base + k, wave_idx(m), 0, FX_CUT, 3)
+
+    for b in range(len(prog)):
+        if b < 4:
+            pat = "K.......K...K..." if b < 3 else "K.K.K.K.KKKKSsSs"
+        elif b % 4 == 3:
+            pat = "KKh.S.hKKKS.SsSs"
+        elif 24 <= b < 28:
+            pat = "K...S...K...S..." if b < 27 else "S.S.S.S.SsSsSSSS"
+        else:
+            pat = "KKh.S.hKKKh.S.hS"
+        if b in (4, 16, 28):
+            pat = "C" + pat[1:]
+        drums(drm, b * bar, pat)
+    s.total_rows = len(prog) * bar
+    s.jumps[8] = 1  # loop to A, skipping the intro
+    return s
+
+
+# --------------------------------------------------------------------------
+# Song 11: ending_theme  (D major, tpr 10, 96 BPM: the basement hook, relieved)
+# --------------------------------------------------------------------------
+
+def ending_theme():
+    s = Song("Five O'Clock", 10, 64,
+             [duty("Lead 50%", 2, 10, sweep=-1), duty("Warm comp 25%", 1, 5, sweep=-3),
+              duty("Harmony 12.5%", 0, 6, sweep=-1)],
+             [wave_inst("Warm bass", 4)])
+    lead, comp, bass, drm = s.tracks
+    bar = 16
+    prog = ["D", "C", "G", "A7",            # P0 the basement hook, in major
+            "D", "C", "G A7", "D",          # P1
+            "G", "A", "F#m", "Bm",          # P2 B
+            "G", "A", "Em7", "A7",          # P3 B'
+            "D", "C", "G A7", "D"]          # P4 reprise with harmony
+    a = """
+      D5:2 F#5:2 A5:4 G#5:2 A5:6
+      G5:2 E5:2 C5:4 r:2 E5:2 G5:2 E5:2
+      B5:2 G5:2 D5:4 r:2 E5:2 F#5:2 G5:2
+      E5:6 C#5:2 A4:8
+    """
+    a2 = """
+      D5:2 F#5:2 A5:4 G#5:2 A5:2 D6:4
+      C6:2 B5:2 A5:2 G5:2 E5:4 C5:4
+      D5:4 G5:4 E5:4 C#5:4
+      D5:12 r:4
+    """
+    b = """
+      B5:2 B5:2 C#6:2 D6:2 E6:4 D6:2 B5:2
+      C#6:2 C#6:2 D6:2 E6:2 A6:6 r:2
+      F#6:2 E6:2 C#6:2 A5:2 C#6:4 F#6:4
+      D6:4 C#6:2 B5:2 F#5:8
+      G6:2 F#6:2 E6:2 B5:2 E6:4 G6:4
+      A6:2 G6:2 E6:2 C#6:2 A5:8
+      B5:4 G5:2 E5:2 G5:2 B5:2 D6:4
+      C#6:4 A5:2 E5:2 G5:4 C#6:4
+    """
+    harm = """
+      A4:2 D5:2 F#5:4 E5:2 F#5:2 A5:4
+      A5:2 G5:2 F5:2 E5:2 C5:4 G4:4
+      B4:4 D5:4 C#5:4 A4:4
+      F#4:12 r:4
+    """
+    phrases(lead, [(0, a, 4), (4, a2, 4), (8, b, 8), (16, a2, 4)], bar, 0,
+            vib=0x22, vib_after=4, cut_gap=7)
+    phrases(comp, [(16, harm, 4)], bar, 2, cut_gap=7)
+
+    slots = per_bar(prog, bar, 2)
+    for b_ in range(len(prog)):
+        if b_ >= 16:
+            continue
+        for beat in range(4):
+            note, arp = stab_voicing(slots[b_ * 2 + beat // 2], "E4", "D#5")
+            chord_stab(comp, b_ * bar + beat * 4, note, arp, 1, rows=3)
+
+    for b_ in range(len(prog)):
+        for h in range(2):
+            name = slots[b_ * 2 + h]
+            root = bass_note(name, "C2", "B2")
+            m = root if h == 0 or len(prog[b_].split()) > 1 else root + chord(name)[1][2]
+            bass.put(b_ * bar + h * 8, wave_idx(m), 0)
+            bass.fx(b_ * bar + h * 8 + 7, FX_CUT, 7)
+
+    for b_ in range(len(prog)):
+        pat = "K.r.c.r.K.r.c.r." if b_ % 4 != 3 else "K.r.c.r.K.r.c.cc"
+        if b_ in (0, 8, 16):
+            pat = "C" + pat[1:]
+        drums(drm, b_ * bar, pat)
+    s.total_rows = len(prog) * bar
+    return s
+
+
 SONGS = {
     "office_theme": office_theme,
     "basement_theme": basement_theme,
@@ -1044,11 +1579,18 @@ SONGS = {
     "fanfare": fanfare,
     "break_room_theme": break_room_theme,
     "espresso_boss_theme": espresso_boss_theme,
+    "open_office_theme": open_office_theme,
+    "hr_theme": hr_theme,
+    "server_room_theme": server_room_theme,
+    "final_boss_theme": final_boss_theme,
+    "ending_theme": ending_theme,
 }
 
 # Preview render lengths (seconds): two loops of the short songs, ~a minute max.
 PREVIEW_SECONDS = {"office_theme": 45, "basement_theme": 59, "boss_theme": 40, "fanfare": 6,
-                   "break_room_theme": 54, "espresso_boss_theme": 40}
+                   "break_room_theme": 54, "espresso_boss_theme": 40,
+                   "open_office_theme": 52, "hr_theme": 52, "server_room_theme": 58,
+                   "final_boss_theme": 50, "ending_theme": 54}
 
 
 # --------------------------------------------------------------------------

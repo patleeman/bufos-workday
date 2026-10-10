@@ -1,0 +1,7 @@
+# Focused tests: name | start room,x,y | items | steps. Run by tools/test_playthrough.sh.
+keycard | personnel_files,4,3 | has_mug | wait:120 clear left wait:10 A wait:30 clear expect:has_keycard:1
+lockdoor | training_room,9,3 | has_mug,has_keycard | wait:120 clear hold:up:30 wait:30 clear wait:60 expect:keycard_used:1
+nokey | training_room,9,3 | has_mug | wait:120 clear hold:up:30 wait:30 clear expect:keycard_used:0
+folder | complaints,16,5 | has_mug,has_keycard | wait:120 clear hold:up:4 wait:10 A wait:30 clear wait:60 clear expect:has_folder:1
+bossdoor4 | policy_hall,9,3 | has_mug,has_keycard,has_folder | wait:120 clear hold:up:30 wait:30 clear wait:60 clear expect:boss4_door_open:1
+hydra | compliance_room,9,14 | has_mug,has_keycard,has_folder | wait:120 clear hold:left:40 hold:up:56 until:head_a_open:1:3000 B wait:12 B wait:12 B wait:20 clear hold:right:80 wait:6 hold:up:4 until:head_b_open:1:3000 B wait:12 B wait:12 B wait:20 clear hold:down:32 hold:left:48 wait:6 hold:up:4 until:head_c_open:1:3000 B wait:12 B wait:12 B wait:20 wait:60 clear wait:120 clear expect:hydra_defeated:1

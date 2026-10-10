@@ -24,6 +24,8 @@ Outputs (all in assets/sprites/, frames side by side, left to right):
   receptionist.png   32x16  2 frames  NPC, frog offering a form
   item_badge.png, item_po.png  16x16  1 frame each
   bufo_dash.png      48x16  3 frames  Bufo dash: down, up, right
+  Levels 3-6 and the ending: see the SPRITES table at the bottom; frog
+  characters share FROG_TOP plus swappable faces and bodies.
   palettes.json      suggested in-game palettes (light, mid, dark)
 
 Preview: previews/sprites-preview.png, every sprite at 8x in its suggested
@@ -94,6 +96,41 @@ PALETTES = {
     "item_po": ["#ffffff", "#e03030", "#1a1a28"],
     # Bufo's own palette, so the dash matches bufo.png in game.
     "bufo_dash": ["#dfe8a8", "#6b9b4b", "#1c2a1c"],
+    # Level 3: Open-Plan Office.
+    "quick_sync": ["#eef0e0", "#6b9b4b", "#1c2a1c"],
+    "standup_frog": ["#f4f0a0", "#6b9b4b", "#1c2a1c"],
+    "email": ["#ffffff", "#9fb4d8", "#18203a"],
+    # Storm grey with glowing yellow eyes, lightning and envelopes.
+    "reply_storm": ["#f8f0b0", "#5a6078", "#141824"],
+    "mini_storm": ["#f8f0b0", "#5a6078", "#141824"],
+    "item_headphones": ["#e8ecf4", "#5a6aa8", "#141824"],
+    # Level 4: HR. Warm brown dark shade and a cream cardigan.
+    "hr_frog": ["#f2dcb0", "#7aa860", "#3a2618"],
+    "red_tape": ["#ffd0c0", "#d02828", "#2a0808"],
+    "hydra_body": ["#ece0bc", "#a89870", "#2a2418"],
+    "binder_head": ["#f4f4f0", "#3a6ad0", "#101830"],
+    "policy_doc": ["#ffffff", "#e03030", "#1a1a28"],
+    "item_keycard": ["#f0f4ff", "#3a7ae0", "#101828"],
+    "item_folder": ["#f0d890", "#5aa040", "#2a2010"],
+    "item_stamp": ["#f0d8a0", "#d03030", "#2a1a10"],
+    # Level 5: Server Room. Beige case, green screen glow.
+    "kevin": ["#e8e0c8", "#50c878", "#142018"],
+    "firewall": ["#ffd040", "#d04020", "#2a0a04"],
+    "kevin_usb": ["#e8e0c8", "#50c878", "#142018"],
+    # Level 6: Executive Floor. Each board member's light shade is their color.
+    "yes_man": ["#e0e8c0", "#6b9b4b", "#12161a"],
+    "board_cfo": ["#b8f088", "#6b9b4b", "#1a2418"],
+    "board_cmo": ["#ff9ad0", "#6b9b4b", "#1c1424"],
+    "board_coo": ["#e8f0f8", "#6b9b4b", "#182030"],
+    "board_cto": ["#c8e0ff", "#6b9b4b", "#10141c"],
+    # Gold tie and glasses.
+    "brock_seated": ["#ffd84a", "#6a9a50", "#1c2418"],
+    "spreadsheet": ["#ffffff", "#e03030", "#1a2a1a"],
+    # Warning yellow, grey tile edge, black void.
+    "hole": ["#ffd040", "#5a6070", "#0a0c10"],
+    "megaphone_blast": ["#ffffff", "#ff9ad0", "#1c1424"],
+    # Ending.
+    "staff_frog": ["#eef0e0", "#6b9b4b", "#1c2a1c"],
 }
 
 # --------------------------------------------------------------------------
@@ -1123,6 +1160,1084 @@ def espresso_frames():
         assert len(r) == 32 and all(len(x) == 32 for x in r)
     return [idle, brew, hot]
 
+# ==========================================================================
+# Levels 3-6 and the ending.
+# ==========================================================================
+
+
+def rows_of(art):
+    return art.strip("\n").splitlines()
+
+
+def frame(*parts, w=16, h=16):
+    """Stack ASCII blocks into one frame and check its size."""
+    rows = [r for p in parts for r in rows_of(p)]
+    assert len(rows) == h and all(len(r) == w for r in rows), rows
+    assert all(set(r) <= set(".DML") for r in rows), rows
+    return rows
+
+
+def shift(rows, dx=0, dy=0):
+    """Move a frame by whole pixels; uncovered pixels become transparent."""
+    h, w = len(rows), len(rows[0])
+    out = []
+    for y in range(h):
+        sy = y - dy
+        line = ""
+        for x in range(w):
+            sx = x - dx
+            line += rows[sy][sx] if 0 <= sy < h and 0 <= sx < w else "."
+        out.append(line)
+    return out
+
+
+def outlined(rows):
+    """Give every visible pixel a dark 1px outline (4-neighbour)."""
+    h, w = len(rows), len(rows[0])
+    out = [list(r) for r in rows]
+    for y in range(h):
+        for x in range(w):
+            if rows[y][x] != ".":
+                continue
+            for nx, ny in ((x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)):
+                if 0 <= nx < w and 0 <= ny < h and rows[ny][nx] not in ".D":
+                    out[y][x] = "D"
+    return ["".join(r) for r in out]
+
+
+def brickify(rows, top=7):
+    """Fill mid-shade pixels below `top` with a staggered brick pattern."""
+    out = [list(r) for r in rows]
+    for y in range(top, len(rows)):
+        for x, ch in enumerate(rows[y]):
+            if ch != "M":
+                continue
+            course = (y - top) // 3
+            if (y - top) % 3 == 0 or (x + (2 if course % 2 else 0)) % 5 == 0:
+                out[y][x] = "D"
+    return ["".join(r) for r in out]
+
+
+# --- Shared frog parts (Bufo's species: wide head, two eye bumps) ---------
+
+FROG_TOP = """
+..DDDD....DDDD..
+.DMMMMD..DMMMMD.
+.DMMMMDDDDMMMMD.
+"""
+
+# Faces cover rows 3-9.
+FACE_SMILE = """
+DMLLLMMMMMMLLLMD
+DMLLDMMMMMMDLLMD
+DMMMMMMMMMMMMMMD
+DMMMMMDMMDMMMMMD
+DMMDMMMMMMMMDMMD
+DMMMDDDDDDDDMMMD
+.DDMMMMMMMMMMDD.
+"""
+
+FACE_TALK = """
+DMLLLMMMMMMLLLMD
+DMLLDMMMMMMDLLMD
+DMMMMMMMMMMMMMMD
+DMMMMMDMMDMMMMMD
+DMMMDDDDDDDDMMMD
+DMMMMDDDDDDMMMMD
+.DDMMMMMMMMMMDD.
+"""
+
+FACE_EAGER = """
+DMLLLMMMMMMLLLMD
+DMLDLMMMMMMLDLMD
+DMLLLMMMMMMLLLMD
+DMMMMMDMMDMMMMMD
+DMMDDDDDDDDDDMMD
+DMMMDLLLLLLDMMMD
+.DDMMDDDDDDMMDD.
+"""
+
+FACE_KIND = """
+DMMDDMMMMMMDDMMD
+DMDMMDMMMMDMMDMD
+DMMMMMMMMMMMMMMD
+DMMMMMDMMDMMMMMD
+DMMDMMMMMMMMDMMD
+DMMMDDDDDDDDMMMD
+.DDMMMMMMMMMMDD.
+"""
+
+FACE_GLANCE = """
+DMLLLMMMMMMLLLMD
+DMLLDMMMMMMLLDMD
+DMMMMMMMMMMMMMMD
+DMMMMMDMMDMMMMMD
+DMMMMMMMMMMMMMMD
+DMMMMDMDDMDMMMMD
+.DDMMMMMMMMMMDD.
+"""
+
+FACE_SHOUT = """
+DMLDDMMMMMMDDLMD
+DMLDLMMMMMMLDLMD
+DMMMMMDMMDMMMMMD
+DMMDDDDDDDDDDMMD
+DMMDLDDDDDDLDMMD
+DMMMDDDDDDDDMMMD
+.DDMMMMMMMMMMDD.
+"""
+
+FACE_FLUSTER = """
+DMLLLMMMMMMLLLMD
+DMLDLMMMMMMLDLMD
+DMLLLMMMMMMLLLMD
+DMMMMMDMMDMMMMMD
+DMMMMMMMMMMMMMMD
+DMMDMDMDMDMDMMMD
+.DDMMMMMMMMMMDD.
+"""
+
+FACE_CLOSED = """
+DMMMMMMMMMMMMMMD
+DMDDDMMMMMMDDDMD
+DMMMMMMMMMMMMMMD
+DMMMMMDMMDMMMMMD
+DMMDMMMMMMMMDMMD
+DMMMDDDDDDDDMMMD
+.DDMMMMMMMMMMDD.
+"""
+
+# Standing bodies cover rows 10-15.
+BODY_SHIRT = """
+DMDLLLDLLDLLLDMD
+DMDLLLLDDLLLLDMD
+.DDLLLLLLLLLLDD.
+.DMMDDDDDDDDMMD.
+.DMMD......DMMD.
+.DDDD......DDDD.
+"""
+
+BODY_SUIT = """
+DMDDDDLMMLDDDDMD
+DMDDDDDMMDDDDDMD
+.DDDDDDMMDDDDDD.
+.DMMDDDDDDDDMMD.
+.DMMD......DMMD.
+.DDDD......DDDD.
+"""
+
+BODY_CARDIGAN = """
+DMDLLLLDDLLLLDMD
+DMDLLLDMMDLLLDMD
+.DDLDLDMMDLDLDD.
+.DMMDDDDDDDDMMD.
+.DMMD......DMMD.
+.DDDD......DDDD.
+"""
+
+# Seated executives: head, shoulders (rows 10-12), table (rows 13-15).
+TABLE = """
+DDDDDDDDDDDDDDDD
+LLLLLLLLLLLLLLLL
+DDDDDDDDDDDDDDDD
+"""
+
+SHOULDERS_SUIT = """
+DDDDDLLMMLLDDDDD
+DDDDDDLMMLDDDDDD
+DDDDDDDMMDDDDDDD
+"""
+
+SHOULDERS_HOODIE = """
+DDDLLLLLLLLLLDDD
+DDDDLLDLLDLLDDDD
+DDDDDLDLLDLDDDDD
+"""
+
+SWEAT = """
+?D?
+DLD
+DLD
+?D?
+"""
+
+# --- Level 3: Open-Plan Office --------------------------------------------
+
+COFFEE_CUP = """
+?L?L
+DDDD
+DLLD
+DLLD
+?DD?
+"""
+
+LAPTOP_SLAB = """
+DDD
+DLD
+DLD
+DLD
+DLD
+DDD
+"""
+
+STICKY = """
+DDDDD
+DLLLD
+DDLDD
+DLLLD
+DDDDD
+"""
+
+EMAIL = """
+................
+................
+................
+....DDDDDDDDDDD.
+.DD.DDLLLLLLLDD.
+....DLDLLLLLDLD.
+DDD.DLLDLLLDLLD.
+....DLLLDLDLLLD.
+.DD.DLLLLDLLLLD.
+....DLLLLLLLLLD.
+....DDDDDDDDDDD.
+................
+................
+................
+................
+................
+"""
+
+STORM_CLOUD = """
+................................
+................................
+..........DDDDD.................
+.....DDDDDMMMMMDD....DDDDD......
+....DMMMMMMMMMMMMDDDDMMMMMD.....
+...DMMMMMMMMMMMMMMMMMMMMMMMDD...
+..DMMMMMMMMMMMMMMMMMMMMMMMMMMD..
+.DMMMMMMMMMMMMMMMMMMMMMMMMMMMMD.
+DMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMD
+DMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMD
+DMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMD
+DMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMD
+DMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMD
+DMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMD
+DMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMD
+DMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMD
+DMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMD
+DMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMD
+.DMMMMMMMMMMMMMMMMMMMMMMMMMMMMD.
+..DDMMMMMDDMMMMMMMMDDMMMMMMMDD..
+....DDDDD..DDDDDDDD..DDDDDDD....
+................................
+................................
+................................
+................................
+................................
+................................
+................................
+................................
+................................
+................................
+................................
+"""
+
+ENVELOPE = """
+DDDDDDDD
+DDLLLLDD
+DLDLLDLD
+DLLDDLLD
+DDDDDDDD
+"""
+
+STORM_EYES = """
+DDD??????????DDD
+DLLDD??????DDLLD
+DLLLLD????DLLLLD
+?DLLLD????DLLLD?
+??DDD??????DDD??
+"""
+
+STORM_FROWN = """
+??DDDDDD??
+?D??????D?
+"""
+
+STORM_ROAR = """
+?DDDDDDDD?
+DLDLDLDLDD
+DDDDDDDDDD
+?DDDDDDDD?
+"""
+
+STORM_SPIRAL = """
+?DD?????????DD?
+DLDD???????DDLD
+DLLD???????DLLD
+?DD?????????DD?
+"""
+
+STORM_WAVY = """
+D?D?D?D?D
+?D?D?D?D?
+"""
+
+BOLT = """
+??DDDD
+?DLLD?
+?DLD??
+DLLDDD
+DLLLLD
+DDDLD?
+??DLD?
+?DLD??
+?DD???
+"""
+
+DROP = """
+?D?
+DLD
+?D?
+"""
+
+MINI_STORM_A = """
+................
+................
+......DDDD......
+...DDDMMMMDDD...
+..DMMMMMMMMMMMD.
+.DMMMMMMMMMMMMMD
+DMMDDMMMMMMDDMMD
+DMMMLDMMMMDLMMMD
+DMMMLLDMMDLLMMMD
+DMMMMMMMMMMMMMMD
+DMMMMMDDDDMMMMMD
+.DMMMDMMMMDMMMD.
+..DDDDDDDDDDDD..
+................
+................
+................
+"""
+
+MINI_STORM_B = """
+................
+......DDDD......
+...DDDMMMMDDD...
+..DMMMMMMMMMMMD.
+.DMMMMMMMMMMMMMD
+DMMDDMMMMMMDDMMD
+DMMMLDMMMMDLMMMD
+DMMMLLDMMDLLMMMD
+DMMMMMMMMMMMMMMD
+DMMMMDDDDDDMMMMD
+.DMMMDLDLDLDMMD.
+..DDDDDDLDDDDD..
+.......DLD......
+......DLD.......
+......DLLD......
+.......DD.......
+"""
+
+ITEM_HEADPHONES = """
+................
+.....DDDDDD.....
+...DDMMMMMMDD...
+..DMMDDDDDDMMD..
+.DMDD......DDMD.
+.DMD........DMD.
+.DMD........DMD.
+DDDDD......DDDDD
+DMMLD......DLMMD
+DMMLD......DLMMD
+DMMLD......DLMMD
+DMMLD......DLMMD
+DMMLD......DLMMD
+.DDDD......DDDD.
+................
+................
+"""
+
+# --- Level 4: HR ------------------------------------------------------------
+
+TEACUP = """
+DDDDDD?
+DLLLLDD
+DLLLLDD
+?DDDD??
+DDDDDDD
+"""
+
+TAPE_A = """
+................
+................
+................
+...DDDDD........
+.DDMMMMMDD......
+.DMLLMMMMMD.....
+DMLMMDDDMMMD....
+DMLMDLLLDMMDDDD.
+DMMMDLDLDMMMMMMD
+DMMMDLLLDMMDDDMD
+DMMMMDDDMMMD.DMD
+.DMMMMMMMMD..DMD
+.DDMMMMMDD..DMD.
+...DDDDD...DLLD.
+...........DDD..
+................
+"""
+
+TAPE_B = """
+................
+............DDD.
+...........DLLD.
+...DDDDD...DMD..
+.DDMMMMMDD.DMD..
+.DMLLMMMMMDDMD..
+DMLMMDDDMMMMMD..
+DMLMDLLLDMMDD...
+DMMMDLDLDMMD....
+DMMMDLLLDMMD....
+DMMMMDDDMMMD....
+.DMMMMMMMMD.....
+.DDMMMMMDD......
+...DDDDD........
+................
+................
+"""
+
+NECK = """
+?DDDD?
+DMMMMD
+DDDDDD
+DMMMMD
+DDDDDD
+DMMMMD
+"""
+
+CABINET_TOP = """
+...DDDDDDDDDDDDDDDDDDDDDDDDDD...
+...DLLLLLLLLLLLLLLLLLLLLLLLLD...
+...DMMMMMMMMMMMMMMMMMMMMMMMMD...
+"""
+
+DRAWER = """
+...DLDDDDDDDDDDDDDDDDDDDDDDLD...
+...DLDLLLLLLDDDDDDDDLLLLLLDLD...
+...DLDLLLLLLDLLLLLLDLLLLLLDLD...
+...DLDLLLLLLDDDDDDDDLLLLLLDLD...
+...DLDLLLLLLLDMMMMDLLLLLLLDLD...
+...DLDMMMMMMMMMMMMMMMMMMMMDLD...
+"""
+
+CABINET_FOOT = """
+...DDDDDDDDDDDDDDDDDDDDDDDDDD...
+...DDD..................DDD.....
+"""
+
+SHAKE = """
+D
+?
+D
+D
+?
+D
+"""
+
+FLYING_PAGES = """
+??DDDD???????
+?DLLLLD??DDD?
+?DLDDLD?DLLLD
+??DLLLD?DLDLD
+???DDD???DDD?
+"""
+
+BINDER_A = """
+................
+..DDDDDDDDDDDD..
+.DDMMMMMMMMMMMD.
+DLDMMMMMMMMMMMD.
+.DDMLLLLLLLLMMD.
+DLDMLDDDDDDLMMD.
+.DDMLLLLLLLLMMD.
+DLDMMMMMMMMMMMD.
+.DDMDDMMMMDDMMD.
+DLDMMLDMMDLMMMD.
+.DDMMDDMMDDMMMD.
+DLDMMMMMMMMMMMD.
+.DDMMMDDDDMMMMD.
+..DDDDDDDDDDDDD.
+................
+................
+"""
+
+BINDER_B = """
+................
+..DDDDDDDDDDDD..
+LDDMMMMMMMMMMMD.
+DLDMMMMMMMMMMMD.
+LDDMLLLLLLLLMMD.
+DLDMLDDDDDDLMMD.
+LDDMLLLLLLLLMMD.
+DLDMDDMMMMDDMMD.
+LDDMMLDMMDLMMMD.
+DLDMMDDMMDDMMMD.
+LDDMDDDDDDDDMMD.
+DLDMDLDLDLDDMMD.
+LDDMDDDDDDDDMMD.
+..DDDDDDDDDDDDD.
+................
+................
+"""
+
+BINDER_C = """
+................
+....DD....DD....
+...DLLD..DLLD...
+...DLLLDDLLLD...
+..DLLLLDDLLLLD..
+..DLDDLDDLDDLD..
+.DLLLLLDDLLLLLD.
+.DLDDDLDDLDDDLD.
+DLLLLLLDDLLLLLLD
+DDDDDDDDDDDDDDDD
+DMMMMMMDDMMMMMMD
+DMDDDMMDDMMDDDMD
+DMDLDMMDDMMDLDMD
+DMDDDMMDDMMDDDMD
+DMMMMMMDDMMMMMMD
+DDDDDDDDDDDDDDDD
+"""
+
+POLICY_DOC = """
+................
+....DDDDDDDDD...
+.DD.DLLLLLLLDD..
+....DLDDDDDLDLD.
+DDD.DLLLLLLLDDDD
+....DLDDDDDDDLLD
+.DD.DLLLLLLLLLLD
+....DLDDDDDDLLLD
+....DLLLLLLLLLLD
+....DLLLLMMMMLLD
+....DLLLMMLLMMLD
+....DLLLMLMMLMLD
+....DLLLMMLLMMLD
+....DLLLLMMMMLLD
+....DDDDDDDDDDDD
+................
+"""
+
+ITEM_KEYCARD = """
+................
+................
+..DDDDDDDDDDDD..
+.DMMMMMDDMMMMMD.
+.DMMMMMMMMMMMMD.
+.DLLLLLLLLLLLLD.
+.DLDDDDLLLLLLLD.
+.DLDMMDLDDDDLLD.
+.DLDMMDLLLLLLLD.
+.DLDDDDLDDDLLLD.
+.DLLLLLLLLLLLLD.
+..DDDDDDDDDDDD..
+................
+................
+................
+................
+"""
+
+ITEM_FOLDER = """
+................
+.DDDDDD.........
+.DLLLLLDDDDDDDD.
+.DLLLLLLLLLLLLD.
+.DLDDDDDDDDDDLD.
+.DLDLDDLDLDDLLD.
+.DLDDDDDDDDDDLD.
+.DLLLLLLLLLLLLD.
+.DLLLLDDDDLLLLD.
+.DLLLDMMMDDLLLD.
+.DLLDMMMMLDDLLD.
+.DLLDMMMMMMDLLD.
+.DLLLDMMMMDLLLD.
+.DLLLLDDDDLLLLD.
+.DDDDDDDDDDDDDD.
+................
+"""
+
+ITEM_STAMP = """
+................
+......DDDD......
+.....DLLLLD.....
+.....DLLLLD.....
+......DDDD......
+......DLLD......
+....DDDDDDDD....
+...DLLLLLLLLD...
+...DDDDDDDDDD...
+..DMMMMMMMMMMD..
+..DDDDDDDDDDDD..
+................
+.DDDDDDDDDDDDDD.
+.DLMLMMLMLMMLLD.
+.DDDDDDDDDDDDDD.
+................
+"""
+
+# --- Level 5: Server Room ----------------------------------------------------
+
+KEVIN_FACE_SMILE = """
+MMMMMMMMMMMMMMMMMMMM
+MMMMMDDMMMMMMDDMMMMM
+MMMDDMMMMMMMMMMDDMMM
+MMMMMMMMMMMMMMMMMMMM
+MMMMLDDMMMMMMLDDMMMM
+MMMMDDDMMMMMMDDDMMMM
+MMMMDDDMMMMMMDDDMMMM
+MMMMMMMMMMMMMMMMMMMM
+MMMMMMMDMMMMDMMMMMMM
+MMMMMMMMDDDDMMMMMMMM
+MMMMMMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMMMMM
+"""
+
+KEVIN_FACE_TALK = """
+MMMMMMMMMMMMMMMMMMMM
+MMMMMDDMMMMMMDDMMMMM
+MMMDDMMMMMMMMMMDDMMM
+MMMMMMMMMMMMMMMMMMMM
+MMMMLDDMMMMMMLDDMMMM
+MMMMDDDMMMMMMDDDMMMM
+MMMMDDDMMMMMMDDDMMMM
+MMMMMMMMMMMMMMMMMMMM
+MMMMMMMMDDDDMMMMMMMM
+MMMMMMMDDLLDDMMMMMMM
+MMMMMMMMDDDDMMMMMMMM
+MMMMMMMMMMMMMMMMMMMM
+"""
+
+KEVIN_FACE_HAPPY = """
+MMMMMMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMMMMM
+MMMMMDMMMMMMMMDMMMMM
+MMMMDMDMMMMMMDMDMMMM
+MMMDMMMDMMMMDMMMDMMM
+MMMMMMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMMMMM
+MMMMMDMMMMMMMMDMMMMM
+MMMMMMDDDDDDDDMMMMMM
+MMMMMMMDLLLLDMMMMMMM
+MMMMMMMMDDDDMMMMMMMM
+"""
+
+SPARKLE = """
+??D??
+?DLD?
+DLLLD
+?DLD?
+??D??
+"""
+
+FLAME_A = """
+......D.........
+.....DLD........
+.....DLD....D...
+....DMLMD..DLD..
+....DMMMD..DLD..
+.D..DMMMMDDMMD..
+DLD.DMMMMMMMMD..
+DMMDMMMMMMMMMMD.
+DMMMMMMMMMMMMMD.
+DMMMMMMMMMMMMMMD
+DMMMMMMMMMMMMMMD
+DMMMMMMMMMMMMMMD
+DMMMMMMMMMMMMMMD
+.DMMMMMMMMMMMMD.
+.DMMMMMMMMMMMMD.
+..DDDDDDDDDDDD..
+"""
+
+FLAME_B = """
+............D...
+...D.......DLD..
+..DLD......DLD..
+..DLD..D...DMD..
+..DMMDDLD.DMMD..
+..DMMMDMD.DMMD..
+.DMMMMMMMDMMMD..
+.DMMMMMMMMMMMMD.
+DMMMMMMMMMMMMMD.
+DMMMMMMMMMMMMMMD
+DMMMMMMMMMMMMMMD
+DMMMMMMMMMMMMMMD
+DMMMMMMMMMMMMMMD
+.DMMMMMMMMMMMMD.
+.DMMMMMMMMMMMMD.
+..DDDDDDDDDDDD..
+"""
+
+USB = """
+................
+......DDDD......
+.....DLLLLD.....
+.....DLDDLD.....
+.....DLLLLD.....
+...DDDDDDDDDD...
+...DMMMMMMMMD...
+...DMDDMMDDMD...
+...DMDDMMDDMD...
+...DMMMMMMMMD...
+...DMMDMMDMMD...
+...DMMMDDMMMD...
+...DMMMMMMMMD...
+...DDDDDDDDDD...
+................
+................
+"""
+
+# --- Level 6: Executive Floor ------------------------------------------------
+
+VISOR = """
+DDDDDDDDDDDDDDDD
+DLLLLLLLLLLLLLLD
+"""
+
+CALCULATOR = """
+DDDDD
+DLLLD
+DLDLD
+DLDLD
+DDDDD
+"""
+
+SHADES = """
+DDDDDDDDDDDDDDDD
+DMDDLDDMMDDLDDMD
+DMMDDDMMMMDDDMMD
+"""
+
+MEGAPHONE = """
+????DDD
+DDDDLLD
+DLLLLLD
+DDDDLLD
+????DDD
+"""
+
+HEADSET = """
+..DDDDDDDDDDDD..
+"""
+
+HEADSET_MIC = """
+DD????????????DD
+DLD??????????DLD
+DD????????????DD
+?D??????????????
+??DDL???????????
+"""
+
+CLIPBOARD = """
+??DD??
+DDDDDD
+DLLLLD
+DLDDLD
+DLLLLD
+DLDDLD
+"""
+
+LAPTOP_BACK = """
+DDDDDDDD
+DLLLLLLD
+DLLMMLLD
+DLLMMLLD
+DLLLLLLD
+"""
+
+SPREADSHEET = """
+................
+.DDDDDDDDDDDDDD.
+.DLLLDLLLDLLLLD.
+.DMMLDLLLDLLLLD.
+.DLLMMLLLDLLLLD.
+.DDDDMMDDDDDDDD.
+.DLLLDMMLDLLLLD.
+.DLLLDLMMDLLLLD.
+.DLLLDLLMMLLLLD.
+.DDDDDDDDMMDDDD.
+.DLLLDLLLDMMLLD.
+.DLLLDLLLDLMMMD.
+.DLLLDLLLDLMMMD.
+.DLLLDLLLDMMMMD.
+.DDDDDDDDDDDDDD.
+................
+"""
+
+HOLE_OPEN = """
+................
+..DDDD..DDDDD...
+.DMMMMDDMMMMMD..
+DMMMMMMMMMMMMMD.
+DMMLMMMMMLMMMMMD
+DMMMMMMMMMMMMMMD
+DDMMMMMMMMMMMMDD
+DDDDMMMDDMMMDDDD
+DDDDDDDDDDDDDDDD
+DDDDDDDDDDDDDDDD
+DDDDDDDDDDDDDDDD
+DDDDDDDDDDDDDDDD
+.DDDDDDDDDDDDDD.
+.DDDDDDDDDDDDDD.
+..DDDD.DDD.DDD..
+................
+"""
+
+BLAST = """
+................
+................
+..........L.....
+.....L.....L....
+......L.....L...
+..L....L....L...
+...L...L.....L..
+...L....L....L..
+...L....L....L..
+...L...L.....L..
+..L....L....L...
+......L.....L...
+.....L.....L....
+..........L.....
+................
+................
+"""
+
+STAFF_A = """
+................
+................
+................
+....DDD..DDD....
+...DMMMDDMMMD...
+..DMLLMMMMLLMD..
+..DMLDMMMMDLMD..
+..DMMMDMMDMMMD..
+..DMDMMMMMMDMD..
+..DMMDDDDDDMMD..
+...DDMMMMMMDD...
+.DMDLLLMMLLLDMD.
+.DMDLLLMMLLLDMD.
+.DDDDDDDDDDDDDD.
+..DMD......DMD..
+..DDD......DDD..
+"""
+
+STAFF_B = """
+DDD..........DDD
+DMD..........DMD
+DMD..........DMD
+DMD.DDD..DDD.DMD
+DMDDMMMDDMMMDDMD
+DMDMLLMMMMLLMDMD
+DMDMLDMMMMDLMDMD
+DMDMMMDMMDMMMDMD
+DMDMDDDDDDDDMDMD
+DMDMMDLLLLDMMDMD
+DMDDDMMMMMMDDDMD
+.DDDLLLMMLLLDDD.
+..DDLLLMMLLLDD..
+..DMDDDDDDDDMD..
+..DMD......DMD..
+..DDD......DDD..
+"""
+
+
+def quick_sync_frames():
+    a = frame(FROG_TOP, FACE_SMILE, BODY_SHIRT)
+    a = overlay(a, COFFEE_CUP, 0, 10)
+    a = overlay(a, LAPTOP_SLAB, 13, 9)
+    b = frame(FROG_TOP, FACE_EAGER, BODY_SHIRT)
+    b = overlay(b, COFFEE_CUP, 0, 8)
+    b = overlay(b, LAPTOP_SLAB, 13, 9)
+    return [a, shift(b, dy=1)]
+
+
+def standup_frames():
+    a = overlay(frame(FROG_TOP, FACE_SMILE, BODY_SHIRT), STICKY, 11, 10)
+    b = overlay(frame(FROG_TOP, FACE_TALK, BODY_SHIRT), STICKY, 11, 9)
+    return [a, b]
+
+
+def reply_storm_frames():
+    cloud = parse(STORM_CLOUD, 32, 32)
+    for x, y in ((4, 2), (19, 2), (0, 11), (24, 9), (3, 18), (21, 18)):
+        cloud = overlay(cloud, ENVELOPE, x, y)
+    idle = overlay(cloud, STORM_EYES, 8, 8)
+    idle = overlay(idle, STORM_FROWN, 11, 15)
+    send = overlay(cloud, STORM_EYES, 8, 7)
+    send = overlay(send, STORM_ROAR, 11, 14)
+    send = overlay(send, BOLT, 6, 21)
+    send = overlay(send, BOLT, 21, 21)
+    send = overlay(send, BOLT, 13, 22)
+    low = shift(cloud, dy=4)
+    low = overlay(low, STORM_SPIRAL, 9, 13)
+    low = overlay(low, STORM_WAVY, 12, 19)
+    for x, y in ((6, 27), (15, 29), (24, 27)):
+        low = overlay(low, DROP, x, y)
+    return [idle, send, low]
+
+
+def hr_frames():
+    a = overlay(frame(FROG_TOP, FACE_KIND, BODY_CARDIGAN), TEACUP, 5, 10)
+    b = overlay(frame(FROG_TOP, FACE_GLANCE, BODY_CARDIGAN), TEACUP, 5, 10)
+    b = overlay(b, SWEAT, 13, 1)
+    return [a, b]
+
+
+def hydra_frames():
+    rows = ["." * 32] * 3
+    top = ["." * 32 for _ in range(6)]
+    for x in (5, 13, 21):
+        top = overlay(top, NECK, x, 0)
+    rows += top
+    rows += rows_of(CABINET_TOP) + rows_of(DRAWER) * 3 + rows_of(CABINET_FOOT)
+    body = frame("\n".join(rows), w=32, h=32)
+    hurt = shift(body, dx=1)
+    # Jolted sideways, papers fly out of the top, shake marks at the sides.
+    hurt = overlay(hurt, FLYING_PAGES, 9, 0)
+    for x, y in ((0, 12), (31, 12), (0, 22), (31, 22)):
+        hurt = overlay(hurt, SHAKE, x, y)
+    return [body, hurt]
+
+
+def kevin_frames():
+    case = ["." * 32] * 3
+    case.append("..DDDDDDDDDDDDDDDDDDDDDDDDDDDD..")
+    case.append("..DLLLLLLLLLLLLLLLLLLLLLLLLLLD..")
+    case.append("..DLL" + "D" * 22 + "LLD..")
+    case += ["..DLLD" + "M" * 20 + "DLLD.."] * 14
+    case.append("..DLL" + "D" * 22 + "LLD..")
+    case.append("..DLLLLLLLLLLLLLLLLLLLLLLLLLLD..")
+    case.append("..D" + "L" * 18 + "DMDLDMDLD..")
+    case.append("..DDDDDDDDDDDDDDDDDDDDDDDDDDDD..")
+    case.append("............DLLLLLLD............")
+    case.append("............DLLLLLLD...DDD......")
+    case.append("........DDDDDDDDDDDDDDDDLD......")
+    case.append(".......DLLLLLLLLLLLLLLLLDMD.....")
+    case.append(".......DDDDDDDDDDDDDDDDDDMD.....")
+    case.append("......................DMMD......")
+    case.append("......................DMD.......")
+    case.append("................................")
+    body = frame("\n".join(case), w=32, h=32)
+    idle = overlay(body, KEVIN_FACE_SMILE, 6, 7)
+    talk = overlay(body, KEVIN_FACE_TALK, 6, 7)
+    happy = overlay(body, KEVIN_FACE_HAPPY, 6, 7)
+    for x, y in ((0, 0), (27, 0), (0, 22), (27, 24)):
+        happy = overlay(happy, SPARKLE, x, y)
+    return [idle, talk, happy]
+
+
+def exec_frames(props):
+    """Three seated frames: idle, attacking, flustered. `props` adds the
+    character's silhouette pieces per frame as (patch, x, y) lists."""
+    faces = (FACE_SMILE, FACE_SHOUT, FACE_FLUSTER)
+    shoulders = props.get("shoulders", SHOULDERS_SUIT)
+    out = []
+    for face, extra in zip(faces, props["frames"]):
+        f = frame(FROG_TOP, face, shoulders, TABLE)
+        for patch, x, y in extra:
+            f = overlay(f, patch, x, y)
+        out.append(f)
+    return out
+
+
+CFO = {
+    "frames": [
+        [(VISOR, 0, 1), (CALCULATOR, 11, 9)],
+        [(VISOR, 0, 1), (CALCULATOR, 11, 4)],
+        [(VISOR, 0, 2), (CALCULATOR, 11, 10), (SWEAT, 0, 4)],
+    ]
+}
+CMO = {
+    "frames": [
+        [(SHADES, 0, 3), (MEGAPHONE, 0, 9)],
+        [(SHADES, 0, 3), (MEGAPHONE, 9, 6)],
+        [(SHADES, 0, 6), (MEGAPHONE, 0, 10), (SWEAT, 13, 0)],
+    ]
+}
+COO = {
+    "frames": [
+        [(HEADSET, 0, 0), (HEADSET_MIC, 0, 4), (CLIPBOARD, 10, 8)],
+        [(HEADSET, 0, 0), (HEADSET_MIC, 0, 4), (CLIPBOARD, 10, 3)],
+        [(HEADSET, 0, 0), (HEADSET_MIC, 0, 4), (FLYING_PAGES, 3, 9), (SWEAT, 13, 0)],
+    ]
+}
+CTO = {
+    "shoulders": SHOULDERS_HOODIE,
+    "frames": [
+        [(LAPTOP_BACK, 8, 9)],
+        [(LAPTOP_BACK, 8, 8)],
+        [(LAPTOP_BACK, 8, 10), (SWEAT, 0, 3)],
+    ],
+}
+
+
+def ceo_head():
+    """Brock's head and suit from assets/sprites/ceo.png (frame 0, rows 0-12)."""
+    img = Image.open(ROOT / "assets/sprites/ceo.png").convert("RGB")
+    key = {v: k for k, v in GBS.items()}
+    return ["".join(key[img.getpixel((x, y))] for x in range(16)) for y in range(13)]
+
+
+BROCK_SHOUT = """
+DMDDDDMMMMDDDDMD
+DDLLDLDMMDLLDLDD
+DMDDDDMMMMDDDDMD
+DMMMMMMMMMMMMMMD
+DMMMDDDDDDDDMMMD
+DMMMDLDDDDLDMMMD
+DMMMDDDDDDDDMMMD
+.DDMMMMMMMMMMDD.
+"""
+
+BROCK_SWEAT = """
+DMMDDDDMMMMDDDMD
+DMDDLLDMMDDLLDDD
+DMMDDDDMMMMDDDMD
+DMMMMMMMMMMMMMMD
+DMMMMMDMMDMMMMMD
+DMMMMMMMMMMMMMMD
+DMMDMDMDMDMDMMMD
+.DDMMMMMMMMMMDD.
+"""
+
+
+def brock_frames():
+    head = ceo_head()
+    idle = frame("\n".join(head), TABLE)
+    shout = overlay(idle, BROCK_SHOUT, 0, 3)
+    sweat = overlay(idle, BROCK_SWEAT, 0, 3)
+    sweat = overlay(sweat, SWEAT, 0, 0)
+    sweat = overlay(sweat, SWEAT, 13, 1)
+    return [idle, shout, sweat]
+
+
+def hole_frames():
+    warn = []
+    for y in range(16):
+        line = ""
+        for x in range(16):
+            edge = x < 2 or x > 13 or y < 2 or y > 13
+            line += ("D" if ((x + y) // 2) % 2 else "L") if edge else "."
+        warn.append(line)
+    return [warn, parse(HOLE_OPEN)]
+
+
+def yes_man_frames():
+    a = frame(FROG_TOP, FACE_SMILE, BODY_SUIT)
+    head = frame(FROG_TOP, FACE_CLOSED, BODY_SUIT)[:10]
+    b = ["." * 16] + head + rows_of(BODY_SUIT)[1:]
+    return [a, frame("\n".join(b))]
+
+
 SPRITES = {
     "roomba": [parse(ROOMBA_A), parse(ROOMBA_B)],
     "tangled_cable": [parse(CABLE_A), parse(CABLE_B)],
@@ -1152,6 +2267,38 @@ SPRITES = {
     "item_badge": [parse(ITEM_BADGE)],
     "item_po": [parse(ITEM_PO)],
     "bufo_dash": [parse(DASH_DOWN), parse(DASH_UP), parse(DASH_RIGHT)],
+    # Level 3: Open-Plan Office.
+    "quick_sync": quick_sync_frames(),
+    "standup_frog": standup_frames(),
+    "email": [parse(EMAIL)],
+    "reply_storm": reply_storm_frames(),
+    "mini_storm": [parse(MINI_STORM_A), parse(MINI_STORM_B)],
+    "item_headphones": [parse(ITEM_HEADPHONES)],
+    # Level 4: HR.
+    "hr_frog": hr_frames(),
+    "red_tape": [parse(TAPE_A), parse(TAPE_B)],
+    "hydra_body": hydra_frames(),
+    "binder_head": [parse(BINDER_A), parse(BINDER_B), parse(BINDER_C)],
+    "policy_doc": [parse(POLICY_DOC)],
+    "item_keycard": [parse(ITEM_KEYCARD)],
+    "item_folder": [parse(ITEM_FOLDER)],
+    "item_stamp": [parse(ITEM_STAMP)],
+    # Level 5: Server Room.
+    "kevin": kevin_frames(),
+    "firewall": [brickify(parse(FLAME_A)), brickify(parse(FLAME_B))],
+    "kevin_usb": [parse(USB), shift(parse(USB), dy=-1)],
+    # Level 6: Executive Floor.
+    "yes_man": yes_man_frames(),
+    "board_cfo": exec_frames(CFO),
+    "board_cmo": exec_frames(CMO),
+    "board_coo": exec_frames(COO),
+    "board_cto": exec_frames(CTO),
+    "brock_seated": brock_frames(),
+    "spreadsheet": [parse(SPREADSHEET)],
+    "hole": hole_frames(),
+    "megaphone_blast": [outlined(parse(BLAST))],
+    # Ending.
+    "staff_frog": [parse(STAFF_A), parse(STAFF_B)],
 }
 
 # Sprites that must have no transparent pixels.

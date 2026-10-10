@@ -1,0 +1,13 @@
+wait:120 clear shot:l3_00_landing
+hold:up:100 wait:60 clear shot:l3_01_bullpen
+hold:up:40 hold:right:80 wait:60 clear shot:l3_02_quiet
+hold:up:16 hold:right:48 hold:up:24 wait:10 A wait:30 clear expect:has_headphones:1 shot:l3_03_headphones down wait:6 B wait:21 B wait:21 left wait:6 B wait:21 B wait:21 right wait:6 B wait:21 B wait:21 up wait:6 B wait:21 B wait:21 down wait:6 B wait:21 B wait:21 left wait:6 B wait:21 B wait:21 right wait:6 B wait:21 B wait:21 up wait:6 B wait:21 B wait:21 down wait:6 B wait:21 B wait:21 left wait:6 B wait:21 B wait:21 right wait:6 B wait:21 B wait:21 up wait:6 B wait:21 B wait:21 clear hold:up:40 hold:left:8 hold:right:8
+hold:down:24 hold:left:48 hold:down:16 hold:left:16 wait:60 clear
+hold:left:48 hold:up:72 wait:60 clear shot:l3_04_standup
+hold:up:40 hold:left:72 wait:60 clear shot:l3_05_scheduling
+hold:left:16 hold:up:40 wait:10 A wait:30 clear expect:has_invite:1 shot:l3_06_invite
+hold:down:24 hold:right:48 wait:60 clear
+hold:right:64 hold:up:72 wait:30 clear wait:60 clear expect:boss3_door_open:1 shot:l3_07_boss
+hold:up:16 until:storm_low:1:3000 wait:4 hold:up:2 B wait:12 B wait:12 B wait:20 clear expect:storm_hp:2
+until:storm_low:1:3000 wait:4 hold:up:2 B wait:12 B wait:12 B wait:20 clear expect:storm_hp:1
+until:storm_phase2:1:3000 wait:20 clear until:storm_low:1:3000 wait:4 hold:up:2 B wait:12 B wait:12 B wait:20 shot:l3_08_hit clear wait:120 clear expect:storm_defeated:1 shot:l3_09_done

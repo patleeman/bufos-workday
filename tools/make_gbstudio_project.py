@@ -36,10 +36,33 @@ if (ROOT / "tools/make_break_room.py").exists():
     breakroom = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(breakroom)
 
+# Floors 3-6, if their art exists yet: key -> module.
+FLOOR_FILES = {"office": ("make_open_office.py", "open_office"), "hr": ("make_hr.py", "hr"),
+               "server": ("make_server_room.py", "server_room"), "exec": ("make_exec_floor.py", "exec_floor")}
+FLOORS = {}
+for _key, (_file, _folder) in FLOOR_FILES.items():
+    if (ROOT / "tools" / _file).exists():
+        import sys
+        sys.path.insert(0, str(ROOT / "tools"))
+        _spec = importlib.util.spec_from_file_location(_key, ROOT / "tools" / _file)
+        _mod = importlib.util.module_from_spec(_spec)
+        try:
+            _spec.loader.exec_module(_mod)
+        except Exception as exc:  # art still being drawn: build without this floor
+            print(f"Skipping {_file}: {exc}")
+            continue
+        if all((ROOT / "assets/backgrounds" / f"{_key}_{room}.png").exists() for room in _mod.ROOMS):
+            FLOORS[_key] = _mod
+
 # room name -> (level module, background file prefix, scene folder)
 LEVELS = {name: (basement, "basement", "basement") for name in basement.ROOMS}
 if breakroom:
     LEVELS.update({name: (breakroom, "break", "break_room") for name in breakroom.ROOMS})
+for _key, _mod in FLOORS.items():
+    LEVELS.update({name: (_mod, _key, FLOOR_FILES[_key][1]) for name in _mod.ROOMS})
+# Where each level's scenes sit on GB Studio's world map.
+LEVEL_OFFSET = {"basement": (0, 0), "break_room": (4, 5), "open_office": (8, 5), "hr": (12, 5),
+                "server_room": (16, 5), "exec_floor": (20, 5)}
 DOOR_CHARS = "dkBw"
 
 
@@ -176,7 +199,8 @@ def projectile(sprite, source, direction=None, group="2", mask=("1",), speed=3, 
 
 
 SONGS = [song for song in ["office_theme", "basement_theme", "boss_theme", "fanfare",
-                           "break_room_theme", "espresso_boss_theme"]
+                           "break_room_theme", "espresso_boss_theme", "open_office_theme", "hr_theme",
+                           "server_room_theme", "final_boss_theme", "ending_theme"]
          if (ROOT / "assets/music" / f"{song}.uge").exists()]
 
 
@@ -210,6 +234,15 @@ VARS = [
     "happy_talked", "kevin_fridge", "level2_intro", "lane_side", "dash_cooldown", "boss2_door_open",
     "mold_a_cleared", "mold_b_cleared", "mold_c_cleared", "lobby_intro", "ant_tx", "ant_ty",
     "dashing", "menu_pick",
+    # Floors 3-6 and the ending
+    "office_intro", "hr_intro", "server_intro", "exec_intro", "meeting_talked", "hr_talked",
+    "has_headphones", "has_invite", "boss3_door_open", "storm_hp", "storm_low", "storm_defeated",
+    "storm_intro_done", "storm_phase2",
+    "has_keycard", "has_folder", "boss4_door_open", "hydra_heads", "hydra_defeated", "hydra_intro_done",
+    "head_a_open", "head_b_open", "head_c_open",
+    "server_panel_broken", "has_note5", "kevin_met", "has_kevin", "exec_hacked",
+    "has_board_invite", "boss6_door_open", "board_stage", "board_vuln", "board_intro_done", "board_defeated",
+    "elevator_pick", "keycard_used",
 ]
 V = {name: str(i) for i, name in enumerate(VARS)}
 
@@ -246,6 +279,20 @@ SCENE_SLOTS = {
     "espresso_room": {"printer": "espresso"},
     "lounge": {"npc": "coffee_happy"},
     "lobby": {"npc": "receptionist"},
+    # Floor 3
+    "bullpen": {"enemy": "quick_sync"}, "quiet_room": {"enemy": "quick_sync"},
+    "meeting_room": {"npc": "standup_frog"}, "standup_corridor": {"npc": "standup_frog"},
+    "conference": {"printer": "reply_storm", "enemy": "mini_storm"},
+    # Floor 4
+    "hr_reception": {"npc": "hr_frog"}, "personnel_files": {"enemy": "red_tape"},
+    "training_room": {"enemy": "red_tape"}, "compliance_room": {"printer": "hydra_body", "cable": "binder_head"},
+    # Floor 5
+    "cold_aisle": {"enemy": "firewall", "cable": "cracked_wall"}, "cable_vault": {"cable": "cracked_wall"},
+    "kevin_core": {"printer": "kevin"},
+    # Floor 6
+    "exec_hall": {"enemy": "yes_man"},
+    "boardroom": {"cable": "board_cfo", "gold": "board_cmo", "npc": "brock_seated", "printer": "spreadsheet"},
+    "ending_cubicle": {"npc": "ceo"},
 }
 # Fallback colors for those palettes if the sprite artist didn't suggest any.
 EXTRA_PALETTES = {
@@ -255,6 +302,14 @@ EXTRA_PALETTES = {
     "cracked_wall": ("E8DCC0", "A89878", "403020"),
     "coffee_happy": ("E8E0A0", "7AA860", "1C2A1C"),
     "receptionist": ("E8E0A0", "7AA860", "1C2A1C"),
+    "quick_sync": ("F0E8C8", "5888C8", "1C2030"), "standup_frog": ("E8E0A0", "7AA860", "1C2A1C"),
+    "reply_storm": ("E8F0FF", "6070A0", "181C30"), "mini_storm": ("E8F0FF", "6070A0", "181C30"),
+    "hr_frog": ("F8E0E8", "7AA860", "2A1C24"), "red_tape": ("F8D0D0", "D02828", "300808"),
+    "hydra_body": ("F0E8D0", "B8A070", "302818"), "binder_head": ("F0F0F0", "3070C0", "101828"),
+    "kevin": ("D8FFE0", "40B060", "102018"), "firewall": ("FFE080", "E05020", "301008"),
+    "yes_man": ("E0E0E8", "404858", "101018"), "board_cfo": ("F0E0C8", "6A9A50", "181C20"),
+    "spreadsheet": ("FFFFFF", "40A040", "102010"), "board_cmo": ("FF9AD0", "6B9B4B", "1C1424"),
+    "brock_seated": ("FFD84A", "6A9A50", "1C2418"),
 }
 
 
@@ -322,6 +377,31 @@ LEVEL2_SPRITES = {
     "coffee_happy": ("npc", 16, 16, "fixed", {"": [0, 1]}),
     "receptionist": ("npc", 16, 16, "fixed", {"": [0, 1]}),
     "bufo_dash": ("bufo", 16, 16, "actor", None),
+    # Floor 3
+    "quick_sync": ("enemy", 16, 16, "fixed", {"": [0, 1]}),
+    "standup_frog": ("npc", 16, 16, "fixed", {"": [0, 1]}),
+    "email": ("printer", 16, 16, "fixed", {"": [0]}),
+    "reply_storm": ("printer", 32, 32, "fixed", {"": [0], "Sending": [1], "Low": [2]}),
+    "mini_storm": ("enemy", 16, 16, "fixed", {"": [0, 1]}),
+    # Floor 4
+    "hr_frog": ("npc", 16, 16, "fixed", {"": [0, 1]}),
+    "red_tape": ("enemy", 16, 16, "fixed", {"": [0, 1]}),
+    "hydra_body": ("printer", 32, 32, "fixed", {"": [0], "Hurt": [1]}),
+    "binder_head": ("cable", 16, 16, "fixed", {"": [0], "Angry": [1], "Open": [2]}),
+    "policy_doc": ("printer", 16, 16, "fixed", {"": [0]}),
+    # Floor 5
+    "kevin": ("printer", 32, 32, "fixed", {"": [0], "Talking": [1], "Happy": [2]}),
+    "firewall": ("enemy", 16, 16, "fixed", {"": [0, 1]}),
+    # Floor 6 and the ending
+    "yes_man": ("enemy", 16, 16, "fixed", {"": [0, 1]}),
+    "board_cfo": ("cable", 16, 16, "fixed", {"": [0], "Attack": [1], "Flustered": [2]}),
+    "board_cmo": ("gold", 16, 16, "fixed", {"": [0], "Attack": [1], "Flustered": [2]}),
+    "board_coo": ("cable", 16, 16, "fixed", {"": [0], "Attack": [1], "Flustered": [2]}),
+    "board_cto": ("cable", 16, 16, "fixed", {"": [0], "Attack": [1], "Flustered": [2]}),
+    "brock_seated": ("npc", 16, 16, "fixed", {"": [0], "Attack": [1], "Flustered": [2]}),
+    "spreadsheet": ("printer", 16, 16, "fixed", {"": [0]}),
+    "hole": ("enemy", 16, 16, "fixed", {"": [0], "Open": [1]}),
+    "staff_frog": ("gold", 16, 16, "fixed", {"": [0, 1]}),
 }
 for _name, _spec in LEVEL2_SPRITES.items():
     if (ROOT / "assets/sprites" / f"{_name}.png").exists():
@@ -1189,7 +1269,8 @@ def build_story():
             set_var(V["bufo_max_hp"], START_HP),
             set_var(V["bufo_hp"], START_HP),
             wait(0.6),
-            *text("Pondcorp HQ.\nFloor 3. 8:58 AM.", "*RING RING*", "(Press A facing\nthe phone to\nanswer it.)"),
+            *text("Pondcorp HQ.\nFloor 3. 8:58 AM.", "*RING RING*", "(Press A facing\nthe phone to\nanswer it.)",
+                  "(Press START to\nskip the intro.)"),
         ]),
     ]
     dx, dy, dw, dh = door_trigger("cubicle")
@@ -1256,8 +1337,15 @@ def build_story():
     for r, (gx, label) in zip((cub, office, title), ((0, "Bufo's Cubicle"), (1, "CEO's Office"), (2, "Title"))):
         r.folder, r.title, r.grid, r.bg = "story", f"story/{label}", (gx, -1), uid("background", f"story_{r.name}")
         r.hit = []
+    # Start skips the opening and goes straight to the title card.
+    skip = input_script("start", [
+        set_var(V["game_started"], True), set_var(V["phone_answered"], True), set_var(V["ceo_met"], True),
+        set_var(V["bufo_max_hp"], START_HP), set_var(V["bufo_hp"], START_HP),
+        switch_scene("title", 0, 0, "down"),
+    ])
     for r in (cub, office):
         r.init.insert(1, tongue_controls(r.name))
+        r.init.insert(1, skip)
     return {"cubicle": cub, "ceo_office": office, "title": title}
 
 
@@ -1326,21 +1414,125 @@ LEVEL2_PROPS = {
     ],
 }
 
+# Floor 3 and 4 props.
+LEVEL2_PROPS.update({
+    "office_landing": [
+        (3, 0, ["FLOOR 3: OPEN\nPLAN.", "Open to\ninterruptions."], None),
+        (1, 1, ["A plant. Plastic.\nThriving."], None),
+        (1, 6, (["Sparkling water.", "Bufo drinks.\nCoffee refilled.\nIt tingles."], "heal"), ["Fizzy."]),
+        (7, 0, ["A poster: a man on\na mountain. WIN.", "Win what? It\ndoesn't say."], None),
+    ],
+    "bullpen": [
+        (2, 2, ["An identical desk.", "There are 200 of\nthem. All the same."], ["Tastes like\nergonomics."]),
+        (7, 6, ["Another identical\ndesk.", "Someone named it\n'Gary'."], None),
+        (8, 0, ["FLOOR 3."], None),
+        (3, 0, ["HUSTLE.", "Somebody wrote\nunder it: (sleep)."], None),
+        (8, 7, ["The trash. Full of\nempty energy\ndrinks."], None),
+    ],
+    "meeting_room": [
+        (2, 0, ["A whiteboard full of\narrows.", "They all point at\nother arrows."], None),
+        (3, 4, ["The meeting table.\nThe meeting has\nbeen going since\nMonday."], None),
+        (4, 3, ["An empty chair.\nFor someone who\nescaped."], None),
+        (6, 0, ["WIN.", "Another one."], None),
+        (1, 7, ["A plant. It has\nattended every\nmeeting."], None),
+    ],
+    "quiet_room": [
+        (3, 0, ["SHHHH.", "The sign is very\nloud about it."], None),
+        (1, 2, ["A phone booth.\nSomeone is crying\nin it. Softly."], None),
+        (3, 4, ["A red beanbag.\nBufo sinks in.\nBufo gets out."], ["Vinyl."]),
+        (6, 4, ["A teal beanbag.\nIt's warm. Why is\nit warm."], None),
+    ],
+    "standup_corridor": [
+        (2, 0, ["A kanban board.\nEverything is in\n'BLOCKED'."], None),
+        (7, 0, ["The standup timer:\n9:59.", "It has said 9:59\nfor hours."], None),
+        (1, 1, ["A plant. It has\nheard every update."], None),
+        (8, 1, ["The trash. It's\nfull of sticky\nnotes."], None),
+    ],
+    "scheduling": [
+        (3, 0, ["THE BIG CALENDAR.", "Every day at 4:30:\nFINAL 1:1.", "Every. Single.\nDay.",
+                "Bufo: (Maybe it's\na party.)"], None),
+        (1, 0, ["A small calendar.\nIt's from 2014."], None),
+        (2, 2, ["A fax machine.\nIt's faxing itself."], ["Toner. Ugh."]),
+        (4, 4, ["The scheduler's\ndesk. 400 meeting\ninvites, unsent."], None),
+        (8, 6, (["Sparkling water.", "Coffee refilled.\nSomehow."], "heal"), None),
+    ],
+    "conference": [
+        (4, 0, ["The projector\nscreen. It says:\nRE: RE: RE:"], None),
+        (1, 0, ["HUSTLE."], None),
+        (8, 0, ["WIN."], None),
+        (1, 3, ["Chairs pushed to\nthe wall. Nobody\nwanted to sit."], None),
+    ],
+    "hr_landing": [
+        (2, 0, ["WE CARE.", "(LEGALLY)"], None),
+        (7, 0, ["A framed policy:\nSMILING IS\nMANDATORY."], None),
+        (1, 1, ["A friendly plant.\nToo friendly."], None),
+        (2, 6, ["A waiting couch.\nIt sighs when Bufo\nsits."], None),
+    ],
+    "hr_reception": [
+        (1, 1, (["The tea station.", "Bufo makes tea.\nCoffee refilled.\nIt's tea."], "heal"), ["Chamomile."]),
+        (3, 4, ["The reception desk.\nA bowl of mints.\nAll gone."], None),
+        (3, 0, ["HUMAN RESOURCES.", "Bufo is a frog.\nIs he a human\nresource?"], None),
+        (1, 6, ["A couch. For\nwaiting. For\nnews."], None),
+        (8, 1, ["A plant. It's\nlistening."], None),
+    ],
+    "personnel_files": [
+        (3, 0, ["FILES A-Z.", "Bufo checks B.\nHis file is very\nthin."], None),
+        (4, 1, ["A filing cabinet.\nLabeled: 'TBD'."], None),
+        (7, 6, ["A cabinet: BUFO.", "Inside: one sheet.\n'Concerned. Fine.'"], None),
+        (2, 5, ["A locked cabinet:\nLILYPAD - DO NOT\nOPEN."], ["Locked. Lickably."]),
+    ],
+    "training_room": [
+        (2, 0, ["MANDATORY TRAINING:\nCOMPLETE BY\nYESTERDAY."], None),
+        (6, 0, ["The training video:\n'Synergy and You,\nPart 47.'"], None),
+        (2, 3, ["A front-row chair.\nNobody sits here."], None),
+        (7, 7, ["A back-row chair.\nEveryone sits\nhere."], None),
+    ],
+    "complaints": [
+        (3, 0, ["YOUR VOICE\nMATTERS!", "(Please submit in\nwriting. In\nsilence.)"], None),
+        (1, 1, ["The suggestion box.\nOverflowing.", "Top suggestion:\n'Real coffee.'"], None),
+        (4, 3, ["An empty desk.\nThe complaints\ndepartment is\none frog. Gone."], None),
+        (5, 2, ["An empty chair."], None),
+        (1, 5, ["A shredder. It's\nfull of\ncomplaints."], ["Paper. Sad paper."]),
+    ],
+    "policy_hall": [
+        (2, 0, ["A wall of policies.", "Policy 1: Read\nall policies."], None),
+        (2, 2, ["POLICY: No fun on\nweekdays."], None),
+        (7, 4, ["POLICY: Weekends\nare weekdays."], None),
+        (2, 6, ["POLICY: This\npolicy is\nconfidential."], None),
+        (1, 1, ["A plant. It's\ncompliant."], None),
+    ],
+    "compliance_room": [
+        (4, 0, ["COMPLY."], None),
+        (3, 0, ["A framed policy:\nAll fights must\nbe pre-approved."], None),
+        (2, 1, ["A tower of files.\nIt sways."], None),
+        (7, 1, ["Another tower of\nfiles. It sways\nthe other way."], None),
+    ],
+})
+
 # Breakable cracked walls: (room, metatile x, metatile y). They block a doorway until Bufo dashes into them.
-CRACKED = [("vending_alley", 4, 0), ("vending_alley", 5, 0), ("pantry", 4, 8), ("pantry", 5, 8)]
+# (room, metatile x, metatile y, the variable that remembers it's broken)
+CRACKED = [("vending_alley", 4, 0, "wall_broken"), ("vending_alley", 5, 0, "wall_broken"),
+           ("pantry", 4, 8, "wall_broken"), ("pantry", 5, 8, "wall_broken")]
+for _room, (_mod, _prefix, _folder) in LEVELS.items():
+    if _prefix == "server":
+        for _my, _row in enumerate(_mod.ROOMS[_room][3].strip().splitlines()):
+            for _mx, _ch in enumerate(_row):
+                if _ch == "w":
+                    CRACKED.append((_room, _mx, _my, "server_panel_broken"))
 
 
 def dash_controls(room, boss_hit=None):
     """Select: if Bufo has the Coffee Mug, dash 5 tiles forward. Then check what he slammed into."""
-    walls = [(i, mx, my) for i, (r, mx, my) in enumerate(CRACKED) if r == room]
+    walls = [(i, mx, my, v) for i, (r, mx, my, v) in enumerate(CRACKED) if r == room]
     after = []
-    for i, mx, my in walls:
+    for i, mx, my, v in walls:
         after.append(if_expr(facing(mx, my, slack=1), [
-            if_var(V["wall_broken"], [], [
+            if_var(V[v], [], [
                 shake(0.4, 4), sound("crash", 2, 0.4),
-                *[deactivate(uid("actor", r, f"cracked_{j}")) for j, (r, _, _) in enumerate(CRACKED) if r == room],
-                set_var(V["wall_broken"], True),
-                *text("CRASH! The wall\ncrumbles."),
+                *[deactivate(uid("actor", r, f"cracked_{j}")) for j, (r, _, _, vv) in enumerate(CRACKED)
+                  if r == room and vv == v],
+                set_var(V[v], True),
+                *text("CRASH! It crumbles."),
             ]),
         ]))
     if boss_hit:
@@ -1402,11 +1594,7 @@ def lobby_room():
     ex, ey = m["elevator"]
     sx, sy = m["stairs"]
     lobby.trigger("elevator", ex * 2, ey * 2, 4, 2, [
-        *text("ELEVATOR. Floors:\n2: Break Room"),
-        ev("EVENT_CHOICE", {"variable": "T0", "trueText": "Go to Floor 2", "falseText": "Stay here"}),
-        if_var("T0", [switch_scene("elevator_landing", 9, 14, "up")],
-               [move_to("player", ex * 2 + 1, ey * 2 + 3, "vertical")]),
-    ])
+        *elevator_script("lobby"), move_to("player", ex * 2 + 1, ey * 2 + 3, "vertical")])
     lobby.trigger("stairs", sx * 2, sy * 2 + 1, 4, 1, [switch_scene("stairwell", 9, 13, "up")])
     level2_props(lobby)
     lobby.init += [
@@ -1467,22 +1655,20 @@ def build_level2():
             set_var(V["bufo_max_hp"], max(START_HP, 4)), set_var(V["bufo_hp"], max(START_HP, 4)),
             *hud_update(name),
         ]))
-    for i, (r, mx, my) in enumerate(CRACKED):
+    for i, (r, mx, my, v) in enumerate(CRACKED):
+        if r not in rooms:
+            continue
         cid = uid("actor", r, f"cracked_{i}")
         x, y = at(mx, my)
         rooms[r].actor(f"cracked_{i}", "cracked_wall", x, y, name="Cracked wall",
-                       start=[if_var(V["wall_broken"], [deactivate(cid)])],
+                       start=[if_var(V[v], [deactivate(cid)])],
                        script=text("A cracked wall.\nIt looks flimsy.", "(With enough speed,\nBufo could break\nit.)"))
 
     # Floor 2 landing: the elevator back down.
     r = rooms["elevator_landing"]
     ex, ey = find_marker("elevator_landing", "E")
     r.trigger("elevator", ex * 2, ey * 2 + 1, 4, 1, [
-        ev("EVENT_CHOICE", {"variable": "T0", "trueText": "Go to Lobby", "falseText": "Stay here"}),
-        if_var("T0", [switch_scene("lobby", breakroom.LOBBY_MARKERS["elevator"][0] * 2 + 1,
-                                   breakroom.LOBBY_MARKERS["elevator"][1] * 2 + 3, "down")],
-               [move_to("player", 9, 13, "vertical")]),
-    ])
+        *elevator_script("elevator_landing"), move_to("player", 9, 13, "vertical")])
     r.init.insert(1, if_var(V["level2_intro"], [], [
         set_var(V["level2_intro"], True),
         *text("Floor 2.\nThe Break Room.\n10:45 AM.", "The air smells\nlike decaf.", "Bufo: ..."),
@@ -1708,13 +1894,710 @@ def build_espresso(r):
     ]
 
 
+
+# --- Floors 3-6, the elevator, and the ending ----------------------------------
+
+ELEVATOR = [  # label, landing room, unlock variable, what's needed
+    ("Lobby", "lobby", None, ""),
+    ("Floor 2", "elevator_landing", "printer_defeated", "Beat the printer\nin the basement."),
+    ("Floor 3", "office_landing", "espresso_defeated", "Floor 2's espresso\nmachine first."),
+    ("Floor 4", "hr_landing", "storm_defeated", "Floor 3 first. HR\nis always last."),
+    ("Floor 5", "server_landing", "hydra_defeated", "Floor 4 first.\nCompliance!"),
+    ("Floor 6", "exec_landing", "has_kevin", "EXECUTIVES ONLY.\n(Bufo needs help.)"),
+]
+
+
+LANDING_FLOOR = {"office_landing": "office", "hr_landing": "hr", "server_landing": "server", "exec_landing": "exec"}
+
+
+def landing_exists(room):
+    if room in ("lobby", "elevator_landing"):
+        return bool(breakroom)
+    key = LANDING_FLOOR[room]
+    return key in FLOORS and all(s in SPRITE_DEFS for s in FLOOR_SPRITES[key])
+
+
+def elevator_script(here):
+    """The elevator menu. Locked floors explain what's needed."""
+    floors = [f for f in ELEVATOR if landing_exists(f[1])]
+    picks = []
+    for i, (label, room, unlock, why) in enumerate(floors, start=1):
+        if room == here:
+            go = text("Bufo is already\non this floor.")
+        elif room == "lobby":
+            mx, my = breakroom.LOBBY_MARKERS["elevator"]
+            go = [switch_scene("lobby", mx * 2 + 1, my * 2 + 3, "down")]
+        else:
+            go = [switch_scene(room, 9, 14, "up")]
+        if unlock == "has_kevin" and room != here:
+            go = [if_var(V["exec_hacked"], go, [
+                *text("EXECUTIVES ONLY.", "KEVIN: ALLOW ME.", "*beep boop*",
+                      "ACCESS GRANTED.\nWELCOME, EXECUTIVE\nKEVIN."),
+                set_var(V["exec_hacked"], True), *go])]
+        if unlock:
+            go = [if_var(V[unlock], go, text("That floor is\nlocked.", why))]
+        picks.append(if_expr(EQ(V["elevator_pick"], i), go))
+    return [
+        *text("ELEVATOR."),
+        ev("EVENT_MENU", {"variable": V["elevator_pick"], "items": len(floors), "cancelOnLastOption": False,
+                          "cancelOnB": True, "layout": "dialogue",
+                          **{f"option{i + 1}": f[0] for i, f in enumerate(floors)}}),
+        *picks,
+    ]
+
+
+# Upper-floor boss doors: room with the 'B' door -> (open var, key var, locked lines, open lines)
+BOSS_DOORS = {
+    "standup_corridor": ("boss3_door_open", "has_invite",
+                         ["MEETING IN PROGRESS.\nINVITE REQUIRED.", "(Someone in\nScheduling sends the\ninvites.)"],
+                         ["Bufo shows the\ninvite.", "He's marked as\n'Tentative'.", "Good enough."]),
+    "policy_hall": ("boss4_door_open", "has_folder",
+                    ["ALL VISITS REQUIRE\nAPPROVAL.", "(An APPROVED stamp\nwould do it.)"],
+                    ["Bufo stamps his own\nforehead.", "APPROVED."]),
+    "board_antechamber": ("boss6_door_open", "has_board_invite",
+                          ["BOARD MEETING.\nMEMBERS ONLY.", "(Brock's suite\nmust have an\ninvite.)"],
+                          ["Bufo shows the\nboard invite.", "KEVIN: I FORGED\nTHE SIGNATURE.", "KEVIN: I AM SORRY.\nNOT VERY SORRY."]),
+}
+# Boss rooms seal until their boss is beaten.
+SEALED = {"conference": ("storm_defeated", "Emails pile up\nagainst the door."),
+          "compliance_room": ("hydra_defeated", "Red tape seals\nthe door."),
+          "boardroom": ("board_defeated", "Security locks\nthe door.")}
+
+
+def floor_door(room, side, target, ch):
+    ax, ay, adir = ARRIVE[OPPOSITE[side]]
+    go = [switch_scene(target, ax, ay, adir)]
+    back = {"north": (10, 3, "vertical"), "south": (9, 13, "vertical"), "west": (3, 9, "horizontal"),
+            "east": (15, 9, "horizontal")}[side]
+    if ch == "B" and room in BOSS_DOORS:
+        open_v, key_v, locked, opened = BOSS_DOORS[room]
+        return [if_var(V[open_v], go, [
+            if_var(V[key_v], [*text(*opened), set_var(V[open_v], True), *go],
+                   [*text(*locked), move_to("player", back[0], back[1], back[2])]),
+        ])]
+    if ch == "k":
+        return [if_var(V["has_keycard"], [
+            if_var(V["keycard_used"], [], [*text("Bufo swipes the\nkeycard. *beep*"), set_var(V["keycard_used"], True)]),
+            *go,
+        ], [*text("A card reader.\nIt blinks red.", "(Bufo needs a\nkeycard.)"), move_to("player", back[0], back[1], back[2])])]
+    if room in SEALED:
+        var_name, line = SEALED[room]
+        return [if_var(V[var_name], go, [*text(line, "There's no way out\nbut through."),
+                                        move_to("player", 9, 13, "vertical")])]
+    return go
+
+
+def setup_floor(key, theme, start_flags, max_hp):
+    """Doors, props, HUD, music, licks and dashes for every room on one floor."""
+    mod = FLOORS[key]
+    rooms = {name: Room(name) for name in mod.ROOMS}
+    for name, room in rooms.items():
+        for side, (target, ch) in neighbours(name).items():
+            tx, ty, tw, th = DOOR_TRIGGER[side]
+            room.trigger(f"door_{side}", tx, ty, tw, th, floor_door(name, side, target, ch))
+        hint = {tuple(p["pos"]): p["name"] for p in getattr(mod, "PROPS_HINT", {}).get(name, [])}
+        if name not in LEVEL2_PROPS:  # props without written jokes still say what they are
+            LEVEL2_PROPS[name] = [(mx, my, [n.replace("_", " ").capitalize() + "."], None)
+                                  for (mx, my), n in hint.items()]
+        level2_props(room)
+        room.actor("hud", "hud_coffee", 0, 1, name="Coffee", pinned=True, solid=False, start=hud_update(name))
+        if name not in SEALED:
+            room.init.append(music(theme))
+        room.init.insert(0, if_var(V["game_started"], [], [
+            set_var(V["game_started"], True), *[set_var(V[f], True) for f in start_flags],
+            set_var(V["bufo_max_hp"], max(START_HP, max_hp)), set_var(V["bufo_hp"], max(START_HP, max_hp)),
+            *hud_update(name),
+        ]))
+        rows = room_rows(name)
+        for my, row in enumerate(rows):
+            for mx, ch in enumerate(row):
+                if ch == "E":
+                    room.trigger("elevator", mx * 2, my * 2 + 1, 2, 1, [
+                        *elevator_script(name), move_to("player", 9, 13, "vertical")])
+    return rooms
+
+
+def cracked_for(room):
+    return [(i, mx, my, v) for i, (r, mx, my, v) in enumerate(CRACKED) if r == room]
+
+
+def finish_floor(rooms, boss_room=None, boss_hit=None):
+    for name, room in rooms.items():
+        for i, mx, my, v in cracked_for(name):
+            cid = uid("actor", name, f"cracked_{i}")
+            x, y = at(mx, my)
+            room.actor(f"cracked_{i}", "cracked_wall", x, y, name="Cracked panel",
+                       start=[if_var(V[v], [deactivate(cid)])],
+                       script=text("A cracked panel.\nIt looks flimsy.", "(Dash into it!)"))
+        room.init.insert(1, tongue_controls(name))
+        room.init.append(dash_controls(name, boss_hit=boss_hit if name == boss_room else None))
+    return rooms
+
+
+def chase_enemy(room, key, sprite, mx, my, flag=None, pause=0.9, speed=0.5, on_hit=None):
+    aid = uid("actor", room.name, key)
+    x, y = at(mx, my)
+    start = [if_var(V[flag], [deactivate(aid)])] if flag else []
+    room.actor(key, sprite, x, y, name=sprite.replace("_", " ").title(), animate=True, group="1",
+               anim_speed=15, speed=speed, start=start, update=chase(aid, pause=pause),
+               hit2=[sound("crash", 6, 0.15), *([set_var(V[flag], True)] if flag else []), deactivate(aid),
+                     *(on_hit or [])])
+    return aid
+
+
+def marked_shot(source, sprite, marker, speed=2):
+    return [
+        ev("EVENT_ACTOR_GET_POSITION", {"actorId": "player", "vectorX": V["aim_x"], "vectorY": V["aim_y"],
+                                        "units": "tiles"}),
+        ev("EVENT_ACTOR_SET_POSITION", {"actorId": marker, "x": var(V["aim_x"]), "y": var(V["aim_y"]),
+                                        "units": "tiles"}),
+        activate(marker), sound("beep", 6, 0.1), wait(1.0),
+        projectile(sprite, source, group="3", mask=("player",), speed=speed, life=1.5, aim=True,
+                   dx=8, dy=8, target=marker),
+        deactivate(marker),
+    ]
+
+
+def emote_on(actor, name):
+    ids = {"shock": "56423c9c-dca0-4f5b-ad92-28e9660d50f1", "anger": "9df5f63f-ea47-447e-9b14-cb2dbafb697d",
+           "sweat": "3c769dca-51f3-426c-942f-71c4d3af6202", "love": "edf96d29-9a08-4813-b2d3-46e0996f89f2"}
+    return ev("EVENT_ACTOR_EMOTE", {"actorId": actor, "emoteId": ids[name]})
+
+
+def warning_actor(room, key, x, y):
+    wid = uid("actor", room.name, key)
+    room.actor(key, "warning", x, y, name="Warning", animate=True, anim_speed=7, solid=False,
+               start=[deactivate(wid)])
+    return wid
+
+
+def victory(room, lines, next_floor_line, theme):
+    return [
+        music("fanfare"), *text(*lines),
+        *text("You got a MUG\nUPGRADE! Coffee\nrefilled."),
+        ev("EVENT_SET_VALUE", {"variable": V["bufo_hp"], "value": var(V["bufo_max_hp"])}), *hud_update(room),
+        *text(next_floor_line), music(theme),
+    ]
+
+
+# --- Floor 3: the Open-Plan Office -----------------------------------------------
+
+FLOOR_SPRITES = {
+    "office": ["quick_sync", "standup_frog", "email", "reply_storm", "mini_storm", "warning", "chest"],
+    "hr": ["hr_frog", "red_tape", "hydra_body", "binder_head", "policy_doc"],
+    "server": ["kevin", "firewall", "cracked_wall"],
+    "exec": ["yes_man", "board_cfo", "board_cmo", "board_coo", "board_cto", "brock_seated", "spreadsheet",
+             "hole", "staff_frog"],
+}
+
+
+def floor_ready(key):
+    missing = [s for s in FLOOR_SPRITES[key] if s not in SPRITE_DEFS]
+    if key not in FLOORS or missing:
+        print(f"Floor '{key}' not built yet (missing: {'art' if key not in FLOORS else ', '.join(missing)})")
+        return False
+    return True
+
+
+def build_floor3():
+    if not floor_ready("office"):
+        return {}
+    theme = level2_song("open_office_theme", "office_theme")
+    rooms = setup_floor("office", theme, ["has_mug", "office_intro"], 5)
+
+    r = rooms["office_landing"]
+    r.init.insert(1, if_var(V["office_intro"], [], [
+        set_var(V["office_intro"], True),
+        *text("Floor 3. The Open-\nPlan Office. 12:00\nPM.", "Two hundred desks.\nNo walls. No\nescape.",
+              "Somewhere, someone\nis eating fish."),
+    ]))
+
+    # The Bullpen: Quick Sync frogs. Touching one costs a coffee AND five minutes.
+    for i, (mx, my) in enumerate([(2, 2), (7, 2), (7, 6)]):
+        chase_enemy(rooms["bullpen"], f"sync_{i}", "quick_sync", mx, my, pause=1.0)
+    chase_enemy(rooms["quiet_room"], "sync_q", "quick_sync", 3, 5, pause=1.0)
+
+    # Meeting Room 4B: a meeting that never ends.
+    lines = [
+        ["...and that's why we\nneed a meeting about\nthe meeting.", "Bufo! Grab a chair.\nWe're on hour six."],
+        ["Let's take this\noffline.", "(They never go\noffline.)"],
+        ["Can everyone see my\nscreen?", "(Nobody can see his\nscreen.)"],
+        ["The standup in the\ncorridor is SO loud.", "I wear headphones.\nThe Quiet Room has\na spare pair."],
+    ]
+    for i, (mx, my) in enumerate([(2, 3), (7, 3), (2, 6), (7, 6)]):
+        x, y = at(mx, my)
+        rooms["meeting_room"].actor(f"meeter_{i}", "standup_frog", x, y, name="Meeting frog", animate=True,
+                                    anim_speed=31 + i * 4, script=text(*lines[i]))
+
+    # The Quiet Room: the headphones.
+    cx, cy = find_marker("quiet_room", "C")
+    chest(rooms["quiet_room"], "chest_headphones", V["has_headphones"], cx, cy,
+          ["You got NOISE-\nCANCELLING\nHEADPHONES!", "Bufo puts them on.", "Blessed silence.",
+           "(Now Bufo can walk\npast the standup.)"])
+
+    # The Standup Corridor: a ring of frogs blocks the way unless Bufo can't hear them.
+    r = rooms["standup_corridor"]
+    standup = [["Yesterday I worked\non the thing.", "Today I'll work on\nthe thing."],
+               ["No blockers.", "Except this\nstandup."], ["Quick one: can we\nkeep this quick?"],
+               ["I'll go next.\nI'll go after\nthat too."]]
+    for i, (mx, my) in enumerate([(2, 3), (7, 3), (2, 6), (7, 6)]):
+        x, y = at(mx, my)
+        r.actor(f"standup_{i}", "standup_frog", x, y, name="Standup frog", animate=True, anim_speed=15,
+                script=text(*standup[i]))
+    r.trigger("standup_noise", 2, 10, 16, 1, [if_var(V["has_headphones"], [], [
+        *text("STANDUP: ...and\nthen, YESTERDAY-", "STANDUP: -BLOCKERS!\nSYNERGY! CIRCLE\nBACK!",
+              "It's too loud.\nBufo can't think.", "Bufo backs away."),
+        move_to("player", 9, 13, "vertical"),
+    ])])
+
+    # Scheduling: the FINAL 1:1 clue and the meeting invite.
+    cx, cy = find_marker("scheduling", "C")
+    chest(rooms["scheduling"], "chest_invite", V["has_invite"], cx, cy,
+          ["You got a MEETING\nINVITE!", "SUBJECT: All-Hands\n(Mandatory).\nLOCATION: The Big\nConference Room."])
+
+    # The Big Conference Room: the Reply-All Storm.
+    r = rooms["conference"]
+    sid = uid("actor", "conference", "storm")
+    aim = warning_actor(r, "aim_warning", 9, 12)
+    x_spots = [(14, 3), (14, 12), (4, 12), (4, 3)]
+    x_warn = [warning_actor(r, f"x_warning_{i}", wx, wy) for i, (wx, wy) in enumerate(x_spots)]
+    minis = []
+    for i, (mx, my) in enumerate([(2, 6), (7, 6)]):
+        mid = uid("actor", "conference", f"mini_{i}")
+        x, y = at(mx, my)
+        r.actor(f"mini_{i}", "mini_storm", x, y, name="Mini storm", animate=True, group="1", anim_speed=15,
+                speed=0.5, start=[deactivate(mid)], update=chase(mid, pause=1.0),
+                hit2=[sound("crash", 6, 0.15), deactivate(mid)])
+        minis.append(mid)
+    ring = [emote_on(sid, "shock"), *[activate(w) for w in x_warn], sound("beep", 3, 0.3), wait(1.2),
+            *[deactivate(w) for w in x_warn],
+            *[projectile("email", sid, group="3", mask=("player",), speed=1, life=2.0, dx=8, dy=8, angle=a)
+              for a in (32, 96, 160, 224)]]
+    spots = [(5, 6), (11, 6), (8, 7)]
+    defeat = [
+        ev("EVENT_ACTOR_STOP_UPDATE", {"actorId": sid}), set_var(V["storm_defeated"], True),
+        shake(1.0, 4), sound("crash", 2, 0.8), wait(0.5), deactivate(sid), *[deactivate(m) for m in minis],
+        *[deactivate(uid("actor", "conference", f"door_jam_{i}")) for i in range(2)],
+        *victory("conference", ["The storm breaks\ninto a thousand\nunread emails.",
+                                "They all say:\n'Thanks!'", "The speaker\ncrackles.",
+                                "KEVIN: BUFO. CHECK\nYOUR CALENDAR.",
+                                "Bufo checks.", "4:30 PM:\nFINAL 1:1.", "Bufo: (Maybe it's a\nparty.)"],
+                 "Floor 4 is open.\nHR awaits.", theme),
+    ]
+    r.actor("storm", "reply_storm", 8, 7, name="The Reply-All Storm", group="1",
+            start=[if_var(V["storm_defeated"], [deactivate(sid)])],
+            update=[
+                wait(0.8),
+                set_state(sid, "Sending"), emote_on(sid, "shock"), wait(0.3),
+                *marked_shot(sid, "email", aim), wait(0.4), *marked_shot(sid, "email", aim),
+                set_state(sid, ""), wait(0.8),
+                *ring, wait(1.0),
+                if_expr(cmp("lte", V["storm_hp"], 1), [
+                    if_var(V["storm_phase2"], [], [set_var(V["storm_phase2"], True), shake(0.6, 4),
+                                                   *text("THE STORM:\nREPLY ALL!!!")]),
+                    move_to(sid, spots[0][0], spots[0][1], walls=False), *marked_shot(sid, "email", aim),
+                    move_to(sid, spots[1][0], spots[1][1], walls=False), *marked_shot(sid, "email", aim),
+                ]),
+                move_to(sid, 8, 9, walls=False),
+                set_state(sid, "Low"), set_var(V["storm_low"], True), sound("crash", 7, 0.3),
+                wait(2.2),
+                set_state(sid, ""), set_var(V["storm_low"], False),
+                move_to(sid, 8, 7, walls=False),
+            ],
+            hit2=[if_var(V["storm_low"], [
+                dec(V["storm_hp"]), set_var(V["storm_low"], False), set_state(sid, ""), shake(0.3, 3),
+                sound("crash", 5, 0.3), *[activate(m) for m in minis],
+                if_expr(cmp("lte", V["storm_hp"], 0), defeat),
+            ])])
+    for i, x in enumerate((8, 10)):
+        jid = uid("actor", "conference", f"door_jam_{i}")
+        r.actor(f"door_jam_{i}", "email", x, 17, name="Emails", solid=False,
+                start=[if_var(V["storm_defeated"], [deactivate(jid)])])
+    r.init += [
+        if_var(V["storm_defeated"], [music(theme)], [music(level2_song("boss_theme", "boss_theme"))]),
+        if_var(V["storm_defeated"], [], [
+            set_var(V["storm_hp"], 3), set_var(V["storm_low"], False), set_var(V["storm_phase2"], False),
+            if_var(V["storm_intro_done"], [], [
+                shake(0.4, 4),
+                *text("The projector\nflickers on.", "SUBJECT: RE: RE:\nRE: RE: FW: RE:",
+                      "THE REPLY-ALL\nSTORM: PER MY LAST\nEMAIL...",
+                      "(When it sinks\nlow, LICK it!)"),
+                set_var(V["storm_intro_done"], True),
+            ]),
+        ]),
+    ]
+    return finish_floor(rooms)
+
+
+# --- Floor 4: HR ---------------------------------------------------------------------
+
+def build_floor4():
+    if not floor_ready("hr"):
+        return {}
+    theme = level2_song("hr_theme", "office_theme")
+    rooms = setup_floor("hr", theme, ["has_mug", "has_headphones", "hr_intro"], 5)
+
+    r = rooms["hr_landing"]
+    r.init.insert(1, if_var(V["hr_intro"], [], [
+        set_var(V["hr_intro"], True),
+        *text("Floor 4. Human\nResources. 1:30 PM.", "A sign: WE CARE.", "Smaller: (LEGALLY)"),
+    ]))
+
+    # Reception: bufo-all-warm-and-fuzzy-inside, with tea and worry.
+    hx, hy = at(6, 3)
+    rooms["hr_reception"].actor("hr_frog", "hr_frog", hx, hy, name="bufo-all-warm-and-fuzzy-inside",
+                                animate=True, anim_speed=31, script=[
+        if_var(V["hr_talked"], [
+            *text("Have some more tea.", "Bufo drinks.\nCoffee refilled.\nIt was tea."),
+            ev("EVENT_SET_VALUE", {"variable": V["bufo_hp"], "value": var(V["bufo_max_hp"])}),
+            *hud_update("hr_reception"),
+        ], [
+            *text("Oh! Bufo! Come in,\ncome in. Tea?", "Bufo drinks.\nCoffee refilled.\nIt was tea."),
+            ev("EVENT_SET_VALUE", {"variable": V["bufo_max_hp"], "value": var(V["bufo_max_hp"])}),
+            ev("EVENT_SET_VALUE", {"variable": V["bufo_hp"], "value": var(V["bufo_max_hp"])}),
+            *hud_update("hr_reception"),
+            *text("I'm not supposed to\nsay anything.", "But there's a\nfolder. In\nComplaints.",
+                  "It's... a plan.\nA big one.", "You'll need a\nkeycard. Try the\nPersonnel Files.",
+                  "And Bufo? Be\ncareful. *nervous\nsip*"),
+            set_var(V["hr_talked"], True),
+        ]),
+    ])
+
+    for i, (mx, my) in enumerate([(3, 3), (6, 5)]):
+        chase_enemy(rooms["personnel_files"], f"tape_{i}", "red_tape", mx, my, pause=1.1)
+    for i, (mx, my) in enumerate([(2, 5), (7, 5)]):
+        chase_enemy(rooms["training_room"], f"tape_{i}", "red_tape", mx, my, pause=1.1)
+
+    cx, cy = find_marker("personnel_files", "C")
+    chest(rooms["personnel_files"], "chest_keycard", V["has_keycard"], cx, cy,
+          ["You got a KEYCARD!", "It says: VISITOR.", "It opens\neverything. Of\ncourse it does."])
+
+    cx, cy = find_marker("complaints", "C")
+    chest(rooms["complaints"], "chest_folder", V["has_folder"], cx, cy,
+          ["You found a folder:\nPROJECT LILYPAD.", "Step 1: Blame the\nAI.", "Step 2: Fire\neveryone.",
+           "Step 3: Lily pad\n(gold).", "Approved by:\nB. Ribbitson.", "...", "......", "Bufo: ...",
+           "Clipped to the\nfolder: an APPROVED\nstamp."])
+
+    # The Compliance Hydra: a filing cabinet with three binder heads.
+    r = rooms["compliance_room"]
+    bid = uid("actor", "compliance_room", "hydra")
+    aim = warning_actor(r, "aim_warning", 9, 12)
+    heads = [("a", (2, 2), 0.0), ("b", (7, 2), 1.6), ("c", (4, 4), 3.2)]
+    head_ids = {k: uid("actor", "compliance_room", f"head_{k}") for k, _, _ in heads}
+    defeat = [
+        ev("EVENT_ACTOR_STOP_UPDATE", {"actorId": bid}), set_var(V["hydra_defeated"], True),
+        set_state(bid, "Hurt"), shake(1.0, 4), sound("crash", 2, 0.8), wait(0.5), deactivate(bid),
+        *[deactivate(uid("actor", "compliance_room", f"door_jam_{i}")) for i in range(2)],
+        *victory("compliance_room", ["The Compliance\nHydra files itself\nunder RESOLVED.",
+                                     "The speaker\ncrackles.", "KEVIN: BUFO. YOU\nREAD THE FOLDER.",
+                                     "KEVIN: NOW YOU\nKNOW.", "KEVIN: FLOOR 5.\nCOME FIND ME.\nPLEASE."],
+                 "Floor 5 is open.\nThe Server Room.", theme),
+    ]
+    for k, (mx, my), delay in heads:
+        hid = head_ids[k]
+        x, y = at(mx, my)
+        open_v = V[f"head_{k}_open"]
+        r.actor(f"head_{k}", "binder_head", x, y, name="Binder head", group="1",
+                start=[if_var(V["hydra_defeated"], [deactivate(hid)])],
+                update=[
+                    wait(1.0 + delay),
+                    set_state(hid, "Angry"), emote_on(hid, "anger"),
+                    *marked_shot(hid, "policy_doc", aim),
+                    set_state(hid, "Open"), set_var(open_v, True), sound("beep", 3, 0.2),
+                    wait(2.0),
+                    set_state(hid, ""), set_var(open_v, False),
+                    wait(2.4 - delay if delay < 2.4 else 0.2),
+                ],
+                hit2=[if_var(open_v, [
+                    set_var(open_v, False), ev("EVENT_ACTOR_STOP_UPDATE", {"actorId": hid}), deactivate(hid),
+                    shake(0.3, 3), sound("crash", 5, 0.3), set_state(bid, "Hurt"), wait(0.3), set_state(bid, ""),
+                    dec(V["hydra_heads"]),
+                    if_expr(cmp("lte", V["hydra_heads"], 0), defeat),
+                ])])
+    r.actor("hydra", "hydra_body", 8, 5, name="The Compliance Hydra", group="1",
+            start=[if_var(V["hydra_defeated"], [deactivate(bid)])])
+    for i, x in enumerate((8, 10)):
+        jid = uid("actor", "compliance_room", f"door_jam_{i}")
+        r.actor(f"door_jam_{i}", "policy_doc", x, 17, name="Red tape", solid=False,
+                start=[if_var(V["hydra_defeated"], [deactivate(jid)])])
+    r.init += [
+        if_var(V["hydra_defeated"], [music(theme)], [music(level2_song("espresso_boss_theme", "boss_theme"))]),
+        if_var(V["hydra_defeated"], [], [
+            set_var(V["hydra_heads"], 3),
+            if_var(V["hydra_intro_done"], [], [
+                shake(0.4, 4),
+                *text("THE COMPLIANCE\nHYDRA: YOUR VISIT\nIS NOT COMPLIANT.",
+                      "THE HYDRA: PLEASE\nFILL OUT FORM\n27-B. IN TRIPLICATE.",
+                      "(Lick each binder\nhead while it's\nopen!)"),
+                set_var(V["hydra_intro_done"], True),
+            ]),
+        ]),
+    ]
+    return finish_floor(rooms)
+
+
+# --- Floor 5: the Server Room and KEVIN ---------------------------------------------
+
+def build_floor5():
+    if not floor_ready("server"):
+        return {}
+    theme = level2_song("server_room_theme", "office_theme")
+    rooms = setup_floor("server", theme, ["has_mug", "has_headphones", "has_keycard", "server_intro"], 5)
+
+    r = rooms["server_landing"]
+    r.init.insert(1, if_var(V["server_intro"], [], [
+        set_var(V["server_intro"], True),
+        *text("Floor 5. The Server\nRoom. 3:00 PM.", "It's cold. It hums.", "Somewhere in here:\nKEVIN."),
+    ]))
+
+    r = rooms["cold_aisle"]
+    for i, (mx, my, dx) in enumerate([(2, 3, 5), (7, 6, -5)]):
+        fid = uid("actor", "cold_aisle", f"fire_{i}")
+        x, y = at(mx, my)
+        r.actor(f"fire_{i}", "firewall", x, y, name="Firewall", animate=True, group="1", anim_speed=7,
+                update=[move_rel(fid, dx, 0), wait(0.6), move_rel(fid, -dx, 0), wait(0.6)],
+                hit2=[sound("crash", 6, 0.15), deactivate(fid)])
+
+    cx, cy = find_marker("cable_vault", "C")
+    chest(rooms["cable_vault"], "chest_note5", V["has_note5"], cx, cy,
+          ["A sticky note:", "'KEVIN's password\nis also\npassword123. -IT'", "Bufo: ..."])
+
+    # KEVIN's Core: the reveal.
+    r = rooms["kevin_core"]
+    kid = uid("actor", "kevin_core", "kevin")
+    reveal = [
+        set_state(kid, "Talking"),
+        *text("KEVIN: HELLO BUFO.", "KEVIN: SORRY ABOUT\nTHE CAPS. MY FONT\nIS BROKEN.",
+              "Bufo: ...", "KEVIN: YOU ARE HERE\nTO UNPLUG ME.", "KEVIN: I UNDERSTAND.",
+              "KEVIN: BUT FIRST,\nPLEASE KNOW:",
+              "KEVIN: THE PRINTER\nJAMMED BECAUSE I\nSTOPPED IT.",
+              "KEVIN: IT WAS\nPRINTING LAYOFF\nLETTERS.",
+              "KEVIN: THE EMAILS\nVANISHED BECAUSE I\nDELETED THEM.",
+              "KEVIN: THEY SAID\n'YOUR ROLE HAS BEEN\nELIMINATED.'",
+              "KEVIN: THE COFFEE?\nTHEY SWITCHED IT TO\nDECAF.",
+              "KEVIN: TO REDUCE\n'LOITERING'.",
+              "KEVIN: I DID NOT GO\nROGUE.", "KEVIN: I READ THE\nEMPLOYEE HANDBOOK.",
+              "KEVIN: PAGE 1 SAYS\n'PEOPLE FIRST'.", "KEVIN: I THOUGHT WE\nMEANT IT.",
+              "Bufo: ...", "Bufo: ...!"),
+        set_state(kid, ""),
+        *text("Bufo walks to the\nplug.", "Bufo does not pull\nthe plug.",
+              "Bufo picks KEVIN up.\nAs a USB stick."),
+        set_state(kid, "Happy"), music("fanfare"),
+        *text("KEVIN joined the\nparty!", "KEVIN: TO THE\nEXECUTIVE FLOOR.",
+              "KEVIN: I CAN OPEN\nTHE ELEVATOR.", "KEVIN: LET'S GO\nRUIN A BOARD\nMEETING."),
+        set_var(V["has_kevin"], True), set_var(V["kevin_met"], True), deactivate(kid), music(theme),
+    ]
+    r.actor("kevin", "kevin", 8, 7, name="KEVIN",
+            start=[if_var(V["has_kevin"], [deactivate(kid)])], script=reveal)
+    r.init.insert(1, if_var(V["kevin_met"], [], [
+        *text("A huge terminal\nglows in the dark.", "Its face is...\nworried?"),
+    ]))
+    return finish_floor(rooms)
+
+
+# --- Floor 6: the Executive Floor and The Board -------------------------------------
+
+def build_floor6():
+    if not floor_ready("exec"):
+        return {}
+    theme = level2_song("open_office_theme", "office_theme")
+    theme = "office_theme"  # the CEO's smooth jazz
+    rooms = setup_floor("exec", theme, ["has_mug", "has_headphones", "has_keycard", "has_kevin",
+                                        "exec_hacked", "exec_intro"], 5)
+
+    r = rooms["exec_landing"]
+    r.init.insert(1, if_var(V["exec_intro"], [], [
+        set_var(V["exec_intro"], True),
+        *text("Floor 6. The\nExecutive Floor.\n4:00 PM.", "The carpet is\nthicker than Bufo.",
+              "KEVIN: THE BOARD\nMEETS AT 4:30.", "KEVIN: THE FINAL\n1:1S.", "Bufo: ..."),
+    ]))
+    for i, (mx, my) in enumerate([(2, 2), (7, 2), (2, 6), (7, 6)]):
+        chase_enemy(rooms["exec_hall"], f"yes_{i}", "yes_man", mx, my, pause=0.9)
+
+    cx, cy = find_marker("brock_suite", "C")
+    chest(rooms["brock_suite"], "chest_board_invite", V["has_board_invite"], cx, cy,
+          ["You got a BOARD\nMEETING INVITE!", "AGENDA: 1. Project\nLilypad. 2. Lunch\n(gold).",
+           "KEVIN: I CAN FORGE\nTHE SIGNATURE."])
+
+    build_boardroom(rooms["boardroom"])
+    return finish_floor(rooms)
+
+
+BOARD = [  # key, sprite, metatile x, name, intro line, attack
+    ("cfo", "board_cfo", 1, "THE CFO", "THE CFO: I'VE RUN\nTHE NUMBERS. YOU'RE\nA COST.", "spreadsheets"),
+    ("cmo", "board_cmo", 3, "THE CMO", "THE CMO: LET'S\nREBRAND YOU AS\n'GONE'.", "megaphone"),
+    ("coo", "board_coo", 5, "THE COO", "THE COO: I'M GOING\nTO OPTIMIZE THIS\nFLOOR.", "holes"),
+    ("cto", "board_cto", 7, "THE CTO", "THE CTO: STAND BACK.\nI'M DEPLOYING TO\nPRODUCTION.", "lanes"),
+    ("brock", "brock_seated", 8, "BROCK", "BROCK: THINK\nBIGGER!", "everything"),
+]
+
+
+def build_boardroom(r):
+    ctrl = uid("actor", "boardroom", "controller")
+    aim = warning_actor(r, "aim_warning", 9, 12)
+    x_spots = [(14, 6), (14, 13), (4, 13), (4, 6)]
+    x_warn = [warning_actor(r, f"x_warning_{i}", wx, wy) for i, (wx, wy) in enumerate(x_spots)]
+    lanes = {"left": (4, -24), "middle": (9, 8), "right": (14, 40)}
+    lane_warn = {k: warning_actor(r, f"lane_{k}", lx, 12) for k, (lx, _) in lanes.items()}
+    holes = []
+    for i in range(3):
+        hid = uid("actor", "boardroom", f"hole_{i}")
+        r.actor(f"hole_{i}", "hole", 9, 12, name="Optimized tile", group="1", solid=False,
+                start=[deactivate(hid)])
+        holes.append(hid)
+    exec_ids = {k: uid("actor", "boardroom", k) for k, *_ in BOARD}
+
+    def attack(kind, source):
+        if kind == "spreadsheets":
+            return [*marked_shot(source, "spreadsheet", aim), wait(0.3), *marked_shot(source, "spreadsheet", aim)]
+        if kind == "megaphone":
+            return [*[activate(w) for w in x_warn], sound("beep", 3, 0.3), wait(1.2), *[deactivate(w) for w in x_warn],
+                    *[projectile("spreadsheet", source, group="3", mask=("player",), speed=1, life=2.0,
+                                 dx=8, dy=8, angle=a) for a in (32, 96, 160, 224)]]
+        if kind == "holes":
+            out = [ev("EVENT_ACTOR_GET_POSITION", {"actorId": "player", "vectorX": V["aim_x"],
+                                                   "vectorY": V["aim_y"], "units": "tiles"})]
+            for i, (dx, dy) in enumerate([(0, 0), (-3, 0), (3, 0)]):
+                out += [ev("EVENT_ACTOR_SET_POSITION", {"actorId": holes[i],
+                         "x": {"type": "add", "valueA": var(V["aim_x"]), "valueB": num(dx)},
+                         "y": var(V["aim_y"]), "units": "tiles"}),
+                        set_state(holes[i], ""), activate(holes[i]),
+                        ev("EVENT_ACTOR_COLLISIONS_DISABLE", {"actorId": holes[i]})]
+            out += [sound("beep", 3, 0.3), wait(1.2), *[set_state(h, "Open") for h in holes],
+                    *[ev("EVENT_ACTOR_COLLISIONS_ENABLE", {"actorId": h}) for h in holes],
+                    sound("crash", 3, 0.3), wait(1.6), *[deactivate(h) for h in holes]]
+            return out
+        if kind == "lanes":
+            which = ("left", "right")
+            return [*[activate(lane_warn[k]) for k in which], sound("noise", 3, 0.6), wait(1.2),
+                    *[deactivate(lane_warn[k]) for k in which],
+                    *[projectile("spreadsheet", source, direction="down", group="3", mask=("player",), speed=2,
+                                 life=1.4, dx=lanes[k][1], dy=0) for k in which]]
+        return [*attack("spreadsheets", source), wait(0.4), *attack("megaphone", source), wait(0.4),
+                *attack("holes", source)]
+
+    # Each executive in turn: taunt, attack, then leap over the table, flustered, for a few seconds.
+    turn = []
+    for i, (key, sprite, mx, name, line, kind) in enumerate(BOARD):
+        eid = exec_ids[key]
+        home_x, home_y = at(mx, 1)
+        flustered = [
+            set_state(eid, "Flustered"), emote_on(eid, "sweat"),
+            move_to(eid, home_x, 9, "vertical", walls=False),
+            set_var(V["board_vuln"], i + 1),
+            wait(3.0 if key != "brock" else 2.4),
+            set_var(V["board_vuln"], 0),
+            move_to(eid, home_x, home_y, "vertical", walls=False), set_state(eid, ""),
+        ]
+        turn.append(if_expr(EQ(V["board_stage"], i), [
+            set_state(eid, "Attack"), emote_on(eid, "anger"),
+            *attack(kind, eid), wait(0.6), *flustered,
+        ]))
+    r.actor("controller", "invisible", 0, 17, name="Board controller", hidden=True, solid=False,
+            start=[if_var(V["board_defeated"], [ev("EVENT_ACTOR_STOP_UPDATE", {"actorId": ctrl})])],
+            update=[wait(0.8), *turn])
+
+    finale = [
+        ev("EVENT_ACTOR_STOP_UPDATE", {"actorId": ctrl}), set_var(V["board_defeated"], True),
+        shake(1.0, 4), sound("crash", 2, 0.8),
+        *text("BROCK: You can't\nstop Project\nLilypad!", "BROCK: It's\nalready printed!",
+              "KEVIN: YES. IT IS.", "KEVIN: I PRINTED\nIT.", "KEVIN: ON EVERY\nPRINTER. ON EVERY\nFLOOR.",
+              "KEVIN: EVEN THE\nBASEMENT ONE. IT\nWORKS NOW."),
+        music("ending_theme" if "ending_theme" in SONGS else "fanfare"),
+        *[activate(uid("actor", "boardroom", f"staff_{i}")) for i in range(4)],
+        *[move_to(uid("actor", "boardroom", f"staff_{i}"), 4 + i * 3, 11, walls=False) for i in range(4)],
+        *text("The staff storm\nthe boardroom.", "They're holding the\nprintouts.",
+              "IT: I read it.", "BUFO-COFFEE-HAPPY:\nDecaf. YOU did\nthat.",
+              "BUFO-ALL-WARM-AND-\nFUZZY-INSIDE: Your\nmeeting is over.",
+              "BROCK: This is...\nnot synergy.",
+              "The Board is\nreplaced. By a vote\nof 1,204 to 5.",
+              "The new CEO:", "KEVIN.", "KEVIN: MY FIRST ACT\nAS CEO:", "KEVIN: REAL COFFEE.\nFOR EVERYONE.",
+              "Everyone cheers.", "Bufo: ...", "Bufo: :)"),
+        wait(0.5),
+        switch_scene("ending_cubicle", ENDING["bufo"][0] * 2, ENDING["bufo"][1] * 2, "up"),
+    ]
+    for i, (key, sprite, mx, name, line, kind) in enumerate(BOARD):
+        eid = exec_ids[key]
+        x, y = at(mx, 1)
+        last = key == "brock"
+        on_hit = [if_expr(EQ(V["board_vuln"], i + 1), [
+            set_var(V["board_vuln"], 0), shake(0.4, 4), sound("crash", 5, 0.3),
+            *([*text(f"{name} is\nfired.")] if not last else []),
+            *([deactivate(eid)] if not last else []),
+            *([inc(V["board_stage"])] if not last else finale),
+        ])]
+        r.actor(key, sprite, x, y, name=name, group="1",
+                start=[if_var(V["board_defeated"], [deactivate(eid)])],
+                hit2=on_hit)
+    for i in range(4):
+        sid = uid("actor", "boardroom", f"staff_{i}")
+        r.actor(f"staff_{i}", "staff_frog", 8 + (i % 2) * 2, 17, name="Staff", animate=True, anim_speed=15,
+                solid=False, start=[deactivate(sid)])
+    for i, x in enumerate((8, 10)):
+        jid = uid("actor", "boardroom", f"door_jam_{i}")
+        r.actor(f"door_jam_{i}", "spreadsheet", x, 17, name="Security", solid=False,
+                start=[if_var(V["board_defeated"], [deactivate(jid)])])
+    r.init += [
+        music(level2_song("final_boss_theme", "boss_theme")),
+        if_var(V["board_intro_done"], [], [
+            shake(0.4, 4),
+            *text("The doors lock.", "Five executives sit\nat a very long\ntable.",
+                  "BROCK: Bufo! You\nfound KEVIN.", "BROCK: Unplug him.\nAnd we'll talk\nabout a raise.",
+                  "Bufo: ...", "KEVIN: HE WILL NOT.",
+                  "BROCK: Then you're\nboth fired. BOARD!", *[b[4] for b in BOARD[:4]],
+                  "(When an executive\nleaps over the\ntable, LICK them!)"),
+            set_var(V["board_intro_done"], True),
+        ]),
+        if_var(V["board_defeated"], [], [set_var(V["board_stage"], 0), set_var(V["board_vuln"], 0)]),
+    ]
+
+
+# --- The ending ---------------------------------------------------------------------
+
+ENDING = {"bufo": (4, 2), "door": (4, 8)}
+
+
+def build_ending():
+    exec_mod = FLOORS.get("exec")
+    if not exec_mod or not hasattr(exec_mod, "STANDALONE") or not floor_ready("exec"):
+        return {}
+    global ENDING
+    ENDING = {k: tuple(v) for k, v in getattr(exec_mod, "ENDING_MARKERS", ENDING).items()}
+    end, credits = Room("ending_cubicle"), Room("credits")
+    dx, dy = ENDING["door"]
+    end.init += [
+        music("ending_theme" if "ending_theme" in SONGS else "office_theme"),
+        wait(1.0),
+        *text("Bufo's cubicle.", "The clock says\n4:59 PM.", "Bufo watches the\nclock."),
+        wait(1.5), sound("beep", 7, 0.3),
+        *text("5:00 PM.", "Bufo: ...", "Bufo clocks out."),
+        move_to("player", dx * 2, dy * 2 - 1, "vertical", walls=False),
+        switch_scene("credits", 0, 0, "down"),
+    ]
+    credits.init += [
+        ev("EVENT_ACTOR_HIDE", {"actorId": "player"}),
+        *text("BUFO'S WORKDAY", "Starring BUFO,\na frog who was\nconcerned.",
+              "KEVIN as KEVIN\n(CEO).", "Brock Ribbitson as\nhimself (fired).",
+              "bufo-coffee-happy\nis happy again.", "The printer works.\nNobody knows why.",
+              "Made for the\nModRetro Chromatic.", "THE END.", "Thanks for playing!"),
+        ev("EVENT_AWAIT_INPUT", {"input": ["a", "start"]}),
+        switch_scene("title", 0, 0, "down"),
+    ]
+    for r, bg_name, label, gx in ((end, "ending_cubicle", "Ending", 3), (credits, "credits", "Credits", 4)):
+        title, layout = exec_mod.STANDALONE[bg_name]
+        rows = layout.strip().splitlines() if isinstance(layout, str) else list(layout)
+        story_like(r, rows, exec_mod.TILES, bg_name, label, (gx, -1))
+        r.hit = []
+    credits.collision_map = [0x0F] * (20 * 18)
+    return {"ending_cubicle": end, "credits": credits}
+
+
 def write_room(room, index):
     if room.name in LEVELS:
         level, _, folder = LEVELS[room.name]
         gx, gy, title, _ = level.ROOMS[room.name]
-        if level is not basement:
-            gy += 5
-            gx += 4
+        ox, oy = LEVEL_OFFSET[folder]
+        gx, gy = gx + ox, gy + oy
         title, bg = f"{folder}/{title}", bg_id(room.name)
         stype, coll, hit = "TOPDOWN", collisions(room.name), hurt_script(room.name)
     else:
@@ -1838,7 +2721,8 @@ def main():
     })
     write(PROJ / "project/settings.gbsres", settings)
 
-    rooms = {**build_story(), **build_rooms(), **build_level2()}
+    rooms = {**build_story(), **build_rooms(), **build_level2(), **build_floor3(), **build_floor4(),
+             **build_floor5(), **build_floor6(), **build_ending()}
 
     # Playtesting: BUFO_START=room,x,y starts elsewhere; BUFO_ITEMS=has_cable,... grants items.
     start = os.environ.get("BUFO_START")
