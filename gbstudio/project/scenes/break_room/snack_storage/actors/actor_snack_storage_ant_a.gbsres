@@ -1,0 +1,247 @@
+{
+  "_resourceType": "actor",
+  "id": "524d6098-c29b-50f0-bd67-f411e1cc2b43",
+  "_index": 6,
+  "symbol": "actor_snack_storage_ant_a",
+  "prefabId": "",
+  "name": "Sugar Ant",
+  "coordinateType": "tiles",
+  "x": 14,
+  "y": 5,
+  "frame": 0,
+  "animate": true,
+  "spriteSheetId": "37c2b085-5aac-55b9-a55f-2616f6b914f9",
+  "paletteId": "",
+  "direction": "down",
+  "moveSpeed": 0.5,
+  "animSpeed": 7,
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "1",
+  "collisionExtraFlags": [],
+  "prefabScriptOverrides": {},
+  "script": [],
+  "startScript": [
+    {
+      "id": "9042e3c5-862b-5cd0-8ae7-666dcc031da1",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "35"
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "f2126ce0-19a3-569b-b4f9-6faeb3d6b9f4",
+            "command": "EVENT_ACTOR_DEACTIVATE",
+            "args": {
+              "actorId": "524d6098-c29b-50f0-bd67-f411e1cc2b43"
+            }
+          }
+        ],
+        "false": []
+      }
+    }
+  ],
+  "updateScript": [
+    {
+      "id": "33101963-e923-51e6-b97b-dc614fe1885d",
+      "command": "EVENT_WAIT",
+      "args": {
+        "time": {
+          "type": "number",
+          "value": 0.8
+        },
+        "frames": {
+          "type": "number",
+          "value": 48
+        },
+        "units": "time"
+      }
+    },
+    {
+      "id": "dd55f3d6-a6e7-56c7-b4be-e82519845905",
+      "command": "EVENT_ACTOR_GET_POSITION",
+      "args": {
+        "actorId": "player",
+        "vectorX": "52",
+        "vectorY": "53",
+        "units": "tiles"
+      }
+    },
+    {
+      "id": "8bd12df5-fea7-5d74-8a18-3963dfd2df4f",
+      "command": "EVENT_ACTOR_MOVE_TO",
+      "args": {
+        "actorId": "524d6098-c29b-50f0-bd67-f411e1cc2b43",
+        "x": {
+          "type": "variable",
+          "value": "52"
+        },
+        "y": {
+          "type": "variable",
+          "value": "53"
+        },
+        "moveType": "horizontal",
+        "collideWith": [
+          "walls",
+          "actors"
+        ],
+        "lockDirection": [],
+        "units": "tiles"
+      }
+    },
+    {
+      "id": "473a4199-0ec2-5eff-8ba0-216fadb808ff",
+      "command": "EVENT_WAIT",
+      "args": {
+        "time": {
+          "type": "number",
+          "value": 0.5
+        },
+        "frames": {
+          "type": "number",
+          "value": 30
+        },
+        "units": "time"
+      }
+    },
+    {
+      "id": "b5ff0ad2-8752-5d6f-b13a-c10b4a173003",
+      "command": "EVENT_ACTOR_GET_POSITION",
+      "args": {
+        "actorId": "player",
+        "vectorX": "52",
+        "vectorY": "53",
+        "units": "tiles"
+      }
+    },
+    {
+      "id": "dbe587a2-c0d4-5559-952c-a8da19dcb24e",
+      "command": "EVENT_ACTOR_MOVE_TO",
+      "args": {
+        "actorId": "524d6098-c29b-50f0-bd67-f411e1cc2b43",
+        "x": {
+          "type": "variable",
+          "value": "52"
+        },
+        "y": {
+          "type": "variable",
+          "value": "53"
+        },
+        "moveType": "vertical",
+        "collideWith": [
+          "walls",
+          "actors"
+        ],
+        "lockDirection": [],
+        "units": "tiles"
+      }
+    },
+    {
+      "id": "371afe01-4c76-5580-811b-3f501386c5c7",
+      "command": "EVENT_WAIT",
+      "args": {
+        "time": {
+          "type": "number",
+          "value": 0.5
+        },
+        "frames": {
+          "type": "number",
+          "value": 30
+        },
+        "units": "time"
+      }
+    }
+  ],
+  "hit1Script": [],
+  "hit2Script": [
+    {
+      "id": "8d3f0fe8-07d8-5989-bc1c-0dec85694570",
+      "command": "EVENT_SOUND_PLAY_EFFECT",
+      "args": {
+        "type": "crash",
+        "priority": "medium",
+        "pitch": 6,
+        "frequency": 200,
+        "duration": 0.15,
+        "wait": false,
+        "effect": 0
+      }
+    },
+    {
+      "id": "b5b46e8d-03c1-5ed8-a307-0620019bda83",
+      "command": "EVENT_ACTOR_DEACTIVATE",
+      "args": {
+        "actorId": "524d6098-c29b-50f0-bd67-f411e1cc2b43"
+      }
+    },
+    {
+      "id": "2c92d46e-981c-5243-850b-a6c71a8939be",
+      "command": "EVENT_INC_VALUE",
+      "args": {
+        "variable": "34"
+      }
+    },
+    {
+      "id": "a1e87632-2f6b-53b9-8b81-b339b4acaa61",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "gte",
+          "valueA": {
+            "type": "variable",
+            "value": "34"
+          },
+          "valueB": {
+            "type": "number",
+            "value": 3
+          }
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "70e1f003-bcea-5689-86cf-ad8dd94c253f",
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "35",
+              "value": {
+                "type": "true"
+              }
+            }
+          },
+          {
+            "id": "14a2c856-e159-5c41-9316-a714c7142d6a",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "The ants drop\ntheir sugar and\nflee.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "3f48039b-fd72-54e1-a337-a4dbecb788f8",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "Behind them: a\nchest.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "3e0677fd-fdd4-507c-84cf-c0584dad63d8",
+            "command": "EVENT_ACTOR_ACTIVATE",
+            "args": {
+              "actorId": "865af8f3-a1bd-5a80-aea2-3935dd623879"
+            }
+          }
+        ],
+        "false": []
+      }
+    }
+  ],
+  "hit3Script": []
+}

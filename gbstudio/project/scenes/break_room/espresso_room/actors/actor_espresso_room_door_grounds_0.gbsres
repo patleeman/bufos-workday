@@ -1,0 +1,60 @@
+{
+  "_resourceType": "actor",
+  "id": "393a49ca-cafa-5c3e-bd98-d6b25e9ba448",
+  "_index": 11,
+  "symbol": "actor_espresso_room_door_grounds_0",
+  "prefabId": "",
+  "name": "Grounds",
+  "coordinateType": "tiles",
+  "x": 8,
+  "y": 17,
+  "frame": 0,
+  "animate": false,
+  "spriteSheetId": "a7fe0aeb-d7f6-5729-bfe8-7bb65c49a089",
+  "paletteId": "",
+  "direction": "down",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "",
+  "collisionExtraFlags": [],
+  "prefabScriptOverrides": {},
+  "script": [],
+  "startScript": [
+    {
+      "id": "5ba34e81-0276-5691-bcb9-a3a963e759f0",
+      "command": "EVENT_ACTOR_COLLISIONS_DISABLE",
+      "args": {
+        "actorId": "393a49ca-cafa-5c3e-bd98-d6b25e9ba448"
+      }
+    },
+    {
+      "id": "71485f8b-1fcd-5248-8f31-662c84e0aad9",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "39"
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "294a8632-3898-5cc8-aa81-d45460d46282",
+            "command": "EVENT_ACTOR_DEACTIVATE",
+            "args": {
+              "actorId": "393a49ca-cafa-5c3e-bd98-d6b25e9ba448"
+            }
+          }
+        ],
+        "false": []
+      }
+    }
+  ],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [],
+  "hit3Script": []
+}

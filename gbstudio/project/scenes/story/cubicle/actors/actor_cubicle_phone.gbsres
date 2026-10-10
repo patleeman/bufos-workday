@@ -1,0 +1,201 @@
+{
+  "_resourceType": "actor",
+  "id": "99cdbfd0-f22c-5c90-a492-29489d7fbb4c",
+  "_index": 5,
+  "symbol": "actor_cubicle_phone",
+  "prefabId": "",
+  "name": "Phone",
+  "coordinateType": "tiles",
+  "x": 8,
+  "y": 3,
+  "frame": 0,
+  "animate": false,
+  "spriteSheetId": "fb635aa5-40a5-5988-b0d1-b9ec66e10dae",
+  "paletteId": "",
+  "direction": "down",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "",
+  "collisionExtraFlags": [],
+  "prefabScriptOverrides": {},
+  "script": [
+    {
+      "id": "b6d3a92c-28a7-5892-8553-33c38d72c594",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "24"
+        },
+        "__collapseElse": false
+      },
+      "children": {
+        "true": [
+          {
+            "id": "9fe10f5c-7b00-5d81-9cc0-e37cc7426d80",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "Dial tone. Then\nhold music. Then:",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "7552b7fc-6860-56b4-b29f-98586c8ae928",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "BROCK: NOW, BUFO.",
+              "avatarId": ""
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "54082997-ef90-514c-973b-3befcc0528b1",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "*click*",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "2aebdcbb-37cf-5d34-99d8-dc6cb93aee1b",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "PHONE: Bzzzt.\nBufo. My office.\nNow.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "215868ff-8e83-5ce8-b1cd-33cbc2cb24d6",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "BUFO: ...",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "70c4aa64-1075-5568-9ab3-2dd4175cb6f7",
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "24",
+              "value": {
+                "type": "true"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "startScript": [
+    {
+      "id": "35f2439e-c297-5ca2-a2e8-432124f2cbe4",
+      "command": "EVENT_ACTOR_COLLISIONS_DISABLE",
+      "args": {
+        "actorId": "99cdbfd0-f22c-5c90-a492-29489d7fbb4c"
+      }
+    },
+    {
+      "id": "37b089e2-c6eb-5c19-8418-13411408996c",
+      "command": "EVENT_ACTOR_HIDE",
+      "args": {
+        "actorId": "99cdbfd0-f22c-5c90-a492-29489d7fbb4c"
+      }
+    }
+  ],
+  "updateScript": [
+    {
+      "id": "917d65ef-12ca-5002-ba2d-0e33153245f7",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "24"
+        },
+        "__collapseElse": false
+      },
+      "children": {
+        "true": [
+          {
+            "id": "ae661cbd-e9f2-5101-8a9f-ee501d5dc93d",
+            "command": "EVENT_WAIT",
+            "args": {
+              "time": {
+                "type": "number",
+                "value": 1.0
+              },
+              "frames": {
+                "type": "number",
+                "value": 60
+              },
+              "units": "time"
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "91301f95-542e-5c99-abda-0e25868de4df",
+            "command": "EVENT_SOUND_PLAY_EFFECT",
+            "args": {
+              "type": "beep",
+              "priority": "medium",
+              "pitch": 7,
+              "frequency": 200,
+              "duration": 0.15,
+              "wait": false,
+              "effect": 0
+            }
+          },
+          {
+            "id": "3d98b4c7-6f9e-5749-9925-b25ef40a34c7",
+            "command": "EVENT_WAIT",
+            "args": {
+              "time": {
+                "type": "number",
+                "value": 0.25
+              },
+              "frames": {
+                "type": "number",
+                "value": 15
+              },
+              "units": "time"
+            }
+          },
+          {
+            "id": "4d95a92f-bcd3-59e8-ab67-4cacf7da96e1",
+            "command": "EVENT_SOUND_PLAY_EFFECT",
+            "args": {
+              "type": "beep",
+              "priority": "medium",
+              "pitch": 7,
+              "frequency": 200,
+              "duration": 0.15,
+              "wait": false,
+              "effect": 0
+            }
+          },
+          {
+            "id": "2454cac0-f3ed-5edb-9ec9-81a931bc3c15",
+            "command": "EVENT_WAIT",
+            "args": {
+              "time": {
+                "type": "number",
+                "value": 1.4
+              },
+              "frames": {
+                "type": "number",
+                "value": 84
+              },
+              "units": "time"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "hit1Script": [],
+  "hit2Script": [],
+  "hit3Script": []
+}

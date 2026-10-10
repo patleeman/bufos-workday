@@ -1,0 +1,156 @@
+{
+  "_resourceType": "actor",
+  "id": "8b0eddf6-198a-5137-ac8e-fe9738cb73bf",
+  "_index": 5,
+  "symbol": "actor_roomba_dock_chest_key",
+  "prefabId": "",
+  "name": "chest_key",
+  "coordinateType": "tiles",
+  "x": 8,
+  "y": 9,
+  "frame": 0,
+  "animate": false,
+  "spriteSheetId": "9ad2b5af-9849-52e0-bc49-9fa6d005432d",
+  "paletteId": "",
+  "direction": "down",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "",
+  "collisionExtraFlags": [],
+  "prefabScriptOverrides": {},
+  "script": [
+    {
+      "id": "44b8ad34-f837-5ad9-a400-1434d389b210",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "1"
+        },
+        "__collapseElse": false
+      },
+      "children": {
+        "true": [
+          {
+            "id": "7fa6a9cc-c6f7-533c-8132-893420666a35",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "It's empty.",
+              "avatarId": ""
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "119f6faf-b134-5eea-a89b-4ce91f852bab",
+            "command": "EVENT_ACTOR_SET_STATE",
+            "args": {
+              "actorId": "8b0eddf6-198a-5137-ac8e-fe9738cb73bf",
+              "spriteStateId": "Open",
+              "loopAnim": true
+            }
+          },
+          {
+            "id": "8af0c9d0-03d0-55e8-82aa-fb0abbfd5b1c",
+            "command": "EVENT_MUSIC_PLAY",
+            "args": {
+              "musicId": "427db685-fdd7-5d97-9c53-3d2c06a010c3",
+              "loop": true
+            }
+          },
+          {
+            "id": "a11c932f-ed8a-5aff-bc93-2bea3fe6daba",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "You got the\nCLOSET KEY!",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "ca60410d-1633-5d8e-be9f-b034661606b8",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "It's slightly\nchewed. Roombas\ndon't have teeth.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "0bccd33d-c44c-55d9-855c-814534abaa9f",
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "1",
+              "value": {
+                "type": "true"
+              }
+            }
+          },
+          {
+            "id": "b8445049-2e01-5bf0-a384-b2db9f47d237",
+            "command": "EVENT_MUSIC_PLAY",
+            "args": {
+              "musicId": "87d92324-fa93-5e56-a65d-2a254231724d",
+              "loop": true
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "startScript": [
+    {
+      "id": "3c63381b-b31b-593f-bf77-22fb9d636d3d",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "5"
+        },
+        "__collapseElse": false
+      },
+      "children": {
+        "true": [
+          {
+            "id": "6453bf96-8e9a-568e-8a0e-0d474cc97e9d",
+            "command": "EVENT_IF",
+            "args": {
+              "condition": {
+                "type": "variable",
+                "value": "1"
+              },
+              "__collapseElse": true
+            },
+            "children": {
+              "true": [
+                {
+                  "id": "c7c886bf-2dbb-5fa2-bb0e-514e31e6cb2a",
+                  "command": "EVENT_ACTOR_SET_STATE",
+                  "args": {
+                    "actorId": "8b0eddf6-198a-5137-ac8e-fe9738cb73bf",
+                    "spriteStateId": "Open",
+                    "loopAnim": true
+                  }
+                }
+              ],
+              "false": []
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "130f7f72-a4aa-53fd-8ad0-dd75f3fa4b57",
+            "command": "EVENT_ACTOR_DEACTIVATE",
+            "args": {
+              "actorId": "8b0eddf6-198a-5137-ac8e-fe9738cb73bf"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [],
+  "hit3Script": []
+}

@@ -1,0 +1,140 @@
+{
+  "_resourceType": "actor",
+  "id": "52592bf2-5a63-596c-9a99-7879a0db95c6",
+  "_index": 4,
+  "symbol": "actor_cable_closet_chest_cable",
+  "prefabId": "",
+  "name": "chest_cable",
+  "coordinateType": "tiles",
+  "x": 8,
+  "y": 9,
+  "frame": 0,
+  "animate": false,
+  "spriteSheetId": "9ad2b5af-9849-52e0-bc49-9fa6d005432d",
+  "paletteId": "",
+  "direction": "down",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "",
+  "collisionExtraFlags": [],
+  "prefabScriptOverrides": {},
+  "script": [
+    {
+      "id": "1f98ec2f-901b-5931-9429-f4f645affa5e",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "0"
+        },
+        "__collapseElse": false
+      },
+      "children": {
+        "true": [
+          {
+            "id": "1a5fcddd-cb92-5b1a-939f-ffb62630961b",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "It's empty.",
+              "avatarId": ""
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "63cc8a2b-0af4-579e-8a7b-d32cee2673bb",
+            "command": "EVENT_ACTOR_SET_STATE",
+            "args": {
+              "actorId": "52592bf2-5a63-596c-9a99-7879a0db95c6",
+              "spriteStateId": "Open",
+              "loopAnim": true
+            }
+          },
+          {
+            "id": "78f1a128-702b-5fc3-bc54-580d46e5690d",
+            "command": "EVENT_MUSIC_PLAY",
+            "args": {
+              "musicId": "427db685-fdd7-5d97-9c53-3d2c06a010c3",
+              "loop": true
+            }
+          },
+          {
+            "id": "b01abc02-5f59-5168-ae67-f27421d92e0a",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "You got the\nETHERNET CABLE!",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "9db344b8-b95f-527c-8ecb-fb56fe2060bc",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "Stand in front of\na post to pull\nyourself across.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "4e3719e1-88f1-5e6f-8925-a2be232e56d7",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "It's Cat5. Nobody\nknows why it's\nstill here.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "2d995ebe-25f5-5cdd-a71d-ea483c4c8737",
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "0",
+              "value": {
+                "type": "true"
+              }
+            }
+          },
+          {
+            "id": "91dadbd5-2e72-5c8b-87ce-b333777c8650",
+            "command": "EVENT_MUSIC_PLAY",
+            "args": {
+              "musicId": "87d92324-fa93-5e56-a65d-2a254231724d",
+              "loop": true
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "startScript": [
+    {
+      "id": "4fd1d104-7e26-55a3-83cd-8c64e4e3227f",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "0"
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "97ea1e5b-0e3e-56a9-a7b3-4cbbdbd2eed6",
+            "command": "EVENT_ACTOR_SET_STATE",
+            "args": {
+              "actorId": "52592bf2-5a63-596c-9a99-7879a0db95c6",
+              "spriteStateId": "Open",
+              "loopAnim": true
+            }
+          }
+        ],
+        "false": []
+      }
+    }
+  ],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [],
+  "hit3Script": []
+}

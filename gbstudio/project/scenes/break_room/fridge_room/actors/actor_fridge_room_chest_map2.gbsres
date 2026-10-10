@@ -1,0 +1,132 @@
+{
+  "_resourceType": "actor",
+  "id": "2f82bf72-92cf-5848-b163-e20f7a12123f",
+  "_index": 5,
+  "symbol": "actor_fridge_room_chest_map2",
+  "prefabId": "",
+  "name": "chest_map2",
+  "coordinateType": "tiles",
+  "x": 14,
+  "y": 13,
+  "frame": 0,
+  "animate": false,
+  "spriteSheetId": "9ad2b5af-9849-52e0-bc49-9fa6d005432d",
+  "paletteId": "",
+  "direction": "down",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "",
+  "collisionExtraFlags": [],
+  "prefabScriptOverrides": {},
+  "script": [
+    {
+      "id": "052ecf0a-f99b-5aa8-8d49-bbac8b165015",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "33"
+        },
+        "__collapseElse": false
+      },
+      "children": {
+        "true": [
+          {
+            "id": "f620bfbe-5de7-55b6-9984-206bad6ce726",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "It's empty.",
+              "avatarId": ""
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "8d9c7efa-978d-5ed2-a38a-f70b873dd50c",
+            "command": "EVENT_ACTOR_SET_STATE",
+            "args": {
+              "actorId": "2f82bf72-92cf-5848-b163-e20f7a12123f",
+              "spriteStateId": "Open",
+              "loopAnim": true
+            }
+          },
+          {
+            "id": "3778d316-3c3f-5d82-93d4-dd400f550c26",
+            "command": "EVENT_MUSIC_PLAY",
+            "args": {
+              "musicId": "427db685-fdd7-5d97-9c53-3d2c06a010c3",
+              "loop": true
+            }
+          },
+          {
+            "id": "5c458463-11ed-5ab1-a217-59bd3125b26d",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "You got a STICKY\nNOTE MAP!",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "19f3aee3-21da-5350-9358-0963986c6a04",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "It says: FLOOR 2.\nYOU ARE STILL\nHERE.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "3eb56fd1-7efe-51d6-84b4-e93324e18107",
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "33",
+              "value": {
+                "type": "true"
+              }
+            }
+          },
+          {
+            "id": "3d7961b9-59e3-5a4e-be48-f21dc89a7eb1",
+            "command": "EVENT_MUSIC_PLAY",
+            "args": {
+              "musicId": "87d92324-fa93-5e56-a65d-2a254231724d",
+              "loop": true
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "startScript": [
+    {
+      "id": "c7b97d40-c1df-5e7e-889e-92834c809f59",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "33"
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "698d3dc4-dfb7-5b73-b520-a60894c6fae6",
+            "command": "EVENT_ACTOR_SET_STATE",
+            "args": {
+              "actorId": "2f82bf72-92cf-5848-b163-e20f7a12123f",
+              "spriteStateId": "Open",
+              "loopAnim": true
+            }
+          }
+        ],
+        "false": []
+      }
+    }
+  ],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [],
+  "hit3Script": []
+}

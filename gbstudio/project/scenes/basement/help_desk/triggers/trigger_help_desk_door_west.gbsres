@@ -1,0 +1,138 @@
+{
+  "_resourceType": "trigger",
+  "id": "ea8585b7-eef6-5b9e-8d86-c48e0df11436",
+  "_index": 2,
+  "symbol": "trigger_help_desk_door_west",
+  "prefabId": "",
+  "name": "door_west",
+  "x": 0,
+  "y": 8,
+  "width": 2,
+  "height": 2,
+  "prefabScriptOverrides": {},
+  "script": [
+    {
+      "id": "7100745d-36ea-56ae-9dc1-b0022574a9cc",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "11"
+        },
+        "__collapseElse": false
+      },
+      "children": {
+        "true": [
+          {
+            "id": "9dcd2937-3577-5552-9c9d-7e94f59b7c49",
+            "command": "EVENT_SWITCH_SCENE",
+            "args": {
+              "sceneId": "f8066019-05ff-5b84-b556-ac74ff024757",
+              "x": {
+                "type": "number",
+                "value": 16
+              },
+              "y": {
+                "type": "number",
+                "value": 9
+              },
+              "direction": "left",
+              "fadeSpeed": "2"
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "bf0a01a2-7d97-588f-bafa-ab3dd9327d2f",
+            "command": "EVENT_IF",
+            "args": {
+              "condition": {
+                "type": "variable",
+                "value": "1"
+              },
+              "__collapseElse": false
+            },
+            "children": {
+              "true": [
+                {
+                  "id": "f9961182-e1fe-54a8-98c8-6cdcfabd83f6",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "Bufo uses the\nCLOSET KEY.",
+                    "avatarId": ""
+                  }
+                },
+                {
+                  "id": "572e7a9e-ea31-597e-862c-d404bd7e5c1f",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "Click.",
+                    "avatarId": ""
+                  }
+                },
+                {
+                  "id": "ba8dd404-214a-5e92-94dd-77da63c188b2",
+                  "command": "EVENT_SET_VALUE",
+                  "args": {
+                    "variable": "11",
+                    "value": {
+                      "type": "true"
+                    }
+                  }
+                },
+                {
+                  "id": "9dcd2937-3577-5552-9c9d-7e94f59b7c49",
+                  "command": "EVENT_SWITCH_SCENE",
+                  "args": {
+                    "sceneId": "f8066019-05ff-5b84-b556-ac74ff024757",
+                    "x": {
+                      "type": "number",
+                      "value": 16
+                    },
+                    "y": {
+                      "type": "number",
+                      "value": 9
+                    },
+                    "direction": "left",
+                    "fadeSpeed": "2"
+                  }
+                }
+              ],
+              "false": [
+                {
+                  "id": "0355d3c8-5905-5725-8a84-ee9e1574b6e1",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "It's locked.\nA sticker says:\nIT ASSETS ONLY.",
+                    "avatarId": ""
+                  }
+                },
+                {
+                  "id": "30a1d2e8-27ef-5f5e-b3c8-f6836f82a7f7",
+                  "command": "EVENT_ACTOR_MOVE_TO",
+                  "args": {
+                    "actorId": "player",
+                    "x": {
+                      "type": "number",
+                      "value": 2
+                    },
+                    "y": {
+                      "type": "number",
+                      "value": 9
+                    },
+                    "moveType": "horizontal",
+                    "collideWith": [
+                      "walls"
+                    ],
+                    "lockDirection": []
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "leaveScript": []
+}

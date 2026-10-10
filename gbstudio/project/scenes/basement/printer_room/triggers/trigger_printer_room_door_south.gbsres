@@ -1,0 +1,86 @@
+{
+  "_resourceType": "trigger",
+  "id": "a7653086-375e-5825-89e4-e646a825fbb7",
+  "_index": 0,
+  "symbol": "trigger_printer_room_door_south",
+  "prefabId": "",
+  "name": "door_south",
+  "x": 8,
+  "y": 16,
+  "width": 4,
+  "height": 2,
+  "prefabScriptOverrides": {},
+  "script": [
+    {
+      "id": "8dccffeb-290b-51d5-b30e-dd5dd5e7b3a1",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "8"
+        },
+        "__collapseElse": false
+      },
+      "children": {
+        "true": [
+          {
+            "id": "4079e5eb-3a89-5d1d-877e-c3972d9e74e2",
+            "command": "EVENT_SWITCH_SCENE",
+            "args": {
+              "sceneId": "7ded7a06-3691-5934-a709-ad0ab2bb6c3a",
+              "x": {
+                "type": "number",
+                "value": 9
+              },
+              "y": {
+                "type": "number",
+                "value": 3
+              },
+              "direction": "down",
+              "fadeSpeed": "2"
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "3bb0f9b4-41fd-50ef-8348-7d26e693b0b1",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "The door is jammed\nshut with paper.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "421f27aa-288b-5781-8773-7b117ee348c4",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "There's no way out\nbut through.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "739007b8-1a9b-598d-89ac-c88f81b07e38",
+            "command": "EVENT_ACTOR_MOVE_TO",
+            "args": {
+              "actorId": "player",
+              "x": {
+                "type": "number",
+                "value": 9
+              },
+              "y": {
+                "type": "number",
+                "value": 13
+              },
+              "moveType": "vertical",
+              "collideWith": [
+                "walls"
+              ],
+              "lockDirection": []
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "leaveScript": []
+}

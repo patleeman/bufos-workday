@@ -1,0 +1,84 @@
+{
+  "_resourceType": "actor",
+  "id": "6746dd4d-a8ab-5325-95e6-7b93301f833a",
+  "_index": 8,
+  "symbol": "actor_tape_archive_tangle_a",
+  "prefabId": "",
+  "name": "Tangled Cable",
+  "coordinateType": "tiles",
+  "x": 6,
+  "y": 5,
+  "frame": 0,
+  "animate": true,
+  "spriteSheetId": "c731f09f-47a8-543e-ae58-e5640d915ff5",
+  "paletteId": "",
+  "direction": "down",
+  "moveSpeed": 1,
+  "animSpeed": 31,
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "1",
+  "collisionExtraFlags": [],
+  "prefabScriptOverrides": {},
+  "script": [],
+  "startScript": [
+    {
+      "id": "59ba5cf4-74d3-5b58-abd2-f818fd871548",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "13"
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "07f34932-27c0-5565-aa0d-45d9d60bf55f",
+            "command": "EVENT_ACTOR_DEACTIVATE",
+            "args": {
+              "actorId": "6746dd4d-a8ab-5325-95e6-7b93301f833a"
+            }
+          }
+        ],
+        "false": []
+      }
+    }
+  ],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [
+    {
+      "id": "5cf669d5-604d-5bfa-87cc-741aae8f5316",
+      "command": "EVENT_SOUND_PLAY_EFFECT",
+      "args": {
+        "type": "crash",
+        "priority": "medium",
+        "pitch": 6,
+        "frequency": 200,
+        "duration": 0.15,
+        "wait": false,
+        "effect": 0
+      }
+    },
+    {
+      "id": "8a88399f-82e5-5d12-b026-f5a44f742ebf",
+      "command": "EVENT_SET_VALUE",
+      "args": {
+        "variable": "13",
+        "value": {
+          "type": "true"
+        }
+      }
+    },
+    {
+      "id": "1ab61691-45a8-5d97-83b0-bebc7b318c3e",
+      "command": "EVENT_ACTOR_DEACTIVATE",
+      "args": {
+        "actorId": "6746dd4d-a8ab-5325-95e6-7b93301f833a"
+      }
+    }
+  ],
+  "hit3Script": []
+}

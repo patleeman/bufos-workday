@@ -1,0 +1,140 @@
+{
+  "_resourceType": "actor",
+  "id": "1347059a-2fca-53d7-ba61-7feb1ff354f8",
+  "_index": 7,
+  "symbol": "actor_pantry_chest_badge",
+  "prefabId": "",
+  "name": "chest_badge",
+  "coordinateType": "tiles",
+  "x": 16,
+  "y": 13,
+  "frame": 0,
+  "animate": false,
+  "spriteSheetId": "9ad2b5af-9849-52e0-bc49-9fa6d005432d",
+  "paletteId": "",
+  "direction": "down",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "",
+  "collisionExtraFlags": [],
+  "prefabScriptOverrides": {},
+  "script": [
+    {
+      "id": "6ab84a02-595f-5117-92d4-3895a3a8e47a",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "31"
+        },
+        "__collapseElse": false
+      },
+      "children": {
+        "true": [
+          {
+            "id": "b4b4e8d3-dc5d-523b-b9e9-7f637699f6f6",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "It's empty.",
+              "avatarId": ""
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "3e0033f8-9bed-53c8-a6a7-a1b9f9b45572",
+            "command": "EVENT_ACTOR_SET_STATE",
+            "args": {
+              "actorId": "1347059a-2fca-53d7-ba61-7feb1ff354f8",
+              "spriteStateId": "Open",
+              "loopAnim": true
+            }
+          },
+          {
+            "id": "006092dc-57a8-5aa6-8fdc-ff2a39a07bd5",
+            "command": "EVENT_MUSIC_PLAY",
+            "args": {
+              "musicId": "427db685-fdd7-5d97-9c53-3d2c06a010c3",
+              "loop": true
+            }
+          },
+          {
+            "id": "20ddd4ee-6972-509c-8cbd-169f897a5929",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "You got the\nBARISTA BADGE!",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "3d7f0f99-5243-5810-957b-d9e69a260361",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "WORLD'S OKAYEST\nBARISTA.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "884e1ba6-976f-5c5f-86df-93d9d592e1f6",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "It opens the\nEspresso Bar.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "743ea118-7402-5057-a4ea-217ccbf6e8ae",
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "31",
+              "value": {
+                "type": "true"
+              }
+            }
+          },
+          {
+            "id": "c494d3a8-6130-506d-976d-7ad14fb29334",
+            "command": "EVENT_MUSIC_PLAY",
+            "args": {
+              "musicId": "87d92324-fa93-5e56-a65d-2a254231724d",
+              "loop": true
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "startScript": [
+    {
+      "id": "fb7486cd-9122-5210-95d4-92e0271a75f9",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "31"
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "cb219c21-7e69-5abe-b24b-a72c25a94fd1",
+            "command": "EVENT_ACTOR_SET_STATE",
+            "args": {
+              "actorId": "1347059a-2fca-53d7-ba61-7feb1ff354f8",
+              "spriteStateId": "Open",
+              "loopAnim": true
+            }
+          }
+        ],
+        "false": []
+      }
+    }
+  ],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [],
+  "hit3Script": []
+}

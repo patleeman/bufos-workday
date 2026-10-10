@@ -1,0 +1,193 @@
+{
+  "_resourceType": "actor",
+  "id": "9f9ce1ce-e1f8-5044-ba2c-b3fddf33b022",
+  "_index": 8,
+  "symbol": "actor_help_desk_prop_7",
+  "prefabId": "",
+  "name": "Prop 7",
+  "coordinateType": "tiles",
+  "x": 6,
+  "y": 5,
+  "frame": 0,
+  "animate": false,
+  "spriteSheetId": "fb635aa5-40a5-5988-b0d1-b9ec66e10dae",
+  "paletteId": "",
+  "direction": "down",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "",
+  "collisionExtraFlags": [],
+  "prefabScriptOverrides": {},
+  "script": [
+    {
+      "id": "33ad3482-f5eb-5198-85ce-2e41457bd8c7",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "0"
+        },
+        "__collapseElse": false
+      },
+      "children": {
+        "true": [
+          {
+            "id": "d3295057-2ff8-57e3-94d8-4e565ae785b5",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "IT: Cat5. Classic.\nZzz...",
+              "avatarId": ""
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "6425276e-f5b3-5cb1-a375-13efc718fe8c",
+            "command": "EVENT_IF",
+            "args": {
+              "condition": {
+                "type": "variable",
+                "value": "17"
+              },
+              "__collapseElse": false
+            },
+            "children": {
+              "true": [
+                {
+                  "id": "880b01d1-9edb-5a7a-bf17-241792b69f81",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "IT: Zzz... the\ncloset's locked...\nask the monitor...",
+                    "avatarId": ""
+                  }
+                }
+              ],
+              "false": [
+                {
+                  "id": "eec0f095-d125-5e67-bcdb-51e107078471",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "IT: Zzz... ticket\nclosed... zzz...",
+                    "avatarId": ""
+                  }
+                },
+                {
+                  "id": "9f1c6d57-f345-57bf-8f8a-6b1a34f62a91",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "IT: Huh? A\nvisitor.\nWe don't get",
+                    "avatarId": ""
+                  }
+                },
+                {
+                  "id": "c1f5933a-ee5e-592d-a3d9-cc334c9261c2",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "visitors.",
+                    "avatarId": ""
+                  }
+                },
+                {
+                  "id": "52016b9f-f6c3-503d-bbe4-f3ca6a421bc4",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "IT: KEVIN's not\ndown here. But the\nprinter is.",
+                    "avatarId": ""
+                  }
+                },
+                {
+                  "id": "8e594934-9faa-5403-a59d-5a6bb0469e78",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "IT: Jams every\nday.\nSame page. Every",
+                    "avatarId": ""
+                  }
+                },
+                {
+                  "id": "5894bc24-445f-5e38-9452-eacd14f49504",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "time.",
+                    "avatarId": ""
+                  }
+                },
+                {
+                  "id": "9664bdd0-0607-5d32-a8b5-82e0d91b053c",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "IT: You'll need a\ncable to cross the\npit. It's in the",
+                    "avatarId": ""
+                  }
+                },
+                {
+                  "id": "10930a16-16c9-59cb-ab40-aa4d3bc8a40c",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "closet.",
+                    "avatarId": ""
+                  }
+                },
+                {
+                  "id": "3f8c4b50-d88b-58d1-8bd6-60255693f39f",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "IT: The closet's\nlocked. Ask the\nold",
+                    "avatarId": ""
+                  }
+                },
+                {
+                  "id": "925105d9-c23d-5ce6-b982-3f48266ad749",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "monitor.",
+                    "avatarId": ""
+                  }
+                },
+                {
+                  "id": "0f4ffba6-e67c-5bb0-9c15-7e6c5e410f85",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "IT: Don't let him\ntalk about Windows\n95. Zzz...",
+                    "avatarId": ""
+                  }
+                },
+                {
+                  "id": "fbf3b1cc-9cd4-5b52-98e9-ebae562d8244",
+                  "command": "EVENT_SET_VALUE",
+                  "args": {
+                    "variable": "17",
+                    "value": {
+                      "type": "true"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "startScript": [
+    {
+      "id": "80d58744-9e63-50b0-a344-6009947697d0",
+      "command": "EVENT_ACTOR_COLLISIONS_DISABLE",
+      "args": {
+        "actorId": "9f9ce1ce-e1f8-5044-ba2c-b3fddf33b022"
+      }
+    },
+    {
+      "id": "1bfdc00f-9d48-559e-b7cb-7e5bc4b55e15",
+      "command": "EVENT_ACTOR_HIDE",
+      "args": {
+        "actorId": "9f9ce1ce-e1f8-5044-ba2c-b3fddf33b022"
+      }
+    }
+  ],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [],
+  "hit3Script": []
+}

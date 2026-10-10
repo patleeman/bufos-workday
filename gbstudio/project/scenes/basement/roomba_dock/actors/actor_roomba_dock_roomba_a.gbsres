@@ -1,0 +1,247 @@
+{
+  "_resourceType": "actor",
+  "id": "ecdf71cb-7176-5dea-b151-14d1c1bce40e",
+  "_index": 6,
+  "symbol": "actor_roomba_dock_roomba_a",
+  "prefabId": "",
+  "name": "Rogue Roomba",
+  "coordinateType": "tiles",
+  "x": 4,
+  "y": 3,
+  "frame": 0,
+  "animate": true,
+  "spriteSheetId": "08dc1e59-b5a6-52dc-8037-9f5576b5536b",
+  "paletteId": "",
+  "direction": "down",
+  "moveSpeed": 0.5,
+  "animSpeed": 15,
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "1",
+  "collisionExtraFlags": [],
+  "prefabScriptOverrides": {},
+  "script": [],
+  "startScript": [
+    {
+      "id": "918b746e-5b80-52ed-a740-84a4c7dd7d3e",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "5"
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "e476ce50-dfb4-50fd-aa5a-acb4de0eaf11",
+            "command": "EVENT_ACTOR_DEACTIVATE",
+            "args": {
+              "actorId": "ecdf71cb-7176-5dea-b151-14d1c1bce40e"
+            }
+          }
+        ],
+        "false": []
+      }
+    }
+  ],
+  "updateScript": [
+    {
+      "id": "8a67732a-1a0b-574b-9bd1-5f2c16e311fb",
+      "command": "EVENT_WAIT",
+      "args": {
+        "time": {
+          "type": "number",
+          "value": 1.0
+        },
+        "frames": {
+          "type": "number",
+          "value": 60
+        },
+        "units": "time"
+      }
+    },
+    {
+      "id": "0abc8339-c5ce-56a1-acf8-595a78637777",
+      "command": "EVENT_ACTOR_GET_POSITION",
+      "args": {
+        "actorId": "player",
+        "vectorX": "52",
+        "vectorY": "53",
+        "units": "tiles"
+      }
+    },
+    {
+      "id": "1b738060-98bb-517f-bf7c-58c05e7bd879",
+      "command": "EVENT_ACTOR_MOVE_TO",
+      "args": {
+        "actorId": "ecdf71cb-7176-5dea-b151-14d1c1bce40e",
+        "x": {
+          "type": "variable",
+          "value": "52"
+        },
+        "y": {
+          "type": "variable",
+          "value": "53"
+        },
+        "moveType": "horizontal",
+        "collideWith": [
+          "walls",
+          "actors"
+        ],
+        "lockDirection": [],
+        "units": "tiles"
+      }
+    },
+    {
+      "id": "6e86ff87-e2db-5c0b-bd77-41a9ac244faf",
+      "command": "EVENT_WAIT",
+      "args": {
+        "time": {
+          "type": "number",
+          "value": 0.5
+        },
+        "frames": {
+          "type": "number",
+          "value": 30
+        },
+        "units": "time"
+      }
+    },
+    {
+      "id": "0a52aba1-cca9-5513-812d-36d526fdec2a",
+      "command": "EVENT_ACTOR_GET_POSITION",
+      "args": {
+        "actorId": "player",
+        "vectorX": "52",
+        "vectorY": "53",
+        "units": "tiles"
+      }
+    },
+    {
+      "id": "c37e08c9-88d9-5c4e-8fb4-85faa691e118",
+      "command": "EVENT_ACTOR_MOVE_TO",
+      "args": {
+        "actorId": "ecdf71cb-7176-5dea-b151-14d1c1bce40e",
+        "x": {
+          "type": "variable",
+          "value": "52"
+        },
+        "y": {
+          "type": "variable",
+          "value": "53"
+        },
+        "moveType": "vertical",
+        "collideWith": [
+          "walls",
+          "actors"
+        ],
+        "lockDirection": [],
+        "units": "tiles"
+      }
+    },
+    {
+      "id": "79240993-60a9-5755-932e-858a64fdf233",
+      "command": "EVENT_WAIT",
+      "args": {
+        "time": {
+          "type": "number",
+          "value": 0.5
+        },
+        "frames": {
+          "type": "number",
+          "value": 30
+        },
+        "units": "time"
+      }
+    }
+  ],
+  "hit1Script": [],
+  "hit2Script": [
+    {
+      "id": "a623dc7a-b650-576a-a035-1640ec13c6f5",
+      "command": "EVENT_SOUND_PLAY_EFFECT",
+      "args": {
+        "type": "crash",
+        "priority": "medium",
+        "pitch": 6,
+        "frequency": 200,
+        "duration": 0.15,
+        "wait": false,
+        "effect": 0
+      }
+    },
+    {
+      "id": "43a48eb9-1a8e-57cf-acbb-2426e3a4c587",
+      "command": "EVENT_ACTOR_DEACTIVATE",
+      "args": {
+        "actorId": "ecdf71cb-7176-5dea-b151-14d1c1bce40e"
+      }
+    },
+    {
+      "id": "0a885934-c5a2-5917-a55c-aceb665e721f",
+      "command": "EVENT_INC_VALUE",
+      "args": {
+        "variable": "4"
+      }
+    },
+    {
+      "id": "7896a694-2fe8-58c6-9296-8993ec326e32",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "gte",
+          "valueA": {
+            "type": "variable",
+            "value": "4"
+          },
+          "valueB": {
+            "type": "number",
+            "value": 3
+          }
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "63d3cf62-e88a-5bf1-90fa-95446eda5674",
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "5",
+              "value": {
+                "type": "true"
+              }
+            }
+          },
+          {
+            "id": "575f2dbe-c4d2-51a3-8f24-4d1642fc8cb8",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "The last roomba\nsputters out.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "ec7e039d-7d2c-5208-9c7f-1629d97ef616",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "Something drops\nfrom its dust bin.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "bc521d68-782a-5bae-a4a5-b51c31dea1b3",
+            "command": "EVENT_ACTOR_ACTIVATE",
+            "args": {
+              "actorId": "8b0eddf6-198a-5137-ac8e-fe9738cb73bf"
+            }
+          }
+        ],
+        "false": []
+      }
+    }
+  ],
+  "hit3Script": []
+}

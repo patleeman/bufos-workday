@@ -1,0 +1,60 @@
+{
+  "_resourceType": "actor",
+  "id": "28ebe067-188e-5431-aab4-7ae7353291e6",
+  "_index": 6,
+  "symbol": "actor_printer_room_door_jam_1",
+  "prefabId": "",
+  "name": "Paper jam",
+  "coordinateType": "tiles",
+  "x": 10,
+  "y": 17,
+  "frame": 0,
+  "animate": false,
+  "spriteSheetId": "d8b821d6-42c3-525e-8431-e131debb1101",
+  "paletteId": "",
+  "direction": "down",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "",
+  "collisionExtraFlags": [],
+  "prefabScriptOverrides": {},
+  "script": [],
+  "startScript": [
+    {
+      "id": "7f14243c-2ef9-5a9d-9395-fe8af155b590",
+      "command": "EVENT_ACTOR_COLLISIONS_DISABLE",
+      "args": {
+        "actorId": "28ebe067-188e-5431-aab4-7ae7353291e6"
+      }
+    },
+    {
+      "id": "41ce7a56-2aa2-5db3-b27a-ec6b242eae44",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "8"
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "408ce6e4-be2f-58a5-8818-fdbe34e1ee1b",
+            "command": "EVENT_ACTOR_DEACTIVATE",
+            "args": {
+              "actorId": "28ebe067-188e-5431-aab4-7ae7353291e6"
+            }
+          }
+        ],
+        "false": []
+      }
+    }
+  ],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [],
+  "hit3Script": []
+}

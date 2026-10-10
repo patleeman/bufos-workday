@@ -1,0 +1,94 @@
+{
+  "_resourceType": "trigger",
+  "id": "dbb7b829-d20d-5b71-a4da-17a4637413df",
+  "_index": 1,
+  "symbol": "trigger_stairwell_stairs_up",
+  "prefabId": "",
+  "name": "stairs_up",
+  "x": 8,
+  "y": 15,
+  "width": 4,
+  "height": 1,
+  "prefabScriptOverrides": {},
+  "script": [
+    {
+      "id": "61ae2435-dd6d-56ae-a3dc-05a2af020b1d",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "8"
+        },
+        "__collapseElse": false
+      },
+      "children": {
+        "true": [
+          {
+            "id": "d0f0eb21-27a7-5682-8ac5-5513599c5b23",
+            "command": "EVENT_SWITCH_SCENE",
+            "args": {
+              "sceneId": "baf1e2e3-5001-5ce0-84cb-9ac4693340cf",
+              "x": {
+                "type": "number",
+                "value": 9
+              },
+              "y": {
+                "type": "number",
+                "value": 15
+              },
+              "direction": "up",
+              "fadeSpeed": "2"
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "60a7fa77-d786-55bc-bd70-b2c9d2131849",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "The stairs up to\nthe Lobby.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "37abc765-2cb5-5951-a74e-9176740a495e",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "Brock said to\nstart down here.\nBufo is scared of",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "7e576e67-d790-5f66-930c-c80dc7c944c1",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "Brock.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "430c41c6-24a3-589d-8872-2207fb55810d",
+            "command": "EVENT_ACTOR_MOVE_TO",
+            "args": {
+              "actorId": "player",
+              "x": {
+                "type": "number",
+                "value": 9
+              },
+              "y": {
+                "type": "number",
+                "value": 13
+              },
+              "moveType": "vertical",
+              "collideWith": [
+                "walls"
+              ],
+              "lockDirection": []
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "leaveScript": []
+}

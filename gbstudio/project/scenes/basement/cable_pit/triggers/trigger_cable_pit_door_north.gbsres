@@ -1,0 +1,178 @@
+{
+  "_resourceType": "trigger",
+  "id": "3d44defa-bb7a-50b9-86e3-8d72e7674e1a",
+  "_index": 0,
+  "symbol": "trigger_cable_pit_door_north",
+  "prefabId": "",
+  "name": "door_north",
+  "x": 8,
+  "y": 0,
+  "width": 4,
+  "height": 2,
+  "prefabScriptOverrides": {},
+  "script": [
+    {
+      "id": "f2bce936-26a2-5e7d-94a4-86d0cbe644e0",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "12"
+        },
+        "__collapseElse": false
+      },
+      "children": {
+        "true": [
+          {
+            "id": "a890b222-7ad2-54cc-b033-1b173ea3099d",
+            "command": "EVENT_SWITCH_SCENE",
+            "args": {
+              "sceneId": "2634d11f-dc7e-58a0-b0f0-5eac4cc90807",
+              "x": {
+                "type": "number",
+                "value": 9
+              },
+              "y": {
+                "type": "number",
+                "value": 14
+              },
+              "direction": "up",
+              "fadeSpeed": "2"
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "9dd0b846-d31c-5abc-9690-a1156a68b542",
+            "command": "EVENT_IF",
+            "args": {
+              "condition": {
+                "type": "variable",
+                "value": "2"
+              },
+              "__collapseElse": false
+            },
+            "children": {
+              "true": [
+                {
+                  "id": "7d97b4b9-e381-5e99-8453-707ab3083729",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "ENTER ADMIN\nPASSWORD.",
+                    "avatarId": ""
+                  }
+                },
+                {
+                  "id": "0f806fe2-28da-5fcd-9517-8b0674d0df70",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "Bufo holds up the\nsticky note.",
+                    "avatarId": ""
+                  }
+                },
+                {
+                  "id": "4a73be69-cd04-5420-8919-43c25d089789",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "ACCESS GRANTED.\nPLEASE CHANGE YOUR\nPASSWORD.",
+                    "avatarId": ""
+                  }
+                },
+                {
+                  "id": "c4161ccb-ca45-5c49-b137-f31a247f7785",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "PLEASE CHANGE YOUR\nPASSWORD.",
+                    "avatarId": ""
+                  }
+                },
+                {
+                  "id": "30e81046-7dea-58ca-9c29-cc394833599d",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "PLEASE.",
+                    "avatarId": ""
+                  }
+                },
+                {
+                  "id": "29b90b28-812a-5d0a-bb25-44202e6570be",
+                  "command": "EVENT_SET_VALUE",
+                  "args": {
+                    "variable": "12",
+                    "value": {
+                      "type": "true"
+                    }
+                  }
+                },
+                {
+                  "id": "a890b222-7ad2-54cc-b033-1b173ea3099d",
+                  "command": "EVENT_SWITCH_SCENE",
+                  "args": {
+                    "sceneId": "2634d11f-dc7e-58a0-b0f0-5eac4cc90807",
+                    "x": {
+                      "type": "number",
+                      "value": 9
+                    },
+                    "y": {
+                      "type": "number",
+                      "value": 14
+                    },
+                    "direction": "up",
+                    "fadeSpeed": "2"
+                  }
+                }
+              ],
+              "false": [
+                {
+                  "id": "ce66ec5c-f66b-5529-b48c-69d6a3238483",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "ENTER ADMIN\nPASSWORD.",
+                    "avatarId": ""
+                  }
+                },
+                {
+                  "id": "62d00549-7e2c-5092-bf83-54edbddabcd1",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "Bufo does not know\nthe password.",
+                    "avatarId": ""
+                  }
+                },
+                {
+                  "id": "702a17c7-87e7-516e-aab1-a47d7c122e59",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "(It's on a sticky\nnote somewhere.\nIt always is.)",
+                    "avatarId": ""
+                  }
+                },
+                {
+                  "id": "7f29475a-a989-585b-a327-b4a754abe663",
+                  "command": "EVENT_ACTOR_MOVE_TO",
+                  "args": {
+                    "actorId": "player",
+                    "x": {
+                      "type": "number",
+                      "value": 10
+                    },
+                    "y": {
+                      "type": "number",
+                      "value": 3
+                    },
+                    "moveType": "vertical",
+                    "collideWith": [
+                      "walls"
+                    ],
+                    "lockDirection": []
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "leaveScript": []
+}

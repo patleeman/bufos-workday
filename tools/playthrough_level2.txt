@@ -1,0 +1,17 @@
+wait:120 clear shot:l2_00_landing
+hold:up:100 wait:60 clear shot:l2_01_lounge
+hold:right:8 hold:up:40 hold:right:70 wait:60 clear shot:l2_02_storage
+hold:right:56 wait:10 right wait:6 B wait:21 B wait:21 B wait:21 up wait:6 B wait:21 B wait:21 B wait:21 left wait:6 B wait:21 B wait:21 B wait:21 down wait:6 B wait:21 B wait:21 B wait:21 right wait:6 B wait:21 B wait:21 B wait:21 up wait:6 B wait:21 B wait:21 B wait:21 left wait:6 B wait:21 B wait:21 B wait:21 down wait:6 B wait:21 B wait:21 B wait:21 right wait:6 B wait:21 B wait:21 B wait:21 up wait:6 B wait:21 B wait:21 B wait:21 left wait:6 B wait:21 B wait:21 B wait:21 down wait:6 B wait:21 B wait:21 B wait:21 right wait:6 B wait:21 B wait:21 B wait:21 up wait:6 B wait:21 B wait:21 B wait:21 left wait:6 B wait:21 B wait:21 B wait:21 down wait:6 B wait:21 B wait:21 B wait:21 right wait:6 B wait:21 B wait:21 B wait:21 up wait:6 B wait:21 B wait:21 B wait:21 left wait:6 B wait:21 B wait:21 B wait:21 down wait:6 B wait:21 B wait:21 B wait:21 right wait:6 B wait:21 B wait:21 B wait:21 up wait:6 B wait:21 B wait:21 B wait:21 left wait:6 B wait:21 B wait:21 B wait:21 down wait:6 B wait:21 B wait:21 B wait:21 right wait:6 B wait:21 B wait:21 B wait:21 up wait:6 B wait:21 B wait:21 B wait:21 left wait:6 B wait:21 B wait:21 B wait:21 down wait:6 B wait:21 B wait:21 B wait:21 right wait:6 B wait:21 B wait:21 B wait:21 up wait:6 B wait:21 B wait:21 B wait:21 left wait:6 B wait:21 B wait:21 B wait:21 down wait:6 B wait:21 B wait:21 B wait:21 vars clear expect:storage_cleared:1 shot:l2_03_ants
+hold:right:8 hold:up:64 wait:10 pos A wait:30 clear expect:has_mug:1 shot:l2_04_mug
+hold:down:40 hold:left:80 wait:60 clear shot:l2_05_lounge
+hold:down:16 hold:left:112 hold:up:16 hold:left:16 wait:60 clear shot:l2_06_vending
+hold:left:56 wait:10 hold:up:2 wait:10 select wait:40 clear expect:wall_broken:1 shot:l2_07_wall
+hold:up:60 wait:60 clear shot:l2_08_pantry
+hold:up:8 hold:right:40 wait:10 hold:right:4 A wait:30 clear expect:has_badge:1 shot:l2_09_badge
+hold:left:40 hold:down:40 wait:60 clear
+hold:down:48 hold:right:80 wait:60 clear
+hold:up:16 hold:right:64 hold:up:60 wait:60 clear shot:l2_10_kitchenette
+hold:right:8 hold:up:110 wait:30 clear wait:60 clear expect:boss2_door_open:1 shot:l2_11_boss
+hold:up:16 until:espresso_hot:1:2500 wait:4 hold:up:2 select wait:40 clear hold:down:16 expect:espresso_hp:2
+until:espresso_hot:1:2500 wait:4 hold:up:2 select wait:40 clear hold:down:16 expect:espresso_hp:1
+until:espresso_phase2:1:2500 wait:30 clear hold:down:8 until:espresso_hot:1:2500 wait:4 hold:up:2 select wait:40 shot:l2_12_hit clear wait:120 clear wait:120 clear expect:espresso_defeated:1 expect:bufo_max_hp:5 shot:l2_13_done

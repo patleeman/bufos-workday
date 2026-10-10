@@ -1,0 +1,140 @@
+{
+  "_resourceType": "actor",
+  "id": "f6139b19-29a1-5e87-9b30-42edcf82198b",
+  "_index": 7,
+  "symbol": "actor_tape_archive_chest_map",
+  "prefabId": "",
+  "name": "chest_map",
+  "coordinateType": "tiles",
+  "x": 14,
+  "y": 11,
+  "frame": 0,
+  "animate": false,
+  "spriteSheetId": "9ad2b5af-9849-52e0-bc49-9fa6d005432d",
+  "paletteId": "",
+  "direction": "down",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "",
+  "collisionExtraFlags": [],
+  "prefabScriptOverrides": {},
+  "script": [
+    {
+      "id": "9b34b51a-8b99-516b-96df-dff237b6cacc",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "3"
+        },
+        "__collapseElse": false
+      },
+      "children": {
+        "true": [
+          {
+            "id": "8d8b9d01-491d-56e4-99d8-49997197ba39",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "It's empty.",
+              "avatarId": ""
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "5bec55b7-9250-5169-a1cf-4bbc16a4058c",
+            "command": "EVENT_ACTOR_SET_STATE",
+            "args": {
+              "actorId": "f6139b19-29a1-5e87-9b30-42edcf82198b",
+              "spriteStateId": "Open",
+              "loopAnim": true
+            }
+          },
+          {
+            "id": "cfb26fa8-7872-5531-9d60-8a52d3298a99",
+            "command": "EVENT_MUSIC_PLAY",
+            "args": {
+              "musicId": "427db685-fdd7-5d97-9c53-3d2c06a010c3",
+              "loop": true
+            }
+          },
+          {
+            "id": "95f73e52-f83f-5e38-9700-f95c7630f861",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "You got the\nSTICKY NOTE MAP!",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "56915936-3f2a-59ae-83be-0d3f42a30108",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "It says YOU ARE\nHERE, with an\narrow",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "8c8cd6fe-7c93-56c7-a0ce-26b65a02f6ea",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "pointing at Bufo.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "e0ccff38-681a-5dda-b827-f286e3dec135",
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "3",
+              "value": {
+                "type": "true"
+              }
+            }
+          },
+          {
+            "id": "8f6627b7-0f3c-5b5d-95ea-fc4a70761bfb",
+            "command": "EVENT_MUSIC_PLAY",
+            "args": {
+              "musicId": "87d92324-fa93-5e56-a65d-2a254231724d",
+              "loop": true
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "startScript": [
+    {
+      "id": "2a42fabe-8816-5213-adbe-fbb46b2f9e2c",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "3"
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "958ff558-7820-54b8-b43f-e6287a75ea26",
+            "command": "EVENT_ACTOR_SET_STATE",
+            "args": {
+              "actorId": "f6139b19-29a1-5e87-9b30-42edcf82198b",
+              "spriteStateId": "Open",
+              "loopAnim": true
+            }
+          }
+        ],
+        "false": []
+      }
+    }
+  ],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [],
+  "hit3Script": []
+}

@@ -1,0 +1,103 @@
+{
+  "_resourceType": "actor",
+  "id": "ccf7955f-99fb-5002-870c-96a1cf7efdd1",
+  "_index": 0,
+  "symbol": "actor_fridge_room_prop_0",
+  "prefabId": "",
+  "name": "Prop 0",
+  "coordinateType": "tiles",
+  "x": 10,
+  "y": 5,
+  "frame": 0,
+  "animate": false,
+  "spriteSheetId": "fb635aa5-40a5-5988-b0d1-b9ec66e10dae",
+  "paletteId": "",
+  "direction": "down",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "",
+  "collisionExtraFlags": [],
+  "prefabScriptOverrides": {},
+  "script": [
+    {
+      "id": "a1161bdb-b183-5f40-ae47-05ad7312a3de",
+      "command": "EVENT_TEXT",
+      "args": {
+        "text": "A wall of fridges.\nThey hum in\nharmony.",
+        "avatarId": ""
+      }
+    },
+    {
+      "id": "6d5c9cae-b441-54d2-a03f-c4bd199955e7",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "43"
+        },
+        "__collapseElse": false
+      },
+      "children": {
+        "true": [],
+        "false": [
+          {
+            "id": "71336e0d-ad58-5528-a377-523169a3d8a3",
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "43",
+              "value": {
+                "type": "true"
+              }
+            }
+          },
+          {
+            "id": "633eb75a-6ca2-559e-a6d7-4488c9bf5db5",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "Inside, a sticky\nnote:",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "0ca8ca0d-5a82-5684-b20e-f3edcd14179b",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "'Bufo - the decaf\nthing wasn't me.\n-K'",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "d57fa5f7-b99a-5407-8d8f-1466ee5fb127",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "Bufo: ...?",
+              "avatarId": ""
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "startScript": [
+    {
+      "id": "df9770a5-5316-5698-a9ac-ebf8c771a070",
+      "command": "EVENT_ACTOR_COLLISIONS_DISABLE",
+      "args": {
+        "actorId": "ccf7955f-99fb-5002-870c-96a1cf7efdd1"
+      }
+    },
+    {
+      "id": "b33c8da7-8c61-53ed-9ea4-4295d9e04fd4",
+      "command": "EVENT_ACTOR_HIDE",
+      "args": {
+        "actorId": "ccf7955f-99fb-5002-870c-96a1cf7efdd1"
+      }
+    }
+  ],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [],
+  "hit3Script": []
+}

@@ -1,0 +1,79 @@
+{
+  "_resourceType": "trigger",
+  "id": "641343e6-4f2c-5cb6-a329-32f07e110c67",
+  "_index": 1,
+  "symbol": "trigger_elevator_landing_elevator",
+  "prefabId": "",
+  "name": "elevator",
+  "x": 8,
+  "y": 17,
+  "width": 4,
+  "height": 1,
+  "prefabScriptOverrides": {},
+  "script": [
+    {
+      "id": "7bbb88a7-2658-5fc9-a638-928db9a9efeb",
+      "command": "EVENT_CHOICE",
+      "args": {
+        "variable": "T0",
+        "trueText": "Go to Lobby",
+        "falseText": "Stay here"
+      }
+    },
+    {
+      "id": "34109b56-470f-5e66-b37a-366b05227387",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "T0"
+        },
+        "__collapseElse": false
+      },
+      "children": {
+        "true": [
+          {
+            "id": "c1914a78-0cdc-5111-98e1-ad481f4a8d35",
+            "command": "EVENT_SWITCH_SCENE",
+            "args": {
+              "sceneId": "baf1e2e3-5001-5ce0-84cb-9ac4693340cf",
+              "x": {
+                "type": "number",
+                "value": 9
+              },
+              "y": {
+                "type": "number",
+                "value": 3
+              },
+              "direction": "down",
+              "fadeSpeed": "2"
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "6906399c-13a5-537f-8d7d-ad62aafc2594",
+            "command": "EVENT_ACTOR_MOVE_TO",
+            "args": {
+              "actorId": "player",
+              "x": {
+                "type": "number",
+                "value": 9
+              },
+              "y": {
+                "type": "number",
+                "value": 13
+              },
+              "moveType": "vertical",
+              "collideWith": [
+                "walls"
+              ],
+              "lockDirection": []
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "leaveScript": []
+}

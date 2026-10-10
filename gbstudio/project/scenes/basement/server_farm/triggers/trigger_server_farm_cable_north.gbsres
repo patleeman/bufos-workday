@@ -1,0 +1,152 @@
+{
+  "_resourceType": "trigger",
+  "id": "0798e8e2-1ee9-55c3-ba8b-58a9723a0144",
+  "_index": 2,
+  "symbol": "trigger_server_farm_cable_north",
+  "prefabId": "",
+  "name": "cable_north",
+  "x": 12,
+  "y": 6,
+  "width": 2,
+  "height": 2,
+  "prefabScriptOverrides": {},
+  "script": [
+    {
+      "id": "6d67aeec-c489-5992-9387-8eec59b71adc",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "0"
+        },
+        "__collapseElse": false
+      },
+      "children": {
+        "true": [
+          {
+            "id": "5b744d13-7d7a-5bfd-a035-213037ac58f9",
+            "command": "EVENT_CHOICE",
+            "args": {
+              "variable": "T0",
+              "trueText": "Fire cable",
+              "falseText": "Not now"
+            }
+          },
+          {
+            "id": "8bae79b6-c414-5e5f-9fc5-5e19a935500d",
+            "command": "EVENT_IF",
+            "args": {
+              "condition": {
+                "type": "variable",
+                "value": "T0"
+              },
+              "__collapseElse": true
+            },
+            "children": {
+              "true": [
+                {
+                  "id": "a0fab85c-9fba-574b-8e56-ef2c46d8fa1f",
+                  "command": "EVENT_LAUNCH_PROJECTILE",
+                  "args": {
+                    "spriteSheetId": "b8efc0dc-2aba-5390-8ff4-01190cd8d0c4",
+                    "spriteStateId": "",
+                    "actorId": "player",
+                    "x": 0,
+                    "y": 0,
+                    "directionType": "direction",
+                    "direction": "down",
+                    "otherActorId": "player",
+                    "angle": 0,
+                    "angleVariable": "0",
+                    "targetActorId": "player",
+                    "speed": 6,
+                    "animSpeed": 15,
+                    "lifeTime": 0.25,
+                    "initialOffset": 8,
+                    "loopAnim": true,
+                    "destroyOnHit": true,
+                    "collisionGroup": "2",
+                    "collisionMask": []
+                  }
+                },
+                {
+                  "id": "e64a7a18-66a2-5821-a9fa-5f2a6e492bf5",
+                  "command": "EVENT_SOUND_PLAY_EFFECT",
+                  "args": {
+                    "type": "beep",
+                    "priority": "medium",
+                    "pitch": 5,
+                    "frequency": 200,
+                    "duration": 0.2,
+                    "wait": false,
+                    "effect": 0
+                  }
+                },
+                {
+                  "id": "4510a7c1-d600-563c-a7c0-1d927dc24f76",
+                  "command": "EVENT_WAIT",
+                  "args": {
+                    "time": {
+                      "type": "number",
+                      "value": 0.25
+                    },
+                    "frames": {
+                      "type": "number",
+                      "value": 15
+                    },
+                    "units": "time"
+                  }
+                },
+                {
+                  "id": "d770b3b8-8e99-5b23-abda-b5d2dd6b7d59",
+                  "command": "EVENT_ACTOR_MOVE_TO",
+                  "args": {
+                    "actorId": "player",
+                    "x": {
+                      "type": "number",
+                      "value": 12
+                    },
+                    "y": {
+                      "type": "number",
+                      "value": 13
+                    },
+                    "moveType": "vertical",
+                    "collideWith": [],
+                    "lockDirection": []
+                  }
+                },
+                {
+                  "id": "7f206e91-502b-5928-84cd-b29186102efe",
+                  "command": "EVENT_ACTOR_SET_POSITION",
+                  "args": {
+                    "actorId": "player",
+                    "x": {
+                      "type": "number",
+                      "value": 12
+                    },
+                    "y": {
+                      "type": "number",
+                      "value": 13
+                    }
+                  }
+                }
+              ],
+              "false": []
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "434f281c-9318-532a-a42a-79aeaf333c25",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "A sturdy post.\nIf only Bufo had\na cable.",
+              "avatarId": ""
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "leaveScript": []
+}

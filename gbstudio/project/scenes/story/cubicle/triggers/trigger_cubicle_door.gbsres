@@ -1,0 +1,78 @@
+{
+  "_resourceType": "trigger",
+  "id": "11484efb-7f5c-530d-9b9d-d2927f8a53ca",
+  "_index": 0,
+  "symbol": "trigger_cubicle_door",
+  "prefabId": "",
+  "name": "door",
+  "x": 8,
+  "y": 16,
+  "width": 4,
+  "height": 2,
+  "prefabScriptOverrides": {},
+  "script": [
+    {
+      "id": "e03468e3-fba4-5174-9c48-3cb70d16c570",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "24"
+        },
+        "__collapseElse": false
+      },
+      "children": {
+        "true": [
+          {
+            "id": "473e0609-1506-531a-a77d-4023ad731293",
+            "command": "EVENT_SWITCH_SCENE",
+            "args": {
+              "sceneId": "a297c161-92ba-52a8-8dd2-431c761953ff",
+              "x": {
+                "type": "number",
+                "value": 8
+              },
+              "y": {
+                "type": "number",
+                "value": 15
+              },
+              "direction": "up",
+              "fadeSpeed": "2"
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "43d2be9b-9288-5a2e-a42d-4920da46798e",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "The phone is still\nringing.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "a5fcde59-1737-500f-b034-767c376060d1",
+            "command": "EVENT_ACTOR_MOVE_TO",
+            "args": {
+              "actorId": "player",
+              "x": {
+                "type": "number",
+                "value": 8
+              },
+              "y": {
+                "type": "number",
+                "value": 14
+              },
+              "moveType": "vertical",
+              "collideWith": [
+                "walls"
+              ],
+              "lockDirection": []
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "leaveScript": []
+}

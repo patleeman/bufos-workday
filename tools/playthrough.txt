@@ -1,0 +1,26 @@
+wait:90 clear shot:00a_cubicle A wait:20 clear expect:phone_answered:1
+hold:down:100 wait:60 clear expect:ceo_met:1 shot:00b_office
+hold:down:60 wait:30 clear wait:90 shot:00c_title A wait:30 A wait:60
+wait:120 clear shot:01_stairwell
+hold:right:8 hold:up:110 wait:60 shot:02_helpdesk
+hold:right:8 hold:up:40 hold:right:70 wait:60 shot:03_graveyard
+hold:down:16 hold:right:56 hold:down:60 wait:60 shot:04_dock
+hold:down:56 hold:right:24 wait:10 right wait:6 B wait:21 B wait:21 B wait:21 up wait:6 B wait:21 B wait:21 B wait:21 left wait:6 B wait:21 B wait:21 B wait:21 down wait:6 B wait:21 B wait:21 B wait:21 right wait:6 B wait:21 B wait:21 B wait:21 up wait:6 B wait:21 B wait:21 B wait:21 left wait:6 B wait:21 B wait:21 B wait:21 down wait:6 B wait:21 B wait:21 B wait:21 right wait:6 B wait:21 B wait:21 B wait:21 up wait:6 B wait:21 B wait:21 B wait:21 left wait:6 B wait:21 B wait:21 B wait:21 down wait:6 B wait:21 B wait:21 B wait:21 right wait:6 B wait:21 B wait:21 B wait:21 up wait:6 B wait:21 B wait:21 B wait:21 left wait:6 B wait:21 B wait:21 B wait:21 down wait:6 B wait:21 B wait:21 B wait:21 right wait:6 B wait:21 B wait:21 B wait:21 up wait:6 B wait:21 B wait:21 B wait:21 left wait:6 B wait:21 B wait:21 B wait:21 down wait:6 B wait:21 B wait:21 B wait:21 right wait:6 B wait:21 B wait:21 B wait:21 up wait:6 B wait:21 B wait:21 B wait:21 left wait:6 B wait:21 B wait:21 B wait:21 down wait:6 B wait:21 B wait:21 B wait:21 right wait:6 B wait:21 B wait:21 B wait:21 up wait:6 B wait:21 B wait:21 B wait:21 left wait:6 B wait:21 B wait:21 B wait:21 down wait:6 B wait:21 B wait:21 B wait:21 right wait:6 B wait:21 B wait:21 B wait:21 up wait:6 B wait:21 B wait:21 B wait:21 left wait:6 B wait:21 B wait:21 B wait:21 down wait:6 B wait:21 B wait:21 B wait:21 right wait:6 B wait:21 B wait:21 B wait:21 up wait:6 B wait:21 B wait:21 B wait:21 left wait:6 B wait:21 B wait:21 B wait:21 down wait:6 B wait:21 B wait:21 B wait:21 right wait:6 B wait:21 B wait:21 B wait:21 up wait:6 B wait:21 B wait:21 B wait:21 left wait:6 B wait:21 B wait:21 B wait:21 down wait:6 B wait:21 B wait:21 B wait:21 right wait:6 B wait:21 B wait:21 B wait:21 up wait:6 B wait:21 B wait:21 B wait:21 left wait:6 B wait:21 B wait:21 B wait:21 down wait:6 B wait:21 B wait:21 B wait:21 right wait:6 B wait:21 B wait:21 B wait:21 up wait:6 B wait:21 B wait:21 B wait:21 left wait:6 B wait:21 B wait:21 B wait:21 down wait:6 B wait:21 B wait:21 B wait:21 vars clear expect:dock_cleared:1 shot:06_dock_clear
+hold:up:100 hold:left:120 hold:right:48 hold:down:40 wait:10 pos A wait:30 clear expect:has_closet_key:1 shot:07_key hold:right:16
+hold:up:70 wait:60 shot:08_graveyard_back pos
+hold:up:24 hold:left:60 hold:up:16 hold:left:30 wait:60 shot:09_helpdesk_back pos
+hold:left:140 wait:20 clear wait:60 shot:10_closet vars pos
+hold:left:60 A clear expect:has_cable:1 shot:11_cable
+hold:up:90 wait:60 shot:12_farm pos
+hold:left:8 hold:up:16 wait:40 A wait:120 shot:13_pulled pos
+hold:right:16 hold:up:32 hold:left:2 A clear expect:has_password:1 shot:14_password
+hold:right:16 hold:down:32 wait:40 A wait:120 shot:15_back pos
+hold:left:16 hold:down:40 wait:60 shot:16_closet_again pos
+hold:right:16 hold:down:40 hold:right:60 wait:60 shot:17_helpdesk_again pos
+hold:right:64 hold:up:70 wait:60 shot:18_pit pos
+hold:left:8 hold:up:16 wait:40 A wait:120 hold:right:16 hold:up:60 clear wait:60 shot:19_printer clear pos vars
+hold:right:32 hold:up:40 pos
+until:printer_jammed:1:1500 hold:left:24 hold:up:2 B wait:20 B wait:20 hold:right:24 clear expect:printer_hp:2
+until:printer_jammed:1:1500 hold:left:24 hold:up:2 B wait:20 B wait:20 hold:right:24 clear expect:printer_hp:1
+vars until:printer_phase2:1:1500 wait:30 shot:20_phase2 clear hold:down:32 vars
+until:printer_jammed:1:1500 hold:left:24 hold:up:48 B wait:20 B wait:20 shot:21_last_hit wait:60 clear expect:printer_defeated:1 shot:22_done

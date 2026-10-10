@@ -1,0 +1,1705 @@
+{
+  "_resourceType": "scene",
+  "id": "a297c161-92ba-52a8-8dd2-431c761953ff",
+  "_index": 1,
+  "type": "TOPDOWN",
+  "name": "story/CEO's Office",
+  "symbol": "scene_ceo_office",
+  "x": 240,
+  "y": 40,
+  "width": 20,
+  "height": 18,
+  "backgroundId": "c8aeb0dd-9fc4-56c5-a2fe-96f1a752c390",
+  "tilesetId": "",
+  "colorModeOverride": "none",
+  "paletteIds": [],
+  "spritePaletteIds": [
+    "8df04d6d-fece-5313-8ebf-fb0c9af299f7",
+    "9085fee5-67ff-5d36-8b60-d8bd38805630",
+    "fc2bf258-3125-5471-814a-9c9a8149a7d7",
+    "35b6845e-5939-5549-80bd-9d8164d139bc",
+    "f21eaad5-aa78-57ce-a15a-ba9f3e3fb3d8",
+    "a9ec642b-c713-561d-8f93-1b6a679cec9b",
+    "83b85c17-a0f5-52fc-807d-41331032483b",
+    "616c98cd-3f54-5331-96fe-6063f1df99b1"
+  ],
+  "autoFadeSpeed": 1,
+  "script": [
+    {
+      "id": "3fd7171f-764c-5110-9853-783457d04644",
+      "command": "EVENT_MUSIC_PLAY",
+      "args": {
+        "musicId": "629c29aa-93a2-54c0-b84b-84949619f7d4",
+        "loop": true
+      }
+    },
+    {
+      "id": "bdf345e4-f5bf-500e-abd8-8bc74be9c0d4",
+      "command": "EVENT_SET_INPUT_SCRIPT",
+      "args": {
+        "input": [
+          "b"
+        ],
+        "override": true,
+        "__collapse": false
+      },
+      "children": {
+        "true": [
+          {
+            "id": "7cb3fafe-f48b-50a9-8c02-486397ba97fd",
+            "command": "EVENT_RATE_LIMIT",
+            "args": {
+              "variable": "15",
+              "time": {
+                "type": "number",
+                "value": 0.35
+              },
+              "frames": {
+                "type": "number",
+                "value": 20
+              },
+              "units": "time"
+            },
+            "children": {
+              "true": [
+                {
+                  "id": "2e1d6abe-6fc3-5019-93a3-6bf5459e4e03",
+                  "command": "EVENT_SOUND_PLAY_EFFECT",
+                  "args": {
+                    "type": "beep",
+                    "priority": "medium",
+                    "pitch": 6,
+                    "frequency": 200,
+                    "duration": 0.05,
+                    "wait": false,
+                    "effect": 0
+                  }
+                },
+                {
+                  "id": "34df4bd4-7933-50d9-8579-9da9825743fb",
+                  "command": "EVENT_LAUNCH_PROJECTILE",
+                  "args": {
+                    "spriteSheetId": "14643d2c-3698-54a6-8b03-bac6d9a66988",
+                    "spriteStateId": "",
+                    "actorId": "player",
+                    "x": 0,
+                    "y": 0,
+                    "directionType": "actor",
+                    "direction": "right",
+                    "otherActorId": "player",
+                    "angle": 0,
+                    "angleVariable": "0",
+                    "targetActorId": "player",
+                    "speed": 0,
+                    "animSpeed": 3,
+                    "lifeTime": 0.25,
+                    "initialOffset": 16,
+                    "loopAnim": false,
+                    "destroyOnHit": true,
+                    "collisionGroup": "2",
+                    "collisionMask": [
+                      "1"
+                    ]
+                  }
+                },
+                {
+                  "id": "358795b1-46bc-54a8-b1e3-3baf4add50f5",
+                  "command": "EVENT_ACTOR_GET_POSITION",
+                  "args": {
+                    "actorId": "player",
+                    "vectorX": "21",
+                    "vectorY": "22",
+                    "units": "tiles"
+                  }
+                },
+                {
+                  "id": "9e8f0b54-6949-5231-86fb-58f19f034af8",
+                  "command": "EVENT_ACTOR_GET_DIRECTION",
+                  "args": {
+                    "actorId": "player",
+                    "direction": "23"
+                  }
+                },
+                {
+                  "id": "2cb7d407-9556-50c4-ad77-f6e750e6f638",
+                  "command": "EVENT_IF",
+                  "args": {
+                    "condition": {
+                      "type": "or",
+                      "valueA": {
+                        "type": "or",
+                        "valueA": {
+                          "type": "and",
+                          "valueA": {
+                            "type": "eq",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "23"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 2
+                            }
+                          },
+                          "valueB": {
+                            "type": "and",
+                            "valueA": {
+                              "type": "and",
+                              "valueA": {
+                                "type": "gte",
+                                "valueA": {
+                                  "type": "variable",
+                                  "value": "22"
+                                },
+                                "valueB": {
+                                  "type": "number",
+                                  "value": 8
+                                }
+                              },
+                              "valueB": {
+                                "type": "lte",
+                                "valueA": {
+                                  "type": "variable",
+                                  "value": "22"
+                                },
+                                "valueB": {
+                                  "type": "number",
+                                  "value": 8
+                                }
+                              }
+                            },
+                            "valueB": {
+                              "type": "and",
+                              "valueA": {
+                                "type": "gte",
+                                "valueA": {
+                                  "type": "variable",
+                                  "value": "21"
+                                },
+                                "valueB": {
+                                  "type": "number",
+                                  "value": 7
+                                }
+                              },
+                              "valueB": {
+                                "type": "lte",
+                                "valueA": {
+                                  "type": "variable",
+                                  "value": "21"
+                                },
+                                "valueB": {
+                                  "type": "number",
+                                  "value": 9
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "valueB": {
+                          "type": "and",
+                          "valueA": {
+                            "type": "eq",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "23"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 0
+                            }
+                          },
+                          "valueB": {
+                            "type": "and",
+                            "valueA": {
+                              "type": "and",
+                              "valueA": {
+                                "type": "gte",
+                                "valueA": {
+                                  "type": "variable",
+                                  "value": "22"
+                                },
+                                "valueB": {
+                                  "type": "number",
+                                  "value": 5
+                                }
+                              },
+                              "valueB": {
+                                "type": "lte",
+                                "valueA": {
+                                  "type": "variable",
+                                  "value": "22"
+                                },
+                                "valueB": {
+                                  "type": "number",
+                                  "value": 5
+                                }
+                              }
+                            },
+                            "valueB": {
+                              "type": "and",
+                              "valueA": {
+                                "type": "gte",
+                                "valueA": {
+                                  "type": "variable",
+                                  "value": "21"
+                                },
+                                "valueB": {
+                                  "type": "number",
+                                  "value": 7
+                                }
+                              },
+                              "valueB": {
+                                "type": "lte",
+                                "valueA": {
+                                  "type": "variable",
+                                  "value": "21"
+                                },
+                                "valueB": {
+                                  "type": "number",
+                                  "value": 9
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "valueB": {
+                        "type": "or",
+                        "valueA": {
+                          "type": "and",
+                          "valueA": {
+                            "type": "eq",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "23"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 1
+                            }
+                          },
+                          "valueB": {
+                            "type": "and",
+                            "valueA": {
+                              "type": "and",
+                              "valueA": {
+                                "type": "gte",
+                                "valueA": {
+                                  "type": "variable",
+                                  "value": "21"
+                                },
+                                "valueB": {
+                                  "type": "number",
+                                  "value": 6
+                                }
+                              },
+                              "valueB": {
+                                "type": "lte",
+                                "valueA": {
+                                  "type": "variable",
+                                  "value": "21"
+                                },
+                                "valueB": {
+                                  "type": "number",
+                                  "value": 6
+                                }
+                              }
+                            },
+                            "valueB": {
+                              "type": "and",
+                              "valueA": {
+                                "type": "gte",
+                                "valueA": {
+                                  "type": "variable",
+                                  "value": "22"
+                                },
+                                "valueB": {
+                                  "type": "number",
+                                  "value": 6
+                                }
+                              },
+                              "valueB": {
+                                "type": "lte",
+                                "valueA": {
+                                  "type": "variable",
+                                  "value": "22"
+                                },
+                                "valueB": {
+                                  "type": "number",
+                                  "value": 7
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "valueB": {
+                          "type": "and",
+                          "valueA": {
+                            "type": "eq",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "23"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 3
+                            }
+                          },
+                          "valueB": {
+                            "type": "and",
+                            "valueA": {
+                              "type": "and",
+                              "valueA": {
+                                "type": "gte",
+                                "valueA": {
+                                  "type": "variable",
+                                  "value": "21"
+                                },
+                                "valueB": {
+                                  "type": "number",
+                                  "value": 10
+                                }
+                              },
+                              "valueB": {
+                                "type": "lte",
+                                "valueA": {
+                                  "type": "variable",
+                                  "value": "21"
+                                },
+                                "valueB": {
+                                  "type": "number",
+                                  "value": 10
+                                }
+                              }
+                            },
+                            "valueB": {
+                              "type": "and",
+                              "valueA": {
+                                "type": "gte",
+                                "valueA": {
+                                  "type": "variable",
+                                  "value": "22"
+                                },
+                                "valueB": {
+                                  "type": "number",
+                                  "value": 6
+                                }
+                              },
+                              "valueB": {
+                                "type": "lte",
+                                "valueA": {
+                                  "type": "variable",
+                                  "value": "22"
+                                },
+                                "valueB": {
+                                  "type": "number",
+                                  "value": 7
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "__collapseElse": false
+                  },
+                  "children": {
+                    "true": [
+                      {
+                        "id": "2b6f97bd-1076-545b-b3d7-55c422db9048",
+                        "command": "EVENT_TEXT",
+                        "args": {
+                          "text": "Tastes like\nshareholder value.",
+                          "avatarId": ""
+                        }
+                      }
+                    ],
+                    "false": [
+                      {
+                        "id": "60ad8711-1854-57f9-88fb-ff2617415d93",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "and",
+                            "valueA": {
+                              "type": "eq",
+                              "valueA": {
+                                "type": "variable",
+                                "value": "23"
+                              },
+                              "valueB": {
+                                "type": "number",
+                                "value": 2
+                              }
+                            },
+                            "valueB": {
+                              "type": "and",
+                              "valueA": {
+                                "type": "and",
+                                "valueA": {
+                                  "type": "gte",
+                                  "valueA": {
+                                    "type": "variable",
+                                    "value": "22"
+                                  },
+                                  "valueB": {
+                                    "type": "number",
+                                    "value": 2
+                                  }
+                                },
+                                "valueB": {
+                                  "type": "lte",
+                                  "valueA": {
+                                    "type": "variable",
+                                    "value": "22"
+                                  },
+                                  "valueB": {
+                                    "type": "number",
+                                    "value": 2
+                                  }
+                                }
+                              },
+                              "valueB": {
+                                "type": "and",
+                                "valueA": {
+                                  "type": "gte",
+                                  "valueA": {
+                                    "type": "variable",
+                                    "value": "21"
+                                  },
+                                  "valueB": {
+                                    "type": "number",
+                                    "value": 1
+                                  }
+                                },
+                                "valueB": {
+                                  "type": "lte",
+                                  "valueA": {
+                                    "type": "variable",
+                                    "value": "21"
+                                  },
+                                  "valueB": {
+                                    "type": "number",
+                                    "value": 3
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "__collapseElse": false
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "6661aa11-5bf5-5df1-9c5f-c73df5883613",
+                              "command": "EVENT_TEXT",
+                              "args": {
+                                "text": "Bufo licks it.\nTastes like the\noffice.",
+                                "avatarId": ""
+                              }
+                            }
+                          ],
+                          "false": [
+                            {
+                              "id": "0dcd0527-90a8-5264-bc8c-d64b68f7abc7",
+                              "command": "EVENT_IF",
+                              "args": {
+                                "condition": {
+                                  "type": "and",
+                                  "valueA": {
+                                    "type": "eq",
+                                    "valueA": {
+                                      "type": "variable",
+                                      "value": "23"
+                                    },
+                                    "valueB": {
+                                      "type": "number",
+                                      "value": 2
+                                    }
+                                  },
+                                  "valueB": {
+                                    "type": "and",
+                                    "valueA": {
+                                      "type": "and",
+                                      "valueA": {
+                                        "type": "gte",
+                                        "valueA": {
+                                          "type": "variable",
+                                          "value": "22"
+                                        },
+                                        "valueB": {
+                                          "type": "number",
+                                          "value": 2
+                                        }
+                                      },
+                                      "valueB": {
+                                        "type": "lte",
+                                        "valueA": {
+                                          "type": "variable",
+                                          "value": "22"
+                                        },
+                                        "valueB": {
+                                          "type": "number",
+                                          "value": 2
+                                        }
+                                      }
+                                    },
+                                    "valueB": {
+                                      "type": "and",
+                                      "valueA": {
+                                        "type": "gte",
+                                        "valueA": {
+                                          "type": "variable",
+                                          "value": "21"
+                                        },
+                                        "valueB": {
+                                          "type": "number",
+                                          "value": 5
+                                        }
+                                      },
+                                      "valueB": {
+                                        "type": "lte",
+                                        "valueA": {
+                                          "type": "variable",
+                                          "value": "21"
+                                        },
+                                        "valueB": {
+                                          "type": "number",
+                                          "value": 7
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "__collapseElse": false
+                              },
+                              "children": {
+                                "true": [
+                                  {
+                                    "id": "3bbbc3db-a562-5122-a830-c8dbc5586429",
+                                    "command": "EVENT_TEXT",
+                                    "args": {
+                                      "text": "Bufo licks it.\nTastes like the\noffice.",
+                                      "avatarId": ""
+                                    }
+                                  }
+                                ],
+                                "false": [
+                                  {
+                                    "id": "c3c2ad2f-7003-50f9-931c-d76c2a9c477f",
+                                    "command": "EVENT_IF",
+                                    "args": {
+                                      "condition": {
+                                        "type": "or",
+                                        "valueA": {
+                                          "type": "or",
+                                          "valueA": {
+                                            "type": "and",
+                                            "valueA": {
+                                              "type": "eq",
+                                              "valueA": {
+                                                "type": "variable",
+                                                "value": "23"
+                                              },
+                                              "valueB": {
+                                                "type": "number",
+                                                "value": 2
+                                              }
+                                            },
+                                            "valueB": {
+                                              "type": "and",
+                                              "valueA": {
+                                                "type": "and",
+                                                "valueA": {
+                                                  "type": "gte",
+                                                  "valueA": {
+                                                    "type": "variable",
+                                                    "value": "22"
+                                                  },
+                                                  "valueB": {
+                                                    "type": "number",
+                                                    "value": 10
+                                                  }
+                                                },
+                                                "valueB": {
+                                                  "type": "lte",
+                                                  "valueA": {
+                                                    "type": "variable",
+                                                    "value": "22"
+                                                  },
+                                                  "valueB": {
+                                                    "type": "number",
+                                                    "value": 10
+                                                  }
+                                                }
+                                              },
+                                              "valueB": {
+                                                "type": "and",
+                                                "valueA": {
+                                                  "type": "gte",
+                                                  "valueA": {
+                                                    "type": "variable",
+                                                    "value": "21"
+                                                  },
+                                                  "valueB": {
+                                                    "type": "number",
+                                                    "value": 17
+                                                  }
+                                                },
+                                                "valueB": {
+                                                  "type": "lte",
+                                                  "valueA": {
+                                                    "type": "variable",
+                                                    "value": "21"
+                                                  },
+                                                  "valueB": {
+                                                    "type": "number",
+                                                    "value": 19
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          },
+                                          "valueB": {
+                                            "type": "and",
+                                            "valueA": {
+                                              "type": "eq",
+                                              "valueA": {
+                                                "type": "variable",
+                                                "value": "23"
+                                              },
+                                              "valueB": {
+                                                "type": "number",
+                                                "value": 0
+                                              }
+                                            },
+                                            "valueB": {
+                                              "type": "and",
+                                              "valueA": {
+                                                "type": "and",
+                                                "valueA": {
+                                                  "type": "gte",
+                                                  "valueA": {
+                                                    "type": "variable",
+                                                    "value": "22"
+                                                  },
+                                                  "valueB": {
+                                                    "type": "number",
+                                                    "value": 7
+                                                  }
+                                                },
+                                                "valueB": {
+                                                  "type": "lte",
+                                                  "valueA": {
+                                                    "type": "variable",
+                                                    "value": "22"
+                                                  },
+                                                  "valueB": {
+                                                    "type": "number",
+                                                    "value": 7
+                                                  }
+                                                }
+                                              },
+                                              "valueB": {
+                                                "type": "and",
+                                                "valueA": {
+                                                  "type": "gte",
+                                                  "valueA": {
+                                                    "type": "variable",
+                                                    "value": "21"
+                                                  },
+                                                  "valueB": {
+                                                    "type": "number",
+                                                    "value": 17
+                                                  }
+                                                },
+                                                "valueB": {
+                                                  "type": "lte",
+                                                  "valueA": {
+                                                    "type": "variable",
+                                                    "value": "21"
+                                                  },
+                                                  "valueB": {
+                                                    "type": "number",
+                                                    "value": 19
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "valueB": {
+                                          "type": "or",
+                                          "valueA": {
+                                            "type": "and",
+                                            "valueA": {
+                                              "type": "eq",
+                                              "valueA": {
+                                                "type": "variable",
+                                                "value": "23"
+                                              },
+                                              "valueB": {
+                                                "type": "number",
+                                                "value": 1
+                                              }
+                                            },
+                                            "valueB": {
+                                              "type": "and",
+                                              "valueA": {
+                                                "type": "and",
+                                                "valueA": {
+                                                  "type": "gte",
+                                                  "valueA": {
+                                                    "type": "variable",
+                                                    "value": "21"
+                                                  },
+                                                  "valueB": {
+                                                    "type": "number",
+                                                    "value": 16
+                                                  }
+                                                },
+                                                "valueB": {
+                                                  "type": "lte",
+                                                  "valueA": {
+                                                    "type": "variable",
+                                                    "value": "21"
+                                                  },
+                                                  "valueB": {
+                                                    "type": "number",
+                                                    "value": 16
+                                                  }
+                                                }
+                                              },
+                                              "valueB": {
+                                                "type": "and",
+                                                "valueA": {
+                                                  "type": "gte",
+                                                  "valueA": {
+                                                    "type": "variable",
+                                                    "value": "22"
+                                                  },
+                                                  "valueB": {
+                                                    "type": "number",
+                                                    "value": 8
+                                                  }
+                                                },
+                                                "valueB": {
+                                                  "type": "lte",
+                                                  "valueA": {
+                                                    "type": "variable",
+                                                    "value": "22"
+                                                  },
+                                                  "valueB": {
+                                                    "type": "number",
+                                                    "value": 9
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          },
+                                          "valueB": {
+                                            "type": "and",
+                                            "valueA": {
+                                              "type": "eq",
+                                              "valueA": {
+                                                "type": "variable",
+                                                "value": "23"
+                                              },
+                                              "valueB": {
+                                                "type": "number",
+                                                "value": 3
+                                              }
+                                            },
+                                            "valueB": {
+                                              "type": "and",
+                                              "valueA": {
+                                                "type": "and",
+                                                "valueA": {
+                                                  "type": "gte",
+                                                  "valueA": {
+                                                    "type": "variable",
+                                                    "value": "21"
+                                                  },
+                                                  "valueB": {
+                                                    "type": "number",
+                                                    "value": 20
+                                                  }
+                                                },
+                                                "valueB": {
+                                                  "type": "lte",
+                                                  "valueA": {
+                                                    "type": "variable",
+                                                    "value": "21"
+                                                  },
+                                                  "valueB": {
+                                                    "type": "number",
+                                                    "value": 20
+                                                  }
+                                                }
+                                              },
+                                              "valueB": {
+                                                "type": "and",
+                                                "valueA": {
+                                                  "type": "gte",
+                                                  "valueA": {
+                                                    "type": "variable",
+                                                    "value": "22"
+                                                  },
+                                                  "valueB": {
+                                                    "type": "number",
+                                                    "value": 8
+                                                  }
+                                                },
+                                                "valueB": {
+                                                  "type": "lte",
+                                                  "valueA": {
+                                                    "type": "variable",
+                                                    "value": "22"
+                                                  },
+                                                  "valueB": {
+                                                    "type": "number",
+                                                    "value": 9
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "__collapseElse": false
+                                    },
+                                    "children": {
+                                      "true": [
+                                        {
+                                          "id": "56163fc0-6138-5d21-b39a-e31407c54b79",
+                                          "command": "EVENT_TEXT",
+                                          "args": {
+                                            "text": "Bufo licks the\nwindow. It's now\nsmudged forever.",
+                                            "avatarId": ""
+                                          }
+                                        }
+                                      ],
+                                      "false": [
+                                        {
+                                          "id": "32e4ad43-b952-570f-a386-5d9554734b0e",
+                                          "command": "EVENT_IF",
+                                          "args": {
+                                            "condition": {
+                                              "type": "or",
+                                              "valueA": {
+                                                "type": "or",
+                                                "valueA": {
+                                                  "type": "and",
+                                                  "valueA": {
+                                                    "type": "eq",
+                                                    "valueA": {
+                                                      "type": "variable",
+                                                      "value": "23"
+                                                    },
+                                                    "valueB": {
+                                                      "type": "number",
+                                                      "value": 2
+                                                    }
+                                                  },
+                                                  "valueB": {
+                                                    "type": "and",
+                                                    "valueA": {
+                                                      "type": "and",
+                                                      "valueA": {
+                                                        "type": "gte",
+                                                        "valueA": {
+                                                          "type": "variable",
+                                                          "value": "22"
+                                                        },
+                                                        "valueB": {
+                                                          "type": "number",
+                                                          "value": 14
+                                                        }
+                                                      },
+                                                      "valueB": {
+                                                        "type": "lte",
+                                                        "valueA": {
+                                                          "type": "variable",
+                                                          "value": "22"
+                                                        },
+                                                        "valueB": {
+                                                          "type": "number",
+                                                          "value": 14
+                                                        }
+                                                      }
+                                                    },
+                                                    "valueB": {
+                                                      "type": "and",
+                                                      "valueA": {
+                                                        "type": "gte",
+                                                        "valueA": {
+                                                          "type": "variable",
+                                                          "value": "21"
+                                                        },
+                                                        "valueB": {
+                                                          "type": "number",
+                                                          "value": 3
+                                                        }
+                                                      },
+                                                      "valueB": {
+                                                        "type": "lte",
+                                                        "valueA": {
+                                                          "type": "variable",
+                                                          "value": "21"
+                                                        },
+                                                        "valueB": {
+                                                          "type": "number",
+                                                          "value": 5
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                },
+                                                "valueB": {
+                                                  "type": "and",
+                                                  "valueA": {
+                                                    "type": "eq",
+                                                    "valueA": {
+                                                      "type": "variable",
+                                                      "value": "23"
+                                                    },
+                                                    "valueB": {
+                                                      "type": "number",
+                                                      "value": 0
+                                                    }
+                                                  },
+                                                  "valueB": {
+                                                    "type": "and",
+                                                    "valueA": {
+                                                      "type": "and",
+                                                      "valueA": {
+                                                        "type": "gte",
+                                                        "valueA": {
+                                                          "type": "variable",
+                                                          "value": "22"
+                                                        },
+                                                        "valueB": {
+                                                          "type": "number",
+                                                          "value": 11
+                                                        }
+                                                      },
+                                                      "valueB": {
+                                                        "type": "lte",
+                                                        "valueA": {
+                                                          "type": "variable",
+                                                          "value": "22"
+                                                        },
+                                                        "valueB": {
+                                                          "type": "number",
+                                                          "value": 11
+                                                        }
+                                                      }
+                                                    },
+                                                    "valueB": {
+                                                      "type": "and",
+                                                      "valueA": {
+                                                        "type": "gte",
+                                                        "valueA": {
+                                                          "type": "variable",
+                                                          "value": "21"
+                                                        },
+                                                        "valueB": {
+                                                          "type": "number",
+                                                          "value": 3
+                                                        }
+                                                      },
+                                                      "valueB": {
+                                                        "type": "lte",
+                                                        "valueA": {
+                                                          "type": "variable",
+                                                          "value": "21"
+                                                        },
+                                                        "valueB": {
+                                                          "type": "number",
+                                                          "value": 5
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "valueB": {
+                                                "type": "or",
+                                                "valueA": {
+                                                  "type": "and",
+                                                  "valueA": {
+                                                    "type": "eq",
+                                                    "valueA": {
+                                                      "type": "variable",
+                                                      "value": "23"
+                                                    },
+                                                    "valueB": {
+                                                      "type": "number",
+                                                      "value": 1
+                                                    }
+                                                  },
+                                                  "valueB": {
+                                                    "type": "and",
+                                                    "valueA": {
+                                                      "type": "and",
+                                                      "valueA": {
+                                                        "type": "gte",
+                                                        "valueA": {
+                                                          "type": "variable",
+                                                          "value": "21"
+                                                        },
+                                                        "valueB": {
+                                                          "type": "number",
+                                                          "value": 2
+                                                        }
+                                                      },
+                                                      "valueB": {
+                                                        "type": "lte",
+                                                        "valueA": {
+                                                          "type": "variable",
+                                                          "value": "21"
+                                                        },
+                                                        "valueB": {
+                                                          "type": "number",
+                                                          "value": 2
+                                                        }
+                                                      }
+                                                    },
+                                                    "valueB": {
+                                                      "type": "and",
+                                                      "valueA": {
+                                                        "type": "gte",
+                                                        "valueA": {
+                                                          "type": "variable",
+                                                          "value": "22"
+                                                        },
+                                                        "valueB": {
+                                                          "type": "number",
+                                                          "value": 12
+                                                        }
+                                                      },
+                                                      "valueB": {
+                                                        "type": "lte",
+                                                        "valueA": {
+                                                          "type": "variable",
+                                                          "value": "22"
+                                                        },
+                                                        "valueB": {
+                                                          "type": "number",
+                                                          "value": 13
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                },
+                                                "valueB": {
+                                                  "type": "and",
+                                                  "valueA": {
+                                                    "type": "eq",
+                                                    "valueA": {
+                                                      "type": "variable",
+                                                      "value": "23"
+                                                    },
+                                                    "valueB": {
+                                                      "type": "number",
+                                                      "value": 3
+                                                    }
+                                                  },
+                                                  "valueB": {
+                                                    "type": "and",
+                                                    "valueA": {
+                                                      "type": "and",
+                                                      "valueA": {
+                                                        "type": "gte",
+                                                        "valueA": {
+                                                          "type": "variable",
+                                                          "value": "21"
+                                                        },
+                                                        "valueB": {
+                                                          "type": "number",
+                                                          "value": 6
+                                                        }
+                                                      },
+                                                      "valueB": {
+                                                        "type": "lte",
+                                                        "valueA": {
+                                                          "type": "variable",
+                                                          "value": "21"
+                                                        },
+                                                        "valueB": {
+                                                          "type": "number",
+                                                          "value": 6
+                                                        }
+                                                      }
+                                                    },
+                                                    "valueB": {
+                                                      "type": "and",
+                                                      "valueA": {
+                                                        "type": "gte",
+                                                        "valueA": {
+                                                          "type": "variable",
+                                                          "value": "22"
+                                                        },
+                                                        "valueB": {
+                                                          "type": "number",
+                                                          "value": 12
+                                                        }
+                                                      },
+                                                      "valueB": {
+                                                        "type": "lte",
+                                                        "valueA": {
+                                                          "type": "variable",
+                                                          "value": "22"
+                                                        },
+                                                        "valueB": {
+                                                          "type": "number",
+                                                          "value": 13
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            },
+                                            "__collapseElse": false
+                                          },
+                                          "children": {
+                                            "true": [
+                                              {
+                                                "id": "14f91954-f233-5c20-8fa4-0e2383a502c0",
+                                                "command": "EVENT_TEXT",
+                                                "args": {
+                                                  "text": "Bufo licks it.\nTastes like the\noffice.",
+                                                  "avatarId": ""
+                                                }
+                                              }
+                                            ],
+                                            "false": [
+                                              {
+                                                "id": "20110ea5-ab06-501d-affd-e80a649aaeba",
+                                                "command": "EVENT_IF",
+                                                "args": {
+                                                  "condition": {
+                                                    "type": "or",
+                                                    "valueA": {
+                                                      "type": "or",
+                                                      "valueA": {
+                                                        "type": "and",
+                                                        "valueA": {
+                                                          "type": "eq",
+                                                          "valueA": {
+                                                            "type": "variable",
+                                                            "value": "23"
+                                                          },
+                                                          "valueB": {
+                                                            "type": "number",
+                                                            "value": 2
+                                                          }
+                                                        },
+                                                        "valueB": {
+                                                          "type": "and",
+                                                          "valueA": {
+                                                            "type": "and",
+                                                            "valueA": {
+                                                              "type": "gte",
+                                                              "valueA": {
+                                                                "type": "variable",
+                                                                "value": "22"
+                                                              },
+                                                              "valueB": {
+                                                                "type": "number",
+                                                                "value": 14
+                                                              }
+                                                            },
+                                                            "valueB": {
+                                                              "type": "lte",
+                                                              "valueA": {
+                                                                "type": "variable",
+                                                                "value": "22"
+                                                              },
+                                                              "valueB": {
+                                                                "type": "number",
+                                                                "value": 14
+                                                              }
+                                                            }
+                                                          },
+                                                          "valueB": {
+                                                            "type": "and",
+                                                            "valueA": {
+                                                              "type": "gte",
+                                                              "valueA": {
+                                                                "type": "variable",
+                                                                "value": "21"
+                                                              },
+                                                              "valueB": {
+                                                                "type": "number",
+                                                                "value": 13
+                                                              }
+                                                            },
+                                                            "valueB": {
+                                                              "type": "lte",
+                                                              "valueA": {
+                                                                "type": "variable",
+                                                                "value": "21"
+                                                              },
+                                                              "valueB": {
+                                                                "type": "number",
+                                                                "value": 15
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      },
+                                                      "valueB": {
+                                                        "type": "and",
+                                                        "valueA": {
+                                                          "type": "eq",
+                                                          "valueA": {
+                                                            "type": "variable",
+                                                            "value": "23"
+                                                          },
+                                                          "valueB": {
+                                                            "type": "number",
+                                                            "value": 0
+                                                          }
+                                                        },
+                                                        "valueB": {
+                                                          "type": "and",
+                                                          "valueA": {
+                                                            "type": "and",
+                                                            "valueA": {
+                                                              "type": "gte",
+                                                              "valueA": {
+                                                                "type": "variable",
+                                                                "value": "22"
+                                                              },
+                                                              "valueB": {
+                                                                "type": "number",
+                                                                "value": 11
+                                                              }
+                                                            },
+                                                            "valueB": {
+                                                              "type": "lte",
+                                                              "valueA": {
+                                                                "type": "variable",
+                                                                "value": "22"
+                                                              },
+                                                              "valueB": {
+                                                                "type": "number",
+                                                                "value": 11
+                                                              }
+                                                            }
+                                                          },
+                                                          "valueB": {
+                                                            "type": "and",
+                                                            "valueA": {
+                                                              "type": "gte",
+                                                              "valueA": {
+                                                                "type": "variable",
+                                                                "value": "21"
+                                                              },
+                                                              "valueB": {
+                                                                "type": "number",
+                                                                "value": 13
+                                                              }
+                                                            },
+                                                            "valueB": {
+                                                              "type": "lte",
+                                                              "valueA": {
+                                                                "type": "variable",
+                                                                "value": "21"
+                                                              },
+                                                              "valueB": {
+                                                                "type": "number",
+                                                                "value": 15
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    },
+                                                    "valueB": {
+                                                      "type": "or",
+                                                      "valueA": {
+                                                        "type": "and",
+                                                        "valueA": {
+                                                          "type": "eq",
+                                                          "valueA": {
+                                                            "type": "variable",
+                                                            "value": "23"
+                                                          },
+                                                          "valueB": {
+                                                            "type": "number",
+                                                            "value": 1
+                                                          }
+                                                        },
+                                                        "valueB": {
+                                                          "type": "and",
+                                                          "valueA": {
+                                                            "type": "and",
+                                                            "valueA": {
+                                                              "type": "gte",
+                                                              "valueA": {
+                                                                "type": "variable",
+                                                                "value": "21"
+                                                              },
+                                                              "valueB": {
+                                                                "type": "number",
+                                                                "value": 12
+                                                              }
+                                                            },
+                                                            "valueB": {
+                                                              "type": "lte",
+                                                              "valueA": {
+                                                                "type": "variable",
+                                                                "value": "21"
+                                                              },
+                                                              "valueB": {
+                                                                "type": "number",
+                                                                "value": 12
+                                                              }
+                                                            }
+                                                          },
+                                                          "valueB": {
+                                                            "type": "and",
+                                                            "valueA": {
+                                                              "type": "gte",
+                                                              "valueA": {
+                                                                "type": "variable",
+                                                                "value": "22"
+                                                              },
+                                                              "valueB": {
+                                                                "type": "number",
+                                                                "value": 12
+                                                              }
+                                                            },
+                                                            "valueB": {
+                                                              "type": "lte",
+                                                              "valueA": {
+                                                                "type": "variable",
+                                                                "value": "22"
+                                                              },
+                                                              "valueB": {
+                                                                "type": "number",
+                                                                "value": 13
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      },
+                                                      "valueB": {
+                                                        "type": "and",
+                                                        "valueA": {
+                                                          "type": "eq",
+                                                          "valueA": {
+                                                            "type": "variable",
+                                                            "value": "23"
+                                                          },
+                                                          "valueB": {
+                                                            "type": "number",
+                                                            "value": 3
+                                                          }
+                                                        },
+                                                        "valueB": {
+                                                          "type": "and",
+                                                          "valueA": {
+                                                            "type": "and",
+                                                            "valueA": {
+                                                              "type": "gte",
+                                                              "valueA": {
+                                                                "type": "variable",
+                                                                "value": "21"
+                                                              },
+                                                              "valueB": {
+                                                                "type": "number",
+                                                                "value": 16
+                                                              }
+                                                            },
+                                                            "valueB": {
+                                                              "type": "lte",
+                                                              "valueA": {
+                                                                "type": "variable",
+                                                                "value": "21"
+                                                              },
+                                                              "valueB": {
+                                                                "type": "number",
+                                                                "value": 16
+                                                              }
+                                                            }
+                                                          },
+                                                          "valueB": {
+                                                            "type": "and",
+                                                            "valueA": {
+                                                              "type": "gte",
+                                                              "valueA": {
+                                                                "type": "variable",
+                                                                "value": "22"
+                                                              },
+                                                              "valueB": {
+                                                                "type": "number",
+                                                                "value": 12
+                                                              }
+                                                            },
+                                                            "valueB": {
+                                                              "type": "lte",
+                                                              "valueA": {
+                                                                "type": "variable",
+                                                                "value": "22"
+                                                              },
+                                                              "valueB": {
+                                                                "type": "number",
+                                                                "value": 13
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  },
+                                                  "__collapseElse": true
+                                                },
+                                                "children": {
+                                                  "true": [
+                                                    {
+                                                      "id": "55061462-8bdb-5d93-b8ac-9e64775ef660",
+                                                      "command": "EVENT_TEXT",
+                                                      "args": {
+                                                        "text": "Bufo licks it.\nTastes like the\noffice.",
+                                                        "avatarId": ""
+                                                      }
+                                                    }
+                                                  ],
+                                                  "false": []
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "602baf27-ae5c-578e-8501-e2e10619b885",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "25"
+        },
+        "__collapseElse": false
+      },
+      "children": {
+        "true": [],
+        "false": [
+          {
+            "id": "1a2f2f58-73d2-5143-938e-af885e34095d",
+            "command": "EVENT_ACTOR_MOVE_TO",
+            "args": {
+              "actorId": "player",
+              "x": {
+                "type": "number",
+                "value": 8
+              },
+              "y": {
+                "type": "number",
+                "value": 8
+              },
+              "moveType": "vertical",
+              "collideWith": [],
+              "lockDirection": []
+            }
+          },
+          {
+            "id": "4e283397-908b-5af1-8b70-381e84209ba5",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "BROCK: Bufo! My\nfavorite...\nemployee.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "a3f27edb-15b9-5b79-a047-1149c304b855",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "BROCK: Sit.\nActually, don't.\nWe're agile.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "4438129e-1fc7-5b72-8169-3a10592744a4",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "BROCK: Pondcorp\nhas a problem.\nA big one.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "fc64546f-2869-56fd-83b3-226977d6846d",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "BROCK: Printers\njam. Emails\nvanish.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "0b3dadae-d6dd-5f47-a926-b47d8d40e130",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "BROCK: The coffee.\nI can't talk about\nthe coffee.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "df4aa173-19c9-5bc3-8dfb-f9db3f5f5894",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "BUFO: ...",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "ee4962d5-6a94-52b5-9e20-48b67b10069b",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "BROCK: It's KEVIN.\nOur AI. He's gone\nrogue.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "80ee817a-7696-5a14-a054-266b6e98f814",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "BROCK: I sent a\nmeeting invite to\ndeal with it.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "d02f2180-f390-5071-8775-ee3d59004322",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "BROCK: Everyone\ndeclined. Except\nyou.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "91ab0175-1267-5174-9454-9eb941f4ccfc",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "BUFO: ...!",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "5543736b-eb3a-5f1c-af17-e0ca92f7bba6",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "BROCK: That's\nleadership, Bufo.\nThat's ownership.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "2bb9d543-15b8-5833-a847-96b3d3201964",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "BROCK: Find KEVIN.\nUnplug him.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "31e2dd23-4a18-5080-b5cb-6fc41409e0e3",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "BUFO: ...?",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "ac48bc37-b0e8-5310-bd2c-b9be863138ad",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "BROCK: Pay? You'll\nbe paid in\nexperience.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "b341131b-8fe7-56e3-b36c-4c540a009b2c",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "BROCK: And\nexposure. To other\ndepartments.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "bf3be535-f533-56ce-9d48-dd97d889917b",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "BROCK: Start in\nthe basement. IT\nwill help you.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "ac4a1df0-5549-545b-b0df-8d64166064ab",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "BROCK: IT has\nnever\nhelped anyone. But",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "58cc7fd2-97ed-5e67-b28c-393a08115a7c",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "still.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "b9c88334-8175-51df-80f1-5951d3b0cfad",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "BROCK: Oh, and\nBufo? Don't read\nany documents.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "23553fb7-3628-54bd-a218-db20c0909cdd",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "BROCK: For your\nown... wellness.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "094b7959-29e3-5a74-bc14-b102f0786a5d",
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "25",
+              "value": {
+                "type": "true"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "playerHit1Script": [],
+  "playerHit2Script": [],
+  "playerHit3Script": [],
+  "collisions": "0f2a+0010+0f4+0010+0f4+004+0f8+004+0f4+004+0f8+004+0f4+004+0f8+004+0f4+004+0f8+004+0f4+0010+0f4+0010+0f4+0010+0f4+0010+0f8+008+0f2+002+0f8+008+0f2+002+0f8+00c+0f8+00c+0fa+004+0f10+004+0f8+"
+}

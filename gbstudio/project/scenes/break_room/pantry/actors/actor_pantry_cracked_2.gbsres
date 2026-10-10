@@ -1,0 +1,78 @@
+{
+  "_resourceType": "actor",
+  "id": "da56ff3b-0a50-5c6c-ab02-81e3228a7c2e",
+  "_index": 5,
+  "symbol": "actor_pantry_cracked_2",
+  "prefabId": "",
+  "name": "Cracked wall",
+  "coordinateType": "tiles",
+  "x": 8,
+  "y": 17,
+  "frame": 0,
+  "animate": false,
+  "spriteSheetId": "aedba104-1364-55ba-93b7-4d585c4eeaf3",
+  "paletteId": "",
+  "direction": "down",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "",
+  "collisionExtraFlags": [],
+  "prefabScriptOverrides": {},
+  "script": [
+    {
+      "id": "f3ad9268-a78a-5c24-a097-ad9a4158190c",
+      "command": "EVENT_TEXT",
+      "args": {
+        "text": "A cracked wall.\nIt looks flimsy.",
+        "avatarId": ""
+      }
+    },
+    {
+      "id": "2295de90-7d81-5615-93e2-52fd5fa18f01",
+      "command": "EVENT_TEXT",
+      "args": {
+        "text": "(With enough\nspeed,\nBufo could break",
+        "avatarId": ""
+      }
+    },
+    {
+      "id": "e78cd2ae-48ad-5ba9-9dd2-4368e61b9ae5",
+      "command": "EVENT_TEXT",
+      "args": {
+        "text": "it.)",
+        "avatarId": ""
+      }
+    }
+  ],
+  "startScript": [
+    {
+      "id": "e52493e9-c8a5-5cf8-a02b-6de9fb11f201",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "36"
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "6958de39-cfd0-5ffa-91d2-bf83772643f9",
+            "command": "EVENT_ACTOR_DEACTIVATE",
+            "args": {
+              "actorId": "da56ff3b-0a50-5c6c-ab02-81e3228a7c2e"
+            }
+          }
+        ],
+        "false": []
+      }
+    }
+  ],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [],
+  "hit3Script": []
+}

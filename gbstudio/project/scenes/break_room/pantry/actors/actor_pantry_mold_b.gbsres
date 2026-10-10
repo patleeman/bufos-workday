@@ -1,0 +1,165 @@
+{
+  "_resourceType": "actor",
+  "id": "c1090839-0298-5064-bb75-80cdc352908d",
+  "_index": 9,
+  "symbol": "actor_pantry_mold_b",
+  "prefabId": "",
+  "name": "Moldy Tupperware",
+  "coordinateType": "tiles",
+  "x": 14,
+  "y": 11,
+  "frame": 0,
+  "animate": true,
+  "spriteSheetId": "8c1fc9c2-b5fb-5fb0-9b60-36be6038f0fc",
+  "paletteId": "",
+  "direction": "down",
+  "moveSpeed": 0.5,
+  "animSpeed": 31,
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "1",
+  "collisionExtraFlags": [],
+  "prefabScriptOverrides": {},
+  "script": [],
+  "startScript": [
+    {
+      "id": "ff81537a-5fe9-5561-a7a4-10dad8b3c20c",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "49"
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "0f112de0-4169-5713-8321-c16d884ecdda",
+            "command": "EVENT_ACTOR_DEACTIVATE",
+            "args": {
+              "actorId": "c1090839-0298-5064-bb75-80cdc352908d"
+            }
+          }
+        ],
+        "false": []
+      }
+    }
+  ],
+  "updateScript": [
+    {
+      "id": "863bf960-ca80-590e-bd4d-f6d736754266",
+      "command": "EVENT_ACTOR_MOVE_RELATIVE",
+      "args": {
+        "actorId": "c1090839-0298-5064-bb75-80cdc352908d",
+        "x": {
+          "type": "number",
+          "value": 2
+        },
+        "y": {
+          "type": "number",
+          "value": 0
+        },
+        "moveType": "horizontal",
+        "collideWith": [
+          "walls",
+          "actors"
+        ],
+        "lockDirection": []
+      }
+    },
+    {
+      "id": "ad68df74-b249-5bd2-b5a3-4b7722f2b68f",
+      "command": "EVENT_WAIT",
+      "args": {
+        "time": {
+          "type": "number",
+          "value": 1.0
+        },
+        "frames": {
+          "type": "number",
+          "value": 60
+        },
+        "units": "time"
+      }
+    },
+    {
+      "id": "85123aa8-b06f-52f1-87a7-b5f5e49cee0b",
+      "command": "EVENT_ACTOR_MOVE_RELATIVE",
+      "args": {
+        "actorId": "c1090839-0298-5064-bb75-80cdc352908d",
+        "x": {
+          "type": "number",
+          "value": -2
+        },
+        "y": {
+          "type": "number",
+          "value": 0
+        },
+        "moveType": "horizontal",
+        "collideWith": [
+          "walls",
+          "actors"
+        ],
+        "lockDirection": []
+      }
+    },
+    {
+      "id": "560fd319-d554-5655-bee6-7d63498b6069",
+      "command": "EVENT_WAIT",
+      "args": {
+        "time": {
+          "type": "number",
+          "value": 1.0
+        },
+        "frames": {
+          "type": "number",
+          "value": 60
+        },
+        "units": "time"
+      }
+    }
+  ],
+  "hit1Script": [],
+  "hit2Script": [
+    {
+      "id": "d2c74d11-fe1c-543b-ab1d-30dab4ca4c43",
+      "command": "EVENT_SOUND_PLAY_EFFECT",
+      "args": {
+        "type": "crash",
+        "priority": "medium",
+        "pitch": 5,
+        "frequency": 200,
+        "duration": 0.2,
+        "wait": false,
+        "effect": 0
+      }
+    },
+    {
+      "id": "48e269f2-dfdd-52c0-a941-d14bddbeb6f1",
+      "command": "EVENT_SET_VALUE",
+      "args": {
+        "variable": "49",
+        "value": {
+          "type": "true"
+        }
+      }
+    },
+    {
+      "id": "ab95fa33-8c2c-5639-b275-6c1780feef5b",
+      "command": "EVENT_ACTOR_DEACTIVATE",
+      "args": {
+        "actorId": "c1090839-0298-5064-bb75-80cdc352908d"
+      }
+    },
+    {
+      "id": "0aaf5692-67d2-53a3-b1f1-f3e41979ced4",
+      "command": "EVENT_TEXT",
+      "args": {
+        "text": "The Tupperware\nburps and\nretreats.",
+        "avatarId": ""
+      }
+    }
+  ],
+  "hit3Script": []
+}
