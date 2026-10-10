@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bufo's Workday</title>
+  <meta name="description" content="A Game Boy Color adventure about a concerned frog, a rogue AI, and the real villain: middle management. Play it in your browser.">
+  <meta property="og:title" content="Bufo's Workday">
+  <meta property="og:description" content="A Game Boy Color adventure about a concerned frog. Play it in your browser.">
+  <meta property="og:image" content="img/office.png">
+  <link rel="icon" href="img/bufo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="memo">
+    <p class="memo-meta">
+      <span>TO: All staff</span>
+      <span>FROM: Brock Ribbitson, CEO</span>
+      <span>RE: KEVIN</span>
+    </p>
+    <h1>Bufo's Workday</h1>
+    <p class="pitch">
+      Pondcorp's AI has gone rogue. One concerned frog has until 5:00&nbsp;PM to unplug it.
+      A Game Boy Color adventure in six floors, playable right here.
+    </p>
+  </header>
+
+  <main>
+    <section class="play" aria-label="Play the game">
+      <div class="screen">
+        <iframe id="game" title="Bufo's Workday, playable" allow="autoplay; gamepad"></iframe>
+        <button class="start" id="start" type="button">Click to play</button>
+        <a class="touch-play" href="play/index.html"><img src="img/title.png" alt="Bufo's Workday title screen"></a>
+      </div>
+      <a class="fullscreen" href="play/index.html">Play full screen</a>
+
+      <div class="controls">
+        <h2>Controls</h2>
+        <table>
+          <tbody>
+            <tr><th scope="row">Walk</th><td><kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd> or <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></td></tr>
+            <tr><th scope="row">Talk, look, open</th><td><kbd>Z</kbd> or <kbd>J</kbd> (A)</td></tr>
+            <tr><th scope="row">Lick</th><td><kbd>X</kbd> or <kbd>K</kbd> (B)</td></tr>
+            <tr><th scope="row">Dash</th><td><kbd>Shift</kbd> (Select), once you find the mug</td></tr>
+            <tr><th scope="row">Menu, skip intro</th><td><kbd>Enter</kbd> (Start)</td></tr>
+          </tbody>
+        </table>
+        <p class="tip">
+          The coffee cups in the corner are Bufo's health. Water coolers refill them.
+          Red <span class="warn" aria-hidden="true">!</span> markers on the floor show where a boss will strike next.
+        </p>
+        <p class="tip">On a phone, use <a href="play/index.html">full screen</a> for touch buttons.</p>
+      </div>
+    </section>
+
+    <section class="floors">
+      <h2>Today's agenda</h2>
+      <ol>
+        <li>
+          <img src="img/office.png" alt="The CEO, Brock, behind a golden lily-pad desk" width="240" height="216" loading="lazy">
+          <p><b>9:00 AM, the CEO's office.</b> Brock hands Bufo the job, because Bufo was the only one who didn't decline the meeting.</p>
+        </li>
+        <li>
+          <img src="img/basement.png" alt="Bufo facing a giant angry printer on a red carpet" width="240" height="216" loading="lazy">
+          <p><b>B1, the IT Basement.</b> Roombas, cable pits, and a printer that only says PC LOAD LETTER.</p>
+        </li>
+        <li>
+          <img src="img/espresso.png" alt="An espresso machine with a pressure-gauge face behind a bar" width="240" height="216" loading="lazy">
+          <p><b>Floor 2, the Break Room.</b> Someone switched the coffee to decaf. The espresso machine is furious about it.</p>
+        </li>
+        <li>
+          <img src="img/standup.png" alt="Four frogs standing in a ring in a corridor" width="240" height="216" loading="lazy">
+          <p><b>Floors 3 and 4, Open Plan and HR.</b> A standup meeting that never ends, the Reply-All Storm, and a folder called Project Lilypad.</p>
+        </li>
+        <li>
+          <img src="img/kevin.png" alt="A friendly computer terminal saying Hello Bufo" width="240" height="216" loading="lazy">
+          <p><b>Floor 5, the Server Room.</b> Bufo finally meets KEVIN. Sorry about the caps. His font is broken.</p>
+        </li>
+        <li>
+          <img src="img/board.png" alt="Executives at a long boardroom table under a SYNERGY banner" width="240" height="216" loading="lazy">
+          <p><b>Floor 6, the Board.</b> Five executives. One very long table. 4:30 PM.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="download">
+      <h2>Play it on real hardware</h2>
+      <p>
+        Bufo's Workday runs on a Game Boy Color, the ModRetro Chromatic, or any Game Boy Color emulator.
+        Put the ROM on a flash cart and take Bufo to work.
+      </p>
+      <a class="button" href="bufos_workday.gbc" download>Download the ROM</a>
+    </section>
+  </main>
+
+  <footer>
+    <img src="img/credits.png" alt="" width="160" height="144">
+    <p>Made with GB Studio for the ModRetro Chromatic. Bufo is the concerned frog from your team’s emoji list. No coffee was harmed.</p>
+  </footer>
+
+  <script>
+    // Browsers only send keys to the game once its frame has focus.
+    const game = document.getElementById("game");
+    const start = document.getElementById("start");
+    // Phones and tablets play full screen (it has touch buttons); only load the embedded game elsewhere.
+    if (window.matchMedia("(pointer: fine)").matches) game.src = "play/index.html";
+    start.addEventListener("click", () => {
+      start.hidden = true;
+      game.focus();
+      game.contentWindow.focus();
+    });
+    game.addEventListener("load", () => {
+      game.contentWindow.addEventListener("focus", () => { start.hidden = true; });
+    });
+  </script>
+</body>
+</html>

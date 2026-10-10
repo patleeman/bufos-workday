@@ -20,6 +20,7 @@ About 200 things to look at (A) and lick (B), and 11 original songs.
 ## Play it
 
 - **In GB Studio:** open `gbstudio/project.gbsproj` and press Play.
+- **In a browser:** run `tools/make_site.sh`, then `python3 -m http.server -d site` and open http://localhost:8000.
 - **As a ROM:** `build/bufos_workday.gb` runs in any Game Boy Color emulator
   (SameBoy, Emulicious), or on the Chromatic from a flash cart.
 - **Skipping ahead:** press Start during the opening to skip it. On the title card,
@@ -50,9 +51,10 @@ Help Desk and the leaky pipe by the boss door refill them.
 | `make_break_room.py` | Draws the 8 Break Room rooms and the Lobby, and checks doors and routes. |
 | `make_open_office.py`, `make_hr.py` | Draw Floors 3 and 4. |
 | `make_server_room.py`, `make_exec_floor.py` | Draw Floors 5 and 6, the ending and the credits. |
-| `make_music.py` | Writes the 4 songs as hUGETracker files (`--previews` renders WAVs to `previews/music/`). |
+| `make_music.py` | Writes the 11 songs as hUGETracker files (`--previews` renders WAVs to `previews/music/`). |
 | `make_gbstudio_project.py` | Builds `gbstudio/` from the art, layouts, dialogue and game logic. |
 | `build.sh` | Runs the generator, then compiles `build/bufos_workday.gb`. |
+| `make_site.sh` | Builds the website into `site/`: the page in `site-src/`, the in-browser player, and the ROM download. |
 | `setup_cli.sh` | Builds GB Studio's command-line compiler (needed once for `build.sh`). |
 | `playtest.py` | Plays the ROM in PyBoy from a script of button presses and saves screenshots. |
 | `test_playthrough.sh` | Plays Levels 1-3 start to finish, then runs every focused test, and fails if any key step breaks. |

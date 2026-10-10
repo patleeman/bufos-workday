@@ -1,0 +1,93 @@
+/* Bufo's Workday: an office memo pinned up at Pondcorp. Paper, ink, and Bufo green. */
+:root {
+  --paper: #f3eee1;
+  --paper-edge: #e2dac6;
+  --ink: #1c2a1c;
+  --ink-soft: #4a5548;
+  --green: #3f6f2c;      /* Bufo's mid green, darkened for text contrast */
+  --green-light: #dfe8a8;
+  --red: #b3262f;        /* the boss warning markers */
+  --screen-bg: #0f131a;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 17px/1.55 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+header, main, footer { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+.memo { padding-top: 40px; padding-bottom: 24px; border-bottom: 2px solid var(--ink); }
+.memo-meta { display: flex; flex-wrap: wrap; gap: 4px 24px; margin: 0 0 16px; color: var(--ink-soft); font-size: 14px; }
+h1 { font-size: 44px; line-height: 1.1; margin: 0 0 12px; }
+.pitch { max-width: 60ch; margin: 0; }
+
+h2 { font-size: 22px; margin: 0 0 12px; }
+
+/* The game, framed like a handheld screen. */
+.play { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 32px; padding: 32px 0; align-items: start; }
+.screen { position: relative; width: 480px; max-width: 100%; aspect-ratio: 10 / 9;
+          background: var(--screen-bg); border: 12px solid var(--ink); border-radius: 8px; }
+.screen iframe { display: block; width: 100%; height: 100%; border: 0; }
+.start { position: absolute; inset: 0; width: 100%; border: 0; cursor: pointer;
+         background: rgba(15, 19, 26, 0.55); color: #fff; font: inherit; font-size: 20px; }
+.start:hover, .start:focus-visible { background: rgba(15, 19, 26, 0.35); }
+.fullscreen, .touch-play { display: none; }
+.touch-play img { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
+
+.controls table { border-collapse: collapse; width: 100%; }
+.controls th, .controls td { text-align: left; padding: 8px 0; border-bottom: 1px solid var(--paper-edge); vertical-align: top; }
+.controls th { font-weight: 600; padding-right: 16px; white-space: nowrap; }
+kbd { display: inline-block; min-width: 1.6em; padding: 0 5px; margin: 0 2px 2px 0; text-align: center;
+      border: 1px solid var(--ink-soft); border-bottom-width: 2px; border-radius: 4px; background: #fff; font: inherit; font-size: 14px; }
+.tip { color: var(--ink-soft); font-size: 15px; margin: 12px 0 0; }
+.warn { display: inline-block; width: 1.3em; height: 1.3em; line-height: 1.2em; text-align: center; border-radius: 50%;
+        border: 2px solid var(--red); color: var(--red); font-weight: 700; }
+
+a { color: var(--green); }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--green); outline-offset: 3px; }
+
+/* The day, floor by floor. */
+.floors { padding: 32px 0; border-top: 2px solid var(--ink); }
+.floors ol { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px 24px; }
+.floors img { display: block; width: 100%; height: auto; image-rendering: pixelated; border: 3px solid var(--ink); border-radius: 4px; }
+.floors p { margin: 10px 0 0; font-size: 15px; }
+
+.download { padding: 32px 0 40px; border-top: 2px solid var(--ink); }
+.download p { max-width: 62ch; margin: 0 0 20px; }
+.button { display: inline-block; padding: 12px 20px; background: var(--green); color: #fff; text-decoration: none;
+          border-radius: 6px; font-weight: 600; }
+.button:hover { background: var(--ink); }
+
+footer { display: flex; align-items: center; gap: 20px; padding-top: 24px; padding-bottom: 40px;
+         border-top: 2px solid var(--ink); color: var(--ink-soft); font-size: 14px; }
+footer img { image-rendering: pixelated; border-radius: 4px; flex: none; }
+footer p { margin: 0; }
+
+@media (max-width: 860px) {
+  .play { grid-template-columns: minmax(0, 1fr); }
+  .screen { margin: 0 auto; width: 100%; max-width: 480px; }
+  .floors ol { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (pointer: coarse) {
+  .screen iframe, .start { display: none; }
+  .touch-play { display: block; height: 100%; }
+}
+
+@media (max-width: 560px), (pointer: coarse) {
+  /* Phones get the full-screen player, which has touch buttons. */
+  .fullscreen { display: block; margin: 16px auto 0; padding: 12px 20px; width: fit-content;
+                background: var(--green); color: #fff; text-decoration: none; border-radius: 6px; font-weight: 600; }
+}
+
+@media (max-width: 560px) {
+  h1 { font-size: 34px; }
+  .screen { border-width: 8px; }
+  .floors ol { grid-template-columns: 1fr; }
+  footer { flex-direction: column; align-items: flex-start; }
+}
