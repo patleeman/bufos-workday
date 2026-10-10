@@ -1,0 +1,120 @@
+{
+  "_resourceType": "trigger",
+  "id": "a5bb8d32-65f1-5186-9cc6-6d8af1c51e23",
+  "_index": 0,
+  "symbol": "trigger_complaints_door_south",
+  "prefabId": "",
+  "name": "door_south",
+  "x": 8,
+  "y": 16,
+  "width": 4,
+  "height": 2,
+  "prefabScriptOverrides": {},
+  "script": [
+    {
+      "id": "59221cdb-4544-5b48-aae6-1ea63181f07d",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "70"
+        },
+        "__collapseElse": false
+      },
+      "children": {
+        "true": [
+          {
+            "id": "2c21ff68-3eb7-5dc8-a845-7774f66bdaec",
+            "command": "EVENT_IF",
+            "args": {
+              "condition": {
+                "type": "variable",
+                "value": "91"
+              },
+              "__collapseElse": false
+            },
+            "children": {
+              "true": [],
+              "false": [
+                {
+                  "id": "1711817b-49fd-577e-a95a-1c836f066031",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "Bufo swipes the\nkeycard. *beep*",
+                    "avatarId": ""
+                  }
+                },
+                {
+                  "id": "45301b44-97c7-588a-8600-b4316bbd7cb5",
+                  "command": "EVENT_SET_VALUE",
+                  "args": {
+                    "variable": "91",
+                    "value": {
+                      "type": "true"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "2a556d1d-af19-521b-a13a-836a4f9996d6",
+            "command": "EVENT_SWITCH_SCENE",
+            "args": {
+              "sceneId": "e22e5eb5-78e7-5950-91c1-88c8acdd3a42",
+              "x": {
+                "type": "number",
+                "value": 9
+              },
+              "y": {
+                "type": "number",
+                "value": 3
+              },
+              "direction": "down",
+              "fadeSpeed": "2"
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "c6eb07b8-0907-5298-9915-5752977206f6",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "A card reader.\nIt blinks red.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "ebd61bf2-abfb-544c-8fae-9a0b8b4dbbf7",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "(Bufo needs a\nkeycard.)",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "f0d5482e-d0a5-5514-ab53-0952f787f5ae",
+            "command": "EVENT_ACTOR_MOVE_TO",
+            "args": {
+              "actorId": "player",
+              "x": {
+                "type": "number",
+                "value": 9
+              },
+              "y": {
+                "type": "number",
+                "value": 13
+              },
+              "moveType": "vertical",
+              "collideWith": [
+                "walls"
+              ],
+              "lockDirection": []
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "leaveScript": []
+}

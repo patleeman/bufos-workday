@@ -1,0 +1,167 @@
+{
+  "_resourceType": "scene",
+  "id": "2e716613-01e9-5809-9395-ff3f2fc21a33",
+  "_index": 46,
+  "type": "TOPDOWN",
+  "name": "story/Ending",
+  "symbol": "scene_ending_cubicle",
+  "x": 640,
+  "y": 40,
+  "width": 20,
+  "height": 18,
+  "backgroundId": "fb9fa9f5-c5dc-5a1f-8665-ff583884077e",
+  "tilesetId": "",
+  "colorModeOverride": "none",
+  "paletteIds": [],
+  "spritePaletteIds": [
+    "8df04d6d-fece-5313-8ebf-fb0c9af299f7",
+    "9085fee5-67ff-5d36-8b60-d8bd38805630",
+    "fc2bf258-3125-5471-814a-9c9a8149a7d7",
+    "35b6845e-5939-5549-80bd-9d8164d139bc",
+    "f21eaad5-aa78-57ce-a15a-ba9f3e3fb3d8",
+    "a9ec642b-c713-561d-8f93-1b6a679cec9b",
+    "83b85c17-a0f5-52fc-807d-41331032483b",
+    "616c98cd-3f54-5331-96fe-6063f1df99b1"
+  ],
+  "autoFadeSpeed": 1,
+  "script": [
+    {
+      "id": "1d6e801a-4e05-5dc8-9bcc-8314ec0397b2",
+      "command": "EVENT_MUSIC_PLAY",
+      "args": {
+        "musicId": "a871821e-8e68-526f-a1e3-d8cde81c1679",
+        "loop": true
+      }
+    },
+    {
+      "id": "e5d8357b-2730-56a6-b7af-fe032d8b52bd",
+      "command": "EVENT_WAIT",
+      "args": {
+        "time": {
+          "type": "number",
+          "value": 1.0
+        },
+        "frames": {
+          "type": "number",
+          "value": 60
+        },
+        "units": "time"
+      }
+    },
+    {
+      "id": "dbd0ac1c-2eac-5de7-a40f-4e59e657b26a",
+      "command": "EVENT_TEXT",
+      "args": {
+        "text": "Bufo's cubicle.",
+        "avatarId": ""
+      }
+    },
+    {
+      "id": "765e74a0-a8ef-561c-a5a0-fef6fc8bfb38",
+      "command": "EVENT_TEXT",
+      "args": {
+        "text": "The clock says\n4:59 PM.",
+        "avatarId": ""
+      }
+    },
+    {
+      "id": "630182b4-05ce-5b75-8156-4c6aed88230d",
+      "command": "EVENT_TEXT",
+      "args": {
+        "text": "Bufo watches the\nclock.",
+        "avatarId": ""
+      }
+    },
+    {
+      "id": "e6e1bb6a-3134-559b-b0a4-a919e1716193",
+      "command": "EVENT_WAIT",
+      "args": {
+        "time": {
+          "type": "number",
+          "value": 1.5
+        },
+        "frames": {
+          "type": "number",
+          "value": 90
+        },
+        "units": "time"
+      }
+    },
+    {
+      "id": "7c5cb2f2-686f-50ba-aba5-783ed09949e3",
+      "command": "EVENT_SOUND_PLAY_EFFECT",
+      "args": {
+        "type": "beep",
+        "priority": "medium",
+        "pitch": 7,
+        "frequency": 200,
+        "duration": 0.3,
+        "wait": false,
+        "effect": 0
+      }
+    },
+    {
+      "id": "f3ea10fe-d140-5b7e-a1cc-065e62f9b46c",
+      "command": "EVENT_TEXT",
+      "args": {
+        "text": "5:00 PM.",
+        "avatarId": ""
+      }
+    },
+    {
+      "id": "14fa7b6c-b95b-5533-910c-c6d444393578",
+      "command": "EVENT_TEXT",
+      "args": {
+        "text": "Bufo: ...",
+        "avatarId": ""
+      }
+    },
+    {
+      "id": "98124a5c-b27f-53dd-abe5-bfe49dc69174",
+      "command": "EVENT_TEXT",
+      "args": {
+        "text": "Bufo clocks out.",
+        "avatarId": ""
+      }
+    },
+    {
+      "id": "8fb79cb0-9bcc-55bd-81c7-3da6ce21e4b4",
+      "command": "EVENT_ACTOR_MOVE_TO",
+      "args": {
+        "actorId": "player",
+        "x": {
+          "type": "number",
+          "value": 8
+        },
+        "y": {
+          "type": "number",
+          "value": 15
+        },
+        "moveType": "vertical",
+        "collideWith": [],
+        "lockDirection": []
+      }
+    },
+    {
+      "id": "b37ef8a6-ce90-5069-822b-d37a87e53fd4",
+      "command": "EVENT_SWITCH_SCENE",
+      "args": {
+        "sceneId": "4f4aaff1-ceac-5530-8380-89dfe74101cd",
+        "x": {
+          "type": "number",
+          "value": 0
+        },
+        "y": {
+          "type": "number",
+          "value": 0
+        },
+        "direction": "down",
+        "fadeSpeed": "2"
+      }
+    }
+  ],
+  "playerHit1Script": [],
+  "playerHit2Script": [],
+  "playerHit3Script": [],
+  "collisions": "0f34+002+0f12+002+0f8+002+0f2+008+0f2+002+0f4+002+0f2+008+0f2+002+0f4+002+0f2+006+0f4+002+0f4+002+0f2+006+0f4+002+0f4+002+0f4+004+0f4+002+0f4+002+0f4+004+0f4+002+0f4+0010+0f4+0010+0fa+004+0f10+004+0fe+008+0fc+008+0fe+004+0f10+004+0f8+"
+}

@@ -1,0 +1,60 @@
+{
+  "_resourceType": "actor",
+  "id": "4cedaeac-9f73-5c6e-8548-697dce00dfcd",
+  "_index": 10,
+  "symbol": "actor_compliance_room_door_jam_0",
+  "prefabId": "",
+  "name": "Red tape",
+  "coordinateType": "tiles",
+  "x": 8,
+  "y": 17,
+  "frame": 0,
+  "animate": false,
+  "spriteSheetId": "b29b0447-aeca-5755-8e60-0cb5411a474d",
+  "paletteId": "",
+  "direction": "down",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "",
+  "collisionExtraFlags": [],
+  "prefabScriptOverrides": {},
+  "script": [],
+  "startScript": [
+    {
+      "id": "1d7527d2-e1c7-521a-b50f-b5bca15c3616",
+      "command": "EVENT_ACTOR_COLLISIONS_DISABLE",
+      "args": {
+        "actorId": "4cedaeac-9f73-5c6e-8548-697dce00dfcd"
+      }
+    },
+    {
+      "id": "e8cd1c19-3eef-5ad3-9479-db556325d54e",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "74"
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "ceec4c91-0d8d-537d-ac2c-3d057e6bf753",
+            "command": "EVENT_ACTOR_DEACTIVATE",
+            "args": {
+              "actorId": "4cedaeac-9f73-5c6e-8548-697dce00dfcd"
+            }
+          }
+        ],
+        "false": []
+      }
+    }
+  ],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [],
+  "hit3Script": []
+}

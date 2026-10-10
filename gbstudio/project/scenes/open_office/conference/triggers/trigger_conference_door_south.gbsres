@@ -1,0 +1,86 @@
+{
+  "_resourceType": "trigger",
+  "id": "fca47f4c-cecb-541f-b529-bec78a723b18",
+  "_index": 0,
+  "symbol": "trigger_conference_door_south",
+  "prefabId": "",
+  "name": "door_south",
+  "x": 8,
+  "y": 16,
+  "width": 4,
+  "height": 2,
+  "prefabScriptOverrides": {},
+  "script": [
+    {
+      "id": "e075cf3d-8f7b-5170-b2d3-a3e757c808bc",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "67"
+        },
+        "__collapseElse": false
+      },
+      "children": {
+        "true": [
+          {
+            "id": "796929d9-815d-5fa3-86db-1512a1352224",
+            "command": "EVENT_SWITCH_SCENE",
+            "args": {
+              "sceneId": "75691a77-fa7c-599e-a0be-bd30fc53265e",
+              "x": {
+                "type": "number",
+                "value": 9
+              },
+              "y": {
+                "type": "number",
+                "value": 3
+              },
+              "direction": "down",
+              "fadeSpeed": "2"
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "914d3568-510d-5d9d-92a8-142e2107ca3b",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "Emails pile up\nagainst the door.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "bf307a0b-2367-5e8b-b4c4-c44d4445d97f",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "There's no way out\nbut through.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "33bc882f-c6d4-56e3-bae7-92e5a39e284e",
+            "command": "EVENT_ACTOR_MOVE_TO",
+            "args": {
+              "actorId": "player",
+              "x": {
+                "type": "number",
+                "value": 9
+              },
+              "y": {
+                "type": "number",
+                "value": 13
+              },
+              "moveType": "vertical",
+              "collideWith": [
+                "walls"
+              ],
+              "lockDirection": []
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "leaveScript": []
+}

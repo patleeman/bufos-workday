@@ -1,0 +1,70 @@
+{
+  "_resourceType": "actor",
+  "id": "c3191d20-8e92-5a06-991c-1e0aadcb759d",
+  "_index": 6,
+  "symbol": "actor_cable_vault_cracked_5",
+  "prefabId": "",
+  "name": "Cracked panel",
+  "coordinateType": "tiles",
+  "x": 0,
+  "y": 9,
+  "frame": 0,
+  "animate": false,
+  "spriteSheetId": "aedba104-1364-55ba-93b7-4d585c4eeaf3",
+  "paletteId": "",
+  "direction": "down",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "",
+  "collisionExtraFlags": [],
+  "prefabScriptOverrides": {},
+  "script": [
+    {
+      "id": "9e51b04e-a934-5381-8f43-955a7e6de0bb",
+      "command": "EVENT_TEXT",
+      "args": {
+        "text": "A cracked panel.\nIt looks flimsy.",
+        "avatarId": ""
+      }
+    },
+    {
+      "id": "afff6f44-427c-50d9-9045-357805638155",
+      "command": "EVENT_TEXT",
+      "args": {
+        "text": "(Dash into it!)",
+        "avatarId": ""
+      }
+    }
+  ],
+  "startScript": [
+    {
+      "id": "0d3a46dd-cfee-5013-b9ca-555e6ef5db8e",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "79"
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "0b52fff2-392d-5684-80fa-c22103477209",
+            "command": "EVENT_ACTOR_DEACTIVATE",
+            "args": {
+              "actorId": "c3191d20-8e92-5a06-991c-1e0aadcb759d"
+            }
+          }
+        ],
+        "false": []
+      }
+    }
+  ],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [],
+  "hit3Script": []
+}

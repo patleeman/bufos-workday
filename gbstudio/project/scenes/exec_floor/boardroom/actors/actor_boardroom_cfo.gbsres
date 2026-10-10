@@ -1,0 +1,137 @@
+{
+  "_resourceType": "actor",
+  "id": "0d5f8207-8a78-5654-9d4d-aa5a6f35e60b",
+  "_index": 13,
+  "symbol": "actor_boardroom_cfo",
+  "prefabId": "",
+  "name": "THE CFO",
+  "coordinateType": "tiles",
+  "x": 2,
+  "y": 3,
+  "frame": 0,
+  "animate": false,
+  "spriteSheetId": "f3db4554-6409-5b66-b2ed-53c17685ca6c",
+  "paletteId": "",
+  "direction": "down",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "1",
+  "collisionExtraFlags": [],
+  "prefabScriptOverrides": {},
+  "script": [],
+  "startScript": [
+    {
+      "id": "b00f6fbd-42e6-526b-afea-29b1f34f2852",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "89"
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "239eafa0-ad04-5998-a606-bf59fb932e0e",
+            "command": "EVENT_ACTOR_DEACTIVATE",
+            "args": {
+              "actorId": "0d5f8207-8a78-5654-9d4d-aa5a6f35e60b"
+            }
+          }
+        ],
+        "false": []
+      }
+    }
+  ],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [
+    {
+      "id": "01c81650-5977-525e-8a87-7dea03acfe0e",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "eq",
+          "valueA": {
+            "type": "variable",
+            "value": "87"
+          },
+          "valueB": {
+            "type": "number",
+            "value": 1
+          }
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "405453f6-34e5-507d-996b-3b502cfd117b",
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "87",
+              "value": {
+                "type": "number",
+                "value": 0
+              }
+            }
+          },
+          {
+            "id": "1bf5b8dc-a53c-50ef-a385-cb2ac3598bbf",
+            "command": "EVENT_CAMERA_SHAKE",
+            "args": {
+              "time": 0.4,
+              "frames": 24,
+              "units": "time",
+              "shakeDirection": "horizontal",
+              "magnitude": {
+                "type": "number",
+                "value": 4
+              }
+            }
+          },
+          {
+            "id": "a83c1c8e-3d1e-5ca2-ba38-7002108f665c",
+            "command": "EVENT_SOUND_PLAY_EFFECT",
+            "args": {
+              "type": "crash",
+              "priority": "medium",
+              "pitch": 5,
+              "frequency": 200,
+              "duration": 0.3,
+              "wait": false,
+              "effect": 0
+            }
+          },
+          {
+            "id": "1f1686d4-d0b0-57fd-8225-faa850226498",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "THE CFO is\nfired.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "cdc8ff46-1879-58a3-8f11-4feead9c641f",
+            "command": "EVENT_ACTOR_DEACTIVATE",
+            "args": {
+              "actorId": "0d5f8207-8a78-5654-9d4d-aa5a6f35e60b"
+            }
+          },
+          {
+            "id": "9cebf093-20dd-53de-a345-313c5c7f22f4",
+            "command": "EVENT_INC_VALUE",
+            "args": {
+              "variable": "86"
+            }
+          }
+        ],
+        "false": []
+      }
+    }
+  ],
+  "hit3Script": []
+}

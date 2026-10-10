@@ -3,22 +3,27 @@
 A Zelda-style Game Boy Color RPG about a concerned frog, built with GB Studio 4.
 Design doc: BB page "Bufo's Workday: game design doc".
 
-Playable so far:
-- The opening: Bufo's cubicle, the CEO's office, the title card.
-- Level 1, the IT Basement: 9 rooms, roombas, tangled cables, the Ethernet Cable,
-  and The Printer boss.
-- The Lobby hub and its elevator.
-- Level 2, the Break Room floor: 8 rooms, sugar ants, moldy Tupperware, the
-  Coffee Mug dash, cracked walls, and The Sentient Espresso Machine boss.
-- About 100 things to look at (A) and lick (B), and 6 original songs.
+The whole game is playable, start to credits:
+- **Opening:** Bufo's cubicle, Brock's speech in the CEO's office, the title card.
+- **B1, IT Basement:** roombas, the Ethernet Cable, The Printer.
+- **Lobby:** reception and the elevator.
+- **Floor 2, Break Room:** sugar ants, the Coffee Mug dash, the Espresso Machine.
+- **Floor 3, Open-Plan Office:** Quick Sync coworkers, noise-cancelling headphones,
+  the endless standup, the Reply-All Storm.
+- **Floor 4, HR:** red tape, the keycard, Project Lilypad, the Compliance Hydra.
+- **Floor 5, Server Room:** firewalls, and meeting KEVIN.
+- **Floor 6, Executive Floor:** yes-men, Brock's suite, The Board (final boss).
+- **Ending:** 5:00 PM and the credits.
+
+About 200 things to look at (A) and lick (B), and 11 original songs.
 
 ## Play it
 
 - **In GB Studio:** open `gbstudio/project.gbsproj` and press Play.
 - **As a ROM:** `build/bufos_workday.gb` runs in any Game Boy Color emulator
   (SameBoy, Emulicious), or on the Chromatic from a flash cart.
-- **Shortcut ROMs:** `bufos_workday_boss.gb` (the Printer), `bufos_workday_level2.gb`
-  (Floor 2 elevator) and `bufos_workday_boss2.gb` (the Espresso Machine).
+- **Skipping ahead:** press Start during the opening to skip it. On the title card,
+  press Start and choose Chapter select to jump to any floor or boss.
 
 Controls: D-pad to walk, A to talk, look at things and open chests, B to lick,
 Select to dash (once Bufo has the Coffee Mug).
@@ -43,12 +48,15 @@ Help Desk and the leaky pipe by the boss door refill them.
 | `make_it_basement.py` | Draws the 9 rooms and checks GB Studio's limits, doors and routes. |
 | `make_story_scenes.py` | Draws the cubicle, the CEO's office, the title card and Brock. |
 | `make_break_room.py` | Draws the 8 Break Room rooms and the Lobby, and checks doors and routes. |
+| `make_open_office.py`, `make_hr.py` | Draw Floors 3 and 4. |
+| `make_server_room.py`, `make_exec_floor.py` | Draw Floors 5 and 6, the ending and the credits. |
 | `make_music.py` | Writes the 4 songs as hUGETracker files (`--previews` renders WAVs to `previews/music/`). |
 | `make_gbstudio_project.py` | Builds `gbstudio/` from the art, layouts, dialogue and game logic. |
 | `build.sh` | Runs the generator, then compiles `build/bufos_workday.gb`. |
 | `setup_cli.sh` | Builds GB Studio's command-line compiler (needed once for `build.sh`). |
 | `playtest.py` | Plays the ROM in PyBoy from a script of button presses and saves screenshots. |
-| `test_playthrough.sh` | Plays Level 1 from the phone call and Level 2 from the elevator, and fails if any key step breaks. |
+| `test_playthrough.sh` | Plays Levels 1-3 start to finish, then runs every focused test, and fails if any key step breaks. |
+| `run_segments.sh` | Runs the focused tests in `segments.txt` (one key step each: a chest, a door, a boss). |
 
 `make_gbstudio_project.py` rebuilds `gbstudio/` from scratch. Once you start
 editing the project inside GB Studio, stop running it (and `build.sh`), or it

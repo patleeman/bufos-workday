@@ -1,0 +1,3895 @@
+{
+  "_resourceType": "scene",
+  "id": "01f8864f-4f71-5995-b5db-634c9d7d6a47",
+  "_index": 38,
+  "type": "TOPDOWN",
+  "name": "server_room/Cable Vault",
+  "symbol": "scene_cable_vault",
+  "x": 3640,
+  "y": 1300,
+  "width": 20,
+  "height": 18,
+  "backgroundId": "56f5d6db-32f6-5849-8e1e-a83075c43703",
+  "tilesetId": "",
+  "colorModeOverride": "none",
+  "paletteIds": [],
+  "spritePaletteIds": [
+    "8df04d6d-fece-5313-8ebf-fb0c9af299f7",
+    "9085fee5-67ff-5d36-8b60-d8bd38805630",
+    "fc2bf258-3125-5471-814a-9c9a8149a7d7",
+    "35b6845e-5939-5549-80bd-9d8164d139bc",
+    "efb8f78c-9e27-5b5c-82fb-1da31d598163",
+    "a9ec642b-c713-561d-8f93-1b6a679cec9b",
+    "83b85c17-a0f5-52fc-807d-41331032483b",
+    "d58dc140-69fa-5397-b2c7-319a7be9b7a8"
+  ],
+  "autoFadeSpeed": 1,
+  "script": [
+    {
+      "id": "0272d825-a827-5a51-9556-0f3049326e55",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "10"
+        },
+        "__collapseElse": false
+      },
+      "children": {
+        "true": [],
+        "false": [
+          {
+            "id": "637fcc6f-92fb-5504-ba31-a6cd1caf7700",
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "10",
+              "value": {
+                "type": "true"
+              }
+            }
+          },
+          {
+            "id": "ae241564-9366-587b-82d5-90ee701905e0",
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "30",
+              "value": {
+                "type": "true"
+              }
+            }
+          },
+          {
+            "id": "7a1673e8-0e84-5008-a9be-ccd4b11c2bc8",
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "62",
+              "value": {
+                "type": "true"
+              }
+            }
+          },
+          {
+            "id": "47ec1d04-3084-5869-982c-7ebf58e3543c",
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "70",
+              "value": {
+                "type": "true"
+              }
+            }
+          },
+          {
+            "id": "84ba93d3-f87a-5e36-bcad-d343447aab0d",
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "58",
+              "value": {
+                "type": "true"
+              }
+            }
+          },
+          {
+            "id": "cdef3a18-3e97-596e-bcc5-d5ffaa41beaf",
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "19",
+              "value": {
+                "type": "number",
+                "value": 5
+              }
+            }
+          },
+          {
+            "id": "bab360ba-c793-5617-b0f1-df1f2c59eac1",
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "9",
+              "value": {
+                "type": "number",
+                "value": 5
+              }
+            }
+          },
+          {
+            "id": "f53420c1-4af4-53d0-a4e4-541b4d08d728",
+            "command": "EVENT_IF",
+            "args": {
+              "condition": {
+                "type": "eq",
+                "valueA": {
+                  "type": "variable",
+                  "value": "19"
+                },
+                "valueB": {
+                  "type": "number",
+                  "value": 3
+                }
+              },
+              "__collapseElse": true
+            },
+            "children": {
+              "true": [
+                {
+                  "id": "e6e5a094-218a-56a8-a2a6-87da827f7ad0",
+                  "command": "EVENT_IF",
+                  "args": {
+                    "condition": {
+                      "type": "lte",
+                      "valueA": {
+                        "type": "variable",
+                        "value": "9"
+                      },
+                      "valueB": {
+                        "type": "number",
+                        "value": 0
+                      }
+                    },
+                    "__collapseElse": true
+                  },
+                  "children": {
+                    "true": [
+                      {
+                        "id": "2f14dd3a-7487-50a5-82a9-077f14f003b2",
+                        "command": "EVENT_ACTOR_SET_STATE",
+                        "args": {
+                          "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                          "spriteStateId": "3_0",
+                          "loopAnim": true
+                        }
+                      }
+                    ],
+                    "false": []
+                  }
+                },
+                {
+                  "id": "53dbda89-d2aa-5372-8e15-bd36d04c3b4c",
+                  "command": "EVENT_IF",
+                  "args": {
+                    "condition": {
+                      "type": "eq",
+                      "valueA": {
+                        "type": "variable",
+                        "value": "9"
+                      },
+                      "valueB": {
+                        "type": "number",
+                        "value": 1
+                      }
+                    },
+                    "__collapseElse": true
+                  },
+                  "children": {
+                    "true": [
+                      {
+                        "id": "44b0d26a-beb4-5b70-93f5-4c4c25258bfd",
+                        "command": "EVENT_ACTOR_SET_STATE",
+                        "args": {
+                          "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                          "spriteStateId": "3_1",
+                          "loopAnim": true
+                        }
+                      }
+                    ],
+                    "false": []
+                  }
+                },
+                {
+                  "id": "ef30b731-55ea-5869-96ec-7aab9f2f6390",
+                  "command": "EVENT_IF",
+                  "args": {
+                    "condition": {
+                      "type": "eq",
+                      "valueA": {
+                        "type": "variable",
+                        "value": "9"
+                      },
+                      "valueB": {
+                        "type": "number",
+                        "value": 2
+                      }
+                    },
+                    "__collapseElse": true
+                  },
+                  "children": {
+                    "true": [
+                      {
+                        "id": "4bd3bb62-5689-5d8e-80a5-704df048d90a",
+                        "command": "EVENT_ACTOR_SET_STATE",
+                        "args": {
+                          "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                          "spriteStateId": "3_2",
+                          "loopAnim": true
+                        }
+                      }
+                    ],
+                    "false": []
+                  }
+                },
+                {
+                  "id": "9ba61137-deae-59e9-b277-41ed2e7bcb30",
+                  "command": "EVENT_IF",
+                  "args": {
+                    "condition": {
+                      "type": "gte",
+                      "valueA": {
+                        "type": "variable",
+                        "value": "9"
+                      },
+                      "valueB": {
+                        "type": "number",
+                        "value": 3
+                      }
+                    },
+                    "__collapseElse": true
+                  },
+                  "children": {
+                    "true": [
+                      {
+                        "id": "2d6801b1-ff65-5819-bd3d-3e4234d2352b",
+                        "command": "EVENT_ACTOR_SET_STATE",
+                        "args": {
+                          "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                          "spriteStateId": "3_3",
+                          "loopAnim": true
+                        }
+                      }
+                    ],
+                    "false": []
+                  }
+                }
+              ],
+              "false": []
+            }
+          },
+          {
+            "id": "79bf5827-d88f-569d-a5bf-517cff2ba940",
+            "command": "EVENT_IF",
+            "args": {
+              "condition": {
+                "type": "eq",
+                "valueA": {
+                  "type": "variable",
+                  "value": "19"
+                },
+                "valueB": {
+                  "type": "number",
+                  "value": 4
+                }
+              },
+              "__collapseElse": true
+            },
+            "children": {
+              "true": [
+                {
+                  "id": "1086a829-6e22-5046-9f3f-b9c97be8c2fb",
+                  "command": "EVENT_IF",
+                  "args": {
+                    "condition": {
+                      "type": "lte",
+                      "valueA": {
+                        "type": "variable",
+                        "value": "9"
+                      },
+                      "valueB": {
+                        "type": "number",
+                        "value": 0
+                      }
+                    },
+                    "__collapseElse": true
+                  },
+                  "children": {
+                    "true": [
+                      {
+                        "id": "f7eed053-611b-57cf-b6c9-5b6474dc2c24",
+                        "command": "EVENT_ACTOR_SET_STATE",
+                        "args": {
+                          "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                          "spriteStateId": "4_0",
+                          "loopAnim": true
+                        }
+                      }
+                    ],
+                    "false": []
+                  }
+                },
+                {
+                  "id": "1958b83b-abc2-5e3f-8f61-9f354b754917",
+                  "command": "EVENT_IF",
+                  "args": {
+                    "condition": {
+                      "type": "eq",
+                      "valueA": {
+                        "type": "variable",
+                        "value": "9"
+                      },
+                      "valueB": {
+                        "type": "number",
+                        "value": 1
+                      }
+                    },
+                    "__collapseElse": true
+                  },
+                  "children": {
+                    "true": [
+                      {
+                        "id": "56c25783-a4ac-5c25-964e-bf8bec6537dd",
+                        "command": "EVENT_ACTOR_SET_STATE",
+                        "args": {
+                          "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                          "spriteStateId": "4_1",
+                          "loopAnim": true
+                        }
+                      }
+                    ],
+                    "false": []
+                  }
+                },
+                {
+                  "id": "506882d4-d3b0-5eb0-adba-7314799fadfa",
+                  "command": "EVENT_IF",
+                  "args": {
+                    "condition": {
+                      "type": "eq",
+                      "valueA": {
+                        "type": "variable",
+                        "value": "9"
+                      },
+                      "valueB": {
+                        "type": "number",
+                        "value": 2
+                      }
+                    },
+                    "__collapseElse": true
+                  },
+                  "children": {
+                    "true": [
+                      {
+                        "id": "9a6b9253-d9fe-5733-a99f-140c7e6e27bd",
+                        "command": "EVENT_ACTOR_SET_STATE",
+                        "args": {
+                          "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                          "spriteStateId": "4_2",
+                          "loopAnim": true
+                        }
+                      }
+                    ],
+                    "false": []
+                  }
+                },
+                {
+                  "id": "8cc4212e-cc4b-5a03-b7df-862e3bda8ed5",
+                  "command": "EVENT_IF",
+                  "args": {
+                    "condition": {
+                      "type": "eq",
+                      "valueA": {
+                        "type": "variable",
+                        "value": "9"
+                      },
+                      "valueB": {
+                        "type": "number",
+                        "value": 3
+                      }
+                    },
+                    "__collapseElse": true
+                  },
+                  "children": {
+                    "true": [
+                      {
+                        "id": "4c4bffba-bc06-537d-8e47-6303d9c64572",
+                        "command": "EVENT_ACTOR_SET_STATE",
+                        "args": {
+                          "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                          "spriteStateId": "4_3",
+                          "loopAnim": true
+                        }
+                      }
+                    ],
+                    "false": []
+                  }
+                },
+                {
+                  "id": "efd3ed90-7689-55c9-9946-34c6d7307555",
+                  "command": "EVENT_IF",
+                  "args": {
+                    "condition": {
+                      "type": "gte",
+                      "valueA": {
+                        "type": "variable",
+                        "value": "9"
+                      },
+                      "valueB": {
+                        "type": "number",
+                        "value": 4
+                      }
+                    },
+                    "__collapseElse": true
+                  },
+                  "children": {
+                    "true": [
+                      {
+                        "id": "32a27fce-12eb-5055-ad4b-72826196a630",
+                        "command": "EVENT_ACTOR_SET_STATE",
+                        "args": {
+                          "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                          "spriteStateId": "4_4",
+                          "loopAnim": true
+                        }
+                      }
+                    ],
+                    "false": []
+                  }
+                }
+              ],
+              "false": []
+            }
+          },
+          {
+            "id": "8b38761f-d38d-537a-b614-d56685fa28c0",
+            "command": "EVENT_IF",
+            "args": {
+              "condition": {
+                "type": "gte",
+                "valueA": {
+                  "type": "variable",
+                  "value": "19"
+                },
+                "valueB": {
+                  "type": "number",
+                  "value": 5
+                }
+              },
+              "__collapseElse": true
+            },
+            "children": {
+              "true": [
+                {
+                  "id": "44f98f59-84a8-5426-8ed1-7f94c6e0fc99",
+                  "command": "EVENT_IF",
+                  "args": {
+                    "condition": {
+                      "type": "lte",
+                      "valueA": {
+                        "type": "variable",
+                        "value": "9"
+                      },
+                      "valueB": {
+                        "type": "number",
+                        "value": 0
+                      }
+                    },
+                    "__collapseElse": true
+                  },
+                  "children": {
+                    "true": [
+                      {
+                        "id": "91b0af4a-4bde-5680-a2dd-6b33a2bc9de1",
+                        "command": "EVENT_ACTOR_SET_STATE",
+                        "args": {
+                          "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                          "spriteStateId": "5_0",
+                          "loopAnim": true
+                        }
+                      }
+                    ],
+                    "false": []
+                  }
+                },
+                {
+                  "id": "db423ad9-7df9-5bf3-a585-dbc6f0197e29",
+                  "command": "EVENT_IF",
+                  "args": {
+                    "condition": {
+                      "type": "eq",
+                      "valueA": {
+                        "type": "variable",
+                        "value": "9"
+                      },
+                      "valueB": {
+                        "type": "number",
+                        "value": 1
+                      }
+                    },
+                    "__collapseElse": true
+                  },
+                  "children": {
+                    "true": [
+                      {
+                        "id": "e9b75f37-258f-55af-bd05-868188d75a6f",
+                        "command": "EVENT_ACTOR_SET_STATE",
+                        "args": {
+                          "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                          "spriteStateId": "5_1",
+                          "loopAnim": true
+                        }
+                      }
+                    ],
+                    "false": []
+                  }
+                },
+                {
+                  "id": "09d27cdf-8c92-5271-b3f1-7a5b18335767",
+                  "command": "EVENT_IF",
+                  "args": {
+                    "condition": {
+                      "type": "eq",
+                      "valueA": {
+                        "type": "variable",
+                        "value": "9"
+                      },
+                      "valueB": {
+                        "type": "number",
+                        "value": 2
+                      }
+                    },
+                    "__collapseElse": true
+                  },
+                  "children": {
+                    "true": [
+                      {
+                        "id": "dd60f8ea-3362-5278-96c2-585146a17a55",
+                        "command": "EVENT_ACTOR_SET_STATE",
+                        "args": {
+                          "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                          "spriteStateId": "5_2",
+                          "loopAnim": true
+                        }
+                      }
+                    ],
+                    "false": []
+                  }
+                },
+                {
+                  "id": "184d975c-b273-563d-85d5-b6219d24bc1e",
+                  "command": "EVENT_IF",
+                  "args": {
+                    "condition": {
+                      "type": "eq",
+                      "valueA": {
+                        "type": "variable",
+                        "value": "9"
+                      },
+                      "valueB": {
+                        "type": "number",
+                        "value": 3
+                      }
+                    },
+                    "__collapseElse": true
+                  },
+                  "children": {
+                    "true": [
+                      {
+                        "id": "52f695fa-9726-5431-8232-11e41fdd0d50",
+                        "command": "EVENT_ACTOR_SET_STATE",
+                        "args": {
+                          "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                          "spriteStateId": "5_3",
+                          "loopAnim": true
+                        }
+                      }
+                    ],
+                    "false": []
+                  }
+                },
+                {
+                  "id": "170c3f67-7301-5a29-a4fe-2c29c4b529c2",
+                  "command": "EVENT_IF",
+                  "args": {
+                    "condition": {
+                      "type": "eq",
+                      "valueA": {
+                        "type": "variable",
+                        "value": "9"
+                      },
+                      "valueB": {
+                        "type": "number",
+                        "value": 4
+                      }
+                    },
+                    "__collapseElse": true
+                  },
+                  "children": {
+                    "true": [
+                      {
+                        "id": "cf307236-d85e-5dd0-9b26-0e6f313bdcdd",
+                        "command": "EVENT_ACTOR_SET_STATE",
+                        "args": {
+                          "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                          "spriteStateId": "5_4",
+                          "loopAnim": true
+                        }
+                      }
+                    ],
+                    "false": []
+                  }
+                },
+                {
+                  "id": "b059d3b6-6392-5e21-812a-5833a22a5bec",
+                  "command": "EVENT_IF",
+                  "args": {
+                    "condition": {
+                      "type": "gte",
+                      "valueA": {
+                        "type": "variable",
+                        "value": "9"
+                      },
+                      "valueB": {
+                        "type": "number",
+                        "value": 5
+                      }
+                    },
+                    "__collapseElse": true
+                  },
+                  "children": {
+                    "true": [
+                      {
+                        "id": "b7dab028-4a76-566d-854a-173b1f443fd3",
+                        "command": "EVENT_ACTOR_SET_STATE",
+                        "args": {
+                          "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                          "spriteStateId": "5_5",
+                          "loopAnim": true
+                        }
+                      }
+                    ],
+                    "false": []
+                  }
+                }
+              ],
+              "false": []
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "1e99f7a7-a5f8-51ae-a988-2d02404158e5",
+      "command": "EVENT_SET_INPUT_SCRIPT",
+      "args": {
+        "input": [
+          "b"
+        ],
+        "override": true,
+        "__collapse": false
+      },
+      "children": {
+        "true": [
+          {
+            "id": "f85a780e-d6fc-5545-a902-243d89ae1917",
+            "command": "EVENT_RATE_LIMIT",
+            "args": {
+              "variable": "15",
+              "time": {
+                "type": "number",
+                "value": 0.35
+              },
+              "frames": {
+                "type": "number",
+                "value": 20
+              },
+              "units": "time"
+            },
+            "children": {
+              "true": [
+                {
+                  "id": "2b7be603-c7bc-5bd7-81d9-d53b7abc0fe4",
+                  "command": "EVENT_SOUND_PLAY_EFFECT",
+                  "args": {
+                    "type": "beep",
+                    "priority": "medium",
+                    "pitch": 6,
+                    "frequency": 200,
+                    "duration": 0.05,
+                    "wait": false,
+                    "effect": 0
+                  }
+                },
+                {
+                  "id": "1642a1be-199d-5e30-be4c-0e2a361fabc0",
+                  "command": "EVENT_LAUNCH_PROJECTILE",
+                  "args": {
+                    "spriteSheetId": "14643d2c-3698-54a6-8b03-bac6d9a66988",
+                    "spriteStateId": "",
+                    "actorId": "player",
+                    "x": 0,
+                    "y": 0,
+                    "directionType": "actor",
+                    "direction": "right",
+                    "otherActorId": "player",
+                    "angle": 0,
+                    "angleVariable": "0",
+                    "targetActorId": "player",
+                    "speed": 0,
+                    "animSpeed": 3,
+                    "lifeTime": 0.25,
+                    "initialOffset": 16,
+                    "loopAnim": false,
+                    "destroyOnHit": true,
+                    "collisionGroup": "2",
+                    "collisionMask": [
+                      "1"
+                    ]
+                  }
+                },
+                {
+                  "id": "e55087af-05d1-5a14-b166-6aa8d5298ff8",
+                  "command": "EVENT_ACTOR_GET_POSITION",
+                  "args": {
+                    "actorId": "player",
+                    "vectorX": "21",
+                    "vectorY": "22",
+                    "units": "tiles"
+                  }
+                },
+                {
+                  "id": "bb17f538-906d-59c9-b9b7-ecb4f8388ee0",
+                  "command": "EVENT_ACTOR_GET_DIRECTION",
+                  "args": {
+                    "actorId": "player",
+                    "direction": "23"
+                  }
+                },
+                {
+                  "id": "db1c6ccb-2db7-544a-a2a6-878862ee1cea",
+                  "command": "EVENT_IF",
+                  "args": {
+                    "condition": {
+                      "type": "or",
+                      "valueA": {
+                        "type": "or",
+                        "valueA": {
+                          "type": "and",
+                          "valueA": {
+                            "type": "eq",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "23"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 2
+                            }
+                          },
+                          "valueB": {
+                            "type": "and",
+                            "valueA": {
+                              "type": "and",
+                              "valueA": {
+                                "type": "gte",
+                                "valueA": {
+                                  "type": "variable",
+                                  "value": "22"
+                                },
+                                "valueB": {
+                                  "type": "number",
+                                  "value": 6
+                                }
+                              },
+                              "valueB": {
+                                "type": "lte",
+                                "valueA": {
+                                  "type": "variable",
+                                  "value": "22"
+                                },
+                                "valueB": {
+                                  "type": "number",
+                                  "value": 6
+                                }
+                              }
+                            },
+                            "valueB": {
+                              "type": "and",
+                              "valueA": {
+                                "type": "gte",
+                                "valueA": {
+                                  "type": "variable",
+                                  "value": "21"
+                                },
+                                "valueB": {
+                                  "type": "number",
+                                  "value": 5
+                                }
+                              },
+                              "valueB": {
+                                "type": "lte",
+                                "valueA": {
+                                  "type": "variable",
+                                  "value": "21"
+                                },
+                                "valueB": {
+                                  "type": "number",
+                                  "value": 7
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "valueB": {
+                          "type": "and",
+                          "valueA": {
+                            "type": "eq",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "23"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 0
+                            }
+                          },
+                          "valueB": {
+                            "type": "and",
+                            "valueA": {
+                              "type": "and",
+                              "valueA": {
+                                "type": "gte",
+                                "valueA": {
+                                  "type": "variable",
+                                  "value": "22"
+                                },
+                                "valueB": {
+                                  "type": "number",
+                                  "value": 3
+                                }
+                              },
+                              "valueB": {
+                                "type": "lte",
+                                "valueA": {
+                                  "type": "variable",
+                                  "value": "22"
+                                },
+                                "valueB": {
+                                  "type": "number",
+                                  "value": 3
+                                }
+                              }
+                            },
+                            "valueB": {
+                              "type": "and",
+                              "valueA": {
+                                "type": "gte",
+                                "valueA": {
+                                  "type": "variable",
+                                  "value": "21"
+                                },
+                                "valueB": {
+                                  "type": "number",
+                                  "value": 5
+                                }
+                              },
+                              "valueB": {
+                                "type": "lte",
+                                "valueA": {
+                                  "type": "variable",
+                                  "value": "21"
+                                },
+                                "valueB": {
+                                  "type": "number",
+                                  "value": 7
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "valueB": {
+                        "type": "or",
+                        "valueA": {
+                          "type": "and",
+                          "valueA": {
+                            "type": "eq",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "23"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 1
+                            }
+                          },
+                          "valueB": {
+                            "type": "and",
+                            "valueA": {
+                              "type": "and",
+                              "valueA": {
+                                "type": "gte",
+                                "valueA": {
+                                  "type": "variable",
+                                  "value": "21"
+                                },
+                                "valueB": {
+                                  "type": "number",
+                                  "value": 4
+                                }
+                              },
+                              "valueB": {
+                                "type": "lte",
+                                "valueA": {
+                                  "type": "variable",
+                                  "value": "21"
+                                },
+                                "valueB": {
+                                  "type": "number",
+                                  "value": 4
+                                }
+                              }
+                            },
+                            "valueB": {
+                              "type": "and",
+                              "valueA": {
+                                "type": "gte",
+                                "valueA": {
+                                  "type": "variable",
+                                  "value": "22"
+                                },
+                                "valueB": {
+                                  "type": "number",
+                                  "value": 4
+                                }
+                              },
+                              "valueB": {
+                                "type": "lte",
+                                "valueA": {
+                                  "type": "variable",
+                                  "value": "22"
+                                },
+                                "valueB": {
+                                  "type": "number",
+                                  "value": 5
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "valueB": {
+                          "type": "and",
+                          "valueA": {
+                            "type": "eq",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "23"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 3
+                            }
+                          },
+                          "valueB": {
+                            "type": "and",
+                            "valueA": {
+                              "type": "and",
+                              "valueA": {
+                                "type": "gte",
+                                "valueA": {
+                                  "type": "variable",
+                                  "value": "21"
+                                },
+                                "valueB": {
+                                  "type": "number",
+                                  "value": 8
+                                }
+                              },
+                              "valueB": {
+                                "type": "lte",
+                                "valueA": {
+                                  "type": "variable",
+                                  "value": "21"
+                                },
+                                "valueB": {
+                                  "type": "number",
+                                  "value": 8
+                                }
+                              }
+                            },
+                            "valueB": {
+                              "type": "and",
+                              "valueA": {
+                                "type": "gte",
+                                "valueA": {
+                                  "type": "variable",
+                                  "value": "22"
+                                },
+                                "valueB": {
+                                  "type": "number",
+                                  "value": 4
+                                }
+                              },
+                              "valueB": {
+                                "type": "lte",
+                                "valueA": {
+                                  "type": "variable",
+                                  "value": "22"
+                                },
+                                "valueB": {
+                                  "type": "number",
+                                  "value": 5
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "__collapseElse": false
+                  },
+                  "children": {
+                    "true": [
+                      {
+                        "id": "e87d9935-bffa-5a94-8ddb-eb6b0cabc57a",
+                        "command": "EVENT_TEXT",
+                        "args": {
+                          "text": "Bufo licks it.\nTastes like the\noffice.",
+                          "avatarId": ""
+                        }
+                      }
+                    ],
+                    "false": [
+                      {
+                        "id": "19aed649-86e1-5331-8e61-ccca9c798b1c",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "or",
+                            "valueA": {
+                              "type": "or",
+                              "valueA": {
+                                "type": "and",
+                                "valueA": {
+                                  "type": "eq",
+                                  "valueA": {
+                                    "type": "variable",
+                                    "value": "23"
+                                  },
+                                  "valueB": {
+                                    "type": "number",
+                                    "value": 2
+                                  }
+                                },
+                                "valueB": {
+                                  "type": "and",
+                                  "valueA": {
+                                    "type": "and",
+                                    "valueA": {
+                                      "type": "gte",
+                                      "valueA": {
+                                        "type": "variable",
+                                        "value": "22"
+                                      },
+                                      "valueB": {
+                                        "type": "number",
+                                        "value": 4
+                                      }
+                                    },
+                                    "valueB": {
+                                      "type": "lte",
+                                      "valueA": {
+                                        "type": "variable",
+                                        "value": "22"
+                                      },
+                                      "valueB": {
+                                        "type": "number",
+                                        "value": 4
+                                      }
+                                    }
+                                  },
+                                  "valueB": {
+                                    "type": "and",
+                                    "valueA": {
+                                      "type": "gte",
+                                      "valueA": {
+                                        "type": "variable",
+                                        "value": "21"
+                                      },
+                                      "valueB": {
+                                        "type": "number",
+                                        "value": 15
+                                      }
+                                    },
+                                    "valueB": {
+                                      "type": "lte",
+                                      "valueA": {
+                                        "type": "variable",
+                                        "value": "21"
+                                      },
+                                      "valueB": {
+                                        "type": "number",
+                                        "value": 17
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              "valueB": {
+                                "type": "and",
+                                "valueA": {
+                                  "type": "eq",
+                                  "valueA": {
+                                    "type": "variable",
+                                    "value": "23"
+                                  },
+                                  "valueB": {
+                                    "type": "number",
+                                    "value": 0
+                                  }
+                                },
+                                "valueB": {
+                                  "type": "and",
+                                  "valueA": {
+                                    "type": "and",
+                                    "valueA": {
+                                      "type": "gte",
+                                      "valueA": {
+                                        "type": "variable",
+                                        "value": "22"
+                                      },
+                                      "valueB": {
+                                        "type": "number",
+                                        "value": 1
+                                      }
+                                    },
+                                    "valueB": {
+                                      "type": "lte",
+                                      "valueA": {
+                                        "type": "variable",
+                                        "value": "22"
+                                      },
+                                      "valueB": {
+                                        "type": "number",
+                                        "value": 1
+                                      }
+                                    }
+                                  },
+                                  "valueB": {
+                                    "type": "and",
+                                    "valueA": {
+                                      "type": "gte",
+                                      "valueA": {
+                                        "type": "variable",
+                                        "value": "21"
+                                      },
+                                      "valueB": {
+                                        "type": "number",
+                                        "value": 15
+                                      }
+                                    },
+                                    "valueB": {
+                                      "type": "lte",
+                                      "valueA": {
+                                        "type": "variable",
+                                        "value": "21"
+                                      },
+                                      "valueB": {
+                                        "type": "number",
+                                        "value": 17
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "valueB": {
+                              "type": "or",
+                              "valueA": {
+                                "type": "and",
+                                "valueA": {
+                                  "type": "eq",
+                                  "valueA": {
+                                    "type": "variable",
+                                    "value": "23"
+                                  },
+                                  "valueB": {
+                                    "type": "number",
+                                    "value": 1
+                                  }
+                                },
+                                "valueB": {
+                                  "type": "and",
+                                  "valueA": {
+                                    "type": "and",
+                                    "valueA": {
+                                      "type": "gte",
+                                      "valueA": {
+                                        "type": "variable",
+                                        "value": "21"
+                                      },
+                                      "valueB": {
+                                        "type": "number",
+                                        "value": 14
+                                      }
+                                    },
+                                    "valueB": {
+                                      "type": "lte",
+                                      "valueA": {
+                                        "type": "variable",
+                                        "value": "21"
+                                      },
+                                      "valueB": {
+                                        "type": "number",
+                                        "value": 14
+                                      }
+                                    }
+                                  },
+                                  "valueB": {
+                                    "type": "and",
+                                    "valueA": {
+                                      "type": "gte",
+                                      "valueA": {
+                                        "type": "variable",
+                                        "value": "22"
+                                      },
+                                      "valueB": {
+                                        "type": "number",
+                                        "value": 2
+                                      }
+                                    },
+                                    "valueB": {
+                                      "type": "lte",
+                                      "valueA": {
+                                        "type": "variable",
+                                        "value": "22"
+                                      },
+                                      "valueB": {
+                                        "type": "number",
+                                        "value": 3
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              "valueB": {
+                                "type": "and",
+                                "valueA": {
+                                  "type": "eq",
+                                  "valueA": {
+                                    "type": "variable",
+                                    "value": "23"
+                                  },
+                                  "valueB": {
+                                    "type": "number",
+                                    "value": 3
+                                  }
+                                },
+                                "valueB": {
+                                  "type": "and",
+                                  "valueA": {
+                                    "type": "and",
+                                    "valueA": {
+                                      "type": "gte",
+                                      "valueA": {
+                                        "type": "variable",
+                                        "value": "21"
+                                      },
+                                      "valueB": {
+                                        "type": "number",
+                                        "value": 18
+                                      }
+                                    },
+                                    "valueB": {
+                                      "type": "lte",
+                                      "valueA": {
+                                        "type": "variable",
+                                        "value": "21"
+                                      },
+                                      "valueB": {
+                                        "type": "number",
+                                        "value": 18
+                                      }
+                                    }
+                                  },
+                                  "valueB": {
+                                    "type": "and",
+                                    "valueA": {
+                                      "type": "gte",
+                                      "valueA": {
+                                        "type": "variable",
+                                        "value": "22"
+                                      },
+                                      "valueB": {
+                                        "type": "number",
+                                        "value": 2
+                                      }
+                                    },
+                                    "valueB": {
+                                      "type": "lte",
+                                      "valueA": {
+                                        "type": "variable",
+                                        "value": "22"
+                                      },
+                                      "valueB": {
+                                        "type": "number",
+                                        "value": 3
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "__collapseElse": false
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "28815caa-167f-5749-a72d-f7bc308f9a0f",
+                              "command": "EVENT_TEXT",
+                              "args": {
+                                "text": "Bufo licks it.\nTastes like the\noffice.",
+                                "avatarId": ""
+                              }
+                            }
+                          ],
+                          "false": [
+                            {
+                              "id": "23ff6da0-4ac6-5b5a-b38c-9cc63ea9e855",
+                              "command": "EVENT_IF",
+                              "args": {
+                                "condition": {
+                                  "type": "and",
+                                  "valueA": {
+                                    "type": "eq",
+                                    "valueA": {
+                                      "type": "variable",
+                                      "value": "23"
+                                    },
+                                    "valueB": {
+                                      "type": "number",
+                                      "value": 2
+                                    }
+                                  },
+                                  "valueB": {
+                                    "type": "and",
+                                    "valueA": {
+                                      "type": "and",
+                                      "valueA": {
+                                        "type": "gte",
+                                        "valueA": {
+                                          "type": "variable",
+                                          "value": "22"
+                                        },
+                                        "valueB": {
+                                          "type": "number",
+                                          "value": 2
+                                        }
+                                      },
+                                      "valueB": {
+                                        "type": "lte",
+                                        "valueA": {
+                                          "type": "variable",
+                                          "value": "22"
+                                        },
+                                        "valueB": {
+                                          "type": "number",
+                                          "value": 2
+                                        }
+                                      }
+                                    },
+                                    "valueB": {
+                                      "type": "and",
+                                      "valueA": {
+                                        "type": "gte",
+                                        "valueA": {
+                                          "type": "variable",
+                                          "value": "21"
+                                        },
+                                        "valueB": {
+                                          "type": "number",
+                                          "value": 7
+                                        }
+                                      },
+                                      "valueB": {
+                                        "type": "lte",
+                                        "valueA": {
+                                          "type": "variable",
+                                          "value": "21"
+                                        },
+                                        "valueB": {
+                                          "type": "number",
+                                          "value": 9
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "__collapseElse": false
+                              },
+                              "children": {
+                                "true": [
+                                  {
+                                    "id": "3919107c-3dbf-5a66-ab33-d4b0e82e7bf2",
+                                    "command": "EVENT_TEXT",
+                                    "args": {
+                                      "text": "Bufo licks it.\nTastes like the\noffice.",
+                                      "avatarId": ""
+                                    }
+                                  }
+                                ],
+                                "false": [
+                                  {
+                                    "id": "55c5b9ee-6f3a-50c9-b0b5-fd0789ef91c8",
+                                    "command": "EVENT_IF",
+                                    "args": {
+                                      "condition": {
+                                        "type": "or",
+                                        "valueA": {
+                                          "type": "or",
+                                          "valueA": {
+                                            "type": "and",
+                                            "valueA": {
+                                              "type": "eq",
+                                              "valueA": {
+                                                "type": "variable",
+                                                "value": "23"
+                                              },
+                                              "valueB": {
+                                                "type": "number",
+                                                "value": 2
+                                              }
+                                            },
+                                            "valueB": {
+                                              "type": "and",
+                                              "valueA": {
+                                                "type": "and",
+                                                "valueA": {
+                                                  "type": "gte",
+                                                  "valueA": {
+                                                    "type": "variable",
+                                                    "value": "22"
+                                                  },
+                                                  "valueB": {
+                                                    "type": "number",
+                                                    "value": 8
+                                                  }
+                                                },
+                                                "valueB": {
+                                                  "type": "lte",
+                                                  "valueA": {
+                                                    "type": "variable",
+                                                    "value": "22"
+                                                  },
+                                                  "valueB": {
+                                                    "type": "number",
+                                                    "value": 8
+                                                  }
+                                                }
+                                              },
+                                              "valueB": {
+                                                "type": "and",
+                                                "valueA": {
+                                                  "type": "gte",
+                                                  "valueA": {
+                                                    "type": "variable",
+                                                    "value": "21"
+                                                  },
+                                                  "valueB": {
+                                                    "type": "number",
+                                                    "value": 13
+                                                  }
+                                                },
+                                                "valueB": {
+                                                  "type": "lte",
+                                                  "valueA": {
+                                                    "type": "variable",
+                                                    "value": "21"
+                                                  },
+                                                  "valueB": {
+                                                    "type": "number",
+                                                    "value": 15
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          },
+                                          "valueB": {
+                                            "type": "and",
+                                            "valueA": {
+                                              "type": "eq",
+                                              "valueA": {
+                                                "type": "variable",
+                                                "value": "23"
+                                              },
+                                              "valueB": {
+                                                "type": "number",
+                                                "value": 0
+                                              }
+                                            },
+                                            "valueB": {
+                                              "type": "and",
+                                              "valueA": {
+                                                "type": "and",
+                                                "valueA": {
+                                                  "type": "gte",
+                                                  "valueA": {
+                                                    "type": "variable",
+                                                    "value": "22"
+                                                  },
+                                                  "valueB": {
+                                                    "type": "number",
+                                                    "value": 5
+                                                  }
+                                                },
+                                                "valueB": {
+                                                  "type": "lte",
+                                                  "valueA": {
+                                                    "type": "variable",
+                                                    "value": "22"
+                                                  },
+                                                  "valueB": {
+                                                    "type": "number",
+                                                    "value": 5
+                                                  }
+                                                }
+                                              },
+                                              "valueB": {
+                                                "type": "and",
+                                                "valueA": {
+                                                  "type": "gte",
+                                                  "valueA": {
+                                                    "type": "variable",
+                                                    "value": "21"
+                                                  },
+                                                  "valueB": {
+                                                    "type": "number",
+                                                    "value": 13
+                                                  }
+                                                },
+                                                "valueB": {
+                                                  "type": "lte",
+                                                  "valueA": {
+                                                    "type": "variable",
+                                                    "value": "21"
+                                                  },
+                                                  "valueB": {
+                                                    "type": "number",
+                                                    "value": 15
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "valueB": {
+                                          "type": "or",
+                                          "valueA": {
+                                            "type": "and",
+                                            "valueA": {
+                                              "type": "eq",
+                                              "valueA": {
+                                                "type": "variable",
+                                                "value": "23"
+                                              },
+                                              "valueB": {
+                                                "type": "number",
+                                                "value": 1
+                                              }
+                                            },
+                                            "valueB": {
+                                              "type": "and",
+                                              "valueA": {
+                                                "type": "and",
+                                                "valueA": {
+                                                  "type": "gte",
+                                                  "valueA": {
+                                                    "type": "variable",
+                                                    "value": "21"
+                                                  },
+                                                  "valueB": {
+                                                    "type": "number",
+                                                    "value": 12
+                                                  }
+                                                },
+                                                "valueB": {
+                                                  "type": "lte",
+                                                  "valueA": {
+                                                    "type": "variable",
+                                                    "value": "21"
+                                                  },
+                                                  "valueB": {
+                                                    "type": "number",
+                                                    "value": 12
+                                                  }
+                                                }
+                                              },
+                                              "valueB": {
+                                                "type": "and",
+                                                "valueA": {
+                                                  "type": "gte",
+                                                  "valueA": {
+                                                    "type": "variable",
+                                                    "value": "22"
+                                                  },
+                                                  "valueB": {
+                                                    "type": "number",
+                                                    "value": 6
+                                                  }
+                                                },
+                                                "valueB": {
+                                                  "type": "lte",
+                                                  "valueA": {
+                                                    "type": "variable",
+                                                    "value": "22"
+                                                  },
+                                                  "valueB": {
+                                                    "type": "number",
+                                                    "value": 7
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          },
+                                          "valueB": {
+                                            "type": "and",
+                                            "valueA": {
+                                              "type": "eq",
+                                              "valueA": {
+                                                "type": "variable",
+                                                "value": "23"
+                                              },
+                                              "valueB": {
+                                                "type": "number",
+                                                "value": 3
+                                              }
+                                            },
+                                            "valueB": {
+                                              "type": "and",
+                                              "valueA": {
+                                                "type": "and",
+                                                "valueA": {
+                                                  "type": "gte",
+                                                  "valueA": {
+                                                    "type": "variable",
+                                                    "value": "21"
+                                                  },
+                                                  "valueB": {
+                                                    "type": "number",
+                                                    "value": 16
+                                                  }
+                                                },
+                                                "valueB": {
+                                                  "type": "lte",
+                                                  "valueA": {
+                                                    "type": "variable",
+                                                    "value": "21"
+                                                  },
+                                                  "valueB": {
+                                                    "type": "number",
+                                                    "value": 16
+                                                  }
+                                                }
+                                              },
+                                              "valueB": {
+                                                "type": "and",
+                                                "valueA": {
+                                                  "type": "gte",
+                                                  "valueA": {
+                                                    "type": "variable",
+                                                    "value": "22"
+                                                  },
+                                                  "valueB": {
+                                                    "type": "number",
+                                                    "value": 6
+                                                  }
+                                                },
+                                                "valueB": {
+                                                  "type": "lte",
+                                                  "valueA": {
+                                                    "type": "variable",
+                                                    "value": "22"
+                                                  },
+                                                  "valueB": {
+                                                    "type": "number",
+                                                    "value": 7
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "__collapseElse": true
+                                    },
+                                    "children": {
+                                      "true": [
+                                        {
+                                          "id": "d15ee468-b66d-59cf-97cf-12285f9d5039",
+                                          "command": "EVENT_TEXT",
+                                          "args": {
+                                            "text": "Squeak.",
+                                            "avatarId": ""
+                                          }
+                                        }
+                                      ],
+                                      "false": []
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "6e8c7c71-e42a-595c-94bd-8298c7cddbdf",
+      "command": "EVENT_MUSIC_PLAY",
+      "args": {
+        "musicId": "a6308545-35e7-5c25-b809-564a6c1f9b42",
+        "loop": true
+      }
+    },
+    {
+      "id": "5bdf6233-bae3-518f-a4f1-f81e9e41f9be",
+      "command": "EVENT_SET_INPUT_SCRIPT",
+      "args": {
+        "input": [
+          "select"
+        ],
+        "override": true,
+        "__collapse": false
+      },
+      "children": {
+        "true": [
+          {
+            "id": "bda40972-3d7f-5a5e-9b5b-63374071dd68",
+            "command": "EVENT_IF",
+            "args": {
+              "condition": {
+                "type": "variable",
+                "value": "30"
+              },
+              "__collapseElse": true
+            },
+            "children": {
+              "true": [
+                {
+                  "id": "e6aa482a-624a-5a91-a1f8-0b9d45a824af",
+                  "command": "EVENT_RATE_LIMIT",
+                  "args": {
+                    "variable": "46",
+                    "time": {
+                      "type": "number",
+                      "value": 0.6
+                    },
+                    "frames": {
+                      "type": "number",
+                      "value": 36
+                    },
+                    "units": "time"
+                  },
+                  "children": {
+                    "true": [
+                      {
+                        "id": "b2aa0295-e306-5e69-8a0e-e686defac4a6",
+                        "command": "EVENT_ACTOR_GET_DIRECTION",
+                        "args": {
+                          "actorId": "player",
+                          "direction": "23"
+                        }
+                      },
+                      {
+                        "id": "7a582e6a-8abc-512a-b023-3b93fb0eb720",
+                        "command": "EVENT_ACTOR_GET_POSITION",
+                        "args": {
+                          "actorId": "player",
+                          "vectorX": "21",
+                          "vectorY": "22",
+                          "units": "pixels"
+                        }
+                      },
+                      {
+                        "id": "51bffe65-8fb6-5a05-8be9-04858415ecb7",
+                        "command": "EVENT_LOOP_WHILE",
+                        "args": {
+                          "condition": {
+                            "type": "or",
+                            "valueA": {
+                              "type": "ne",
+                              "valueA": {
+                                "type": "mod",
+                                "valueA": {
+                                  "type": "variable",
+                                  "value": "21"
+                                },
+                                "valueB": {
+                                  "type": "number",
+                                  "value": 8
+                                }
+                              },
+                              "valueB": {
+                                "type": "number",
+                                "value": 0
+                              }
+                            },
+                            "valueB": {
+                              "type": "ne",
+                              "valueA": {
+                                "type": "mod",
+                                "valueA": {
+                                  "type": "variable",
+                                  "value": "22"
+                                },
+                                "valueB": {
+                                  "type": "number",
+                                  "value": 8
+                                }
+                              },
+                              "valueB": {
+                                "type": "number",
+                                "value": 0
+                              }
+                            }
+                          }
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "c2915194-646f-5a46-9484-fef773b7a6b0",
+                              "command": "EVENT_WAIT",
+                              "args": {
+                                "time": {
+                                  "type": "number",
+                                  "value": 0.02
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 1
+                                },
+                                "units": "frames"
+                              }
+                            },
+                            {
+                              "id": "433cec2c-ab01-58e6-815f-7460b2dbce15",
+                              "command": "EVENT_ACTOR_GET_POSITION",
+                              "args": {
+                                "actorId": "player",
+                                "vectorX": "21",
+                                "vectorY": "22",
+                                "units": "pixels"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "id": "81ac6072-b4e4-5b37-b7dd-e505e647b1e4",
+                        "command": "EVENT_ACTOR_SET_SPRITE",
+                        "args": {
+                          "actorId": "player",
+                          "spriteSheetId": "5ff26d98-cedc-54a6-b7ea-80c9143ddea4"
+                        }
+                      },
+                      {
+                        "id": "ee52f271-5c6a-5a65-857f-507d1709d958",
+                        "command": "EVENT_ACTOR_SET_MOVEMENT_SPEED",
+                        "args": {
+                          "actorId": "player",
+                          "speed": 4
+                        }
+                      },
+                      {
+                        "id": "4ff8be22-b050-5741-a3f3-a18f966bc67a",
+                        "command": "EVENT_SET_VALUE",
+                        "args": {
+                          "variable": "54",
+                          "value": {
+                            "type": "true"
+                          }
+                        }
+                      },
+                      {
+                        "id": "060a2621-3f89-514a-a6c2-f193afb985f6",
+                        "command": "EVENT_SOUND_PLAY_EFFECT",
+                        "args": {
+                          "type": "noise",
+                          "priority": "medium",
+                          "pitch": 6,
+                          "frequency": 200,
+                          "duration": 0.15,
+                          "wait": false,
+                          "effect": 0
+                        }
+                      },
+                      {
+                        "id": "5f2cdc8d-ebf6-5fd4-b517-1b9d45527286",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "eq",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "23"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 0
+                            }
+                          },
+                          "__collapseElse": false
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "ee7fa163-b2d0-57b1-b056-5bfc23bfb4fb",
+                              "command": "EVENT_ACTOR_MOVE_RELATIVE",
+                              "args": {
+                                "actorId": "player",
+                                "x": {
+                                  "type": "number",
+                                  "value": 0
+                                },
+                                "y": {
+                                  "type": "number",
+                                  "value": 8
+                                },
+                                "moveType": "vertical",
+                                "collideWith": [
+                                  "walls",
+                                  "actors"
+                                ],
+                                "lockDirection": []
+                              }
+                            }
+                          ],
+                          "false": [
+                            {
+                              "id": "f3c14291-9e75-51c3-9edc-90bf51f3965c",
+                              "command": "EVENT_IF",
+                              "args": {
+                                "condition": {
+                                  "type": "eq",
+                                  "valueA": {
+                                    "type": "variable",
+                                    "value": "23"
+                                  },
+                                  "valueB": {
+                                    "type": "number",
+                                    "value": 1
+                                  }
+                                },
+                                "__collapseElse": false
+                              },
+                              "children": {
+                                "true": [
+                                  {
+                                    "id": "2b802d2d-e092-5aef-9fe5-ce3d353e94b9",
+                                    "command": "EVENT_ACTOR_MOVE_RELATIVE",
+                                    "args": {
+                                      "actorId": "player",
+                                      "x": {
+                                        "type": "number",
+                                        "value": 8
+                                      },
+                                      "y": {
+                                        "type": "number",
+                                        "value": 0
+                                      },
+                                      "moveType": "horizontal",
+                                      "collideWith": [
+                                        "walls",
+                                        "actors"
+                                      ],
+                                      "lockDirection": []
+                                    }
+                                  }
+                                ],
+                                "false": [
+                                  {
+                                    "id": "9215ed2e-44a6-51de-9fa9-b840df200901",
+                                    "command": "EVENT_IF",
+                                    "args": {
+                                      "condition": {
+                                        "type": "eq",
+                                        "valueA": {
+                                          "type": "variable",
+                                          "value": "23"
+                                        },
+                                        "valueB": {
+                                          "type": "number",
+                                          "value": 2
+                                        }
+                                      },
+                                      "__collapseElse": false
+                                    },
+                                    "children": {
+                                      "true": [
+                                        {
+                                          "id": "9e377974-7acc-503f-a847-4233ccf0124e",
+                                          "command": "EVENT_ACTOR_MOVE_RELATIVE",
+                                          "args": {
+                                            "actorId": "player",
+                                            "x": {
+                                              "type": "number",
+                                              "value": 0
+                                            },
+                                            "y": {
+                                              "type": "number",
+                                              "value": -8
+                                            },
+                                            "moveType": "vertical",
+                                            "collideWith": [
+                                              "walls",
+                                              "actors"
+                                            ],
+                                            "lockDirection": []
+                                          }
+                                        }
+                                      ],
+                                      "false": [
+                                        {
+                                          "id": "3ef0b4c7-70a4-517a-91d6-23c5facee753",
+                                          "command": "EVENT_IF",
+                                          "args": {
+                                            "condition": {
+                                              "type": "eq",
+                                              "valueA": {
+                                                "type": "variable",
+                                                "value": "23"
+                                              },
+                                              "valueB": {
+                                                "type": "number",
+                                                "value": 3
+                                              }
+                                            },
+                                            "__collapseElse": true
+                                          },
+                                          "children": {
+                                            "true": [
+                                              {
+                                                "id": "abfdf03a-d74e-5bb4-afb3-553dd10cbeb5",
+                                                "command": "EVENT_ACTOR_MOVE_RELATIVE",
+                                                "args": {
+                                                  "actorId": "player",
+                                                  "x": {
+                                                    "type": "number",
+                                                    "value": -8
+                                                  },
+                                                  "y": {
+                                                    "type": "number",
+                                                    "value": 0
+                                                  },
+                                                  "moveType": "horizontal",
+                                                  "collideWith": [
+                                                    "walls",
+                                                    "actors"
+                                                  ],
+                                                  "lockDirection": []
+                                                }
+                                              }
+                                            ],
+                                            "false": []
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "id": "90d8ab43-fe01-5fa5-9f8b-994b4d1b286d",
+                        "command": "EVENT_ACTOR_SET_MOVEMENT_SPEED",
+                        "args": {
+                          "actorId": "player",
+                          "speed": 1
+                        }
+                      },
+                      {
+                        "id": "92f2efbe-5799-523a-8295-63b771eaeefa",
+                        "command": "EVENT_ACTOR_SET_SPRITE",
+                        "args": {
+                          "actorId": "player",
+                          "spriteSheetId": "722660d5-9d9c-5394-91d1-31a77a71480e"
+                        }
+                      },
+                      {
+                        "id": "19c8bd98-9c92-5311-ac01-0c0af4230471",
+                        "command": "EVENT_ACTOR_GET_POSITION",
+                        "args": {
+                          "actorId": "player",
+                          "vectorX": "21",
+                          "vectorY": "22",
+                          "units": "tiles"
+                        }
+                      },
+                      {
+                        "id": "b56d3f93-308f-52db-87b8-a7ef0dad68f6",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "or",
+                            "valueA": {
+                              "type": "or",
+                              "valueA": {
+                                "type": "and",
+                                "valueA": {
+                                  "type": "eq",
+                                  "valueA": {
+                                    "type": "variable",
+                                    "value": "23"
+                                  },
+                                  "valueB": {
+                                    "type": "number",
+                                    "value": 2
+                                  }
+                                },
+                                "valueB": {
+                                  "type": "and",
+                                  "valueA": {
+                                    "type": "and",
+                                    "valueA": {
+                                      "type": "gte",
+                                      "valueA": {
+                                        "type": "variable",
+                                        "value": "22"
+                                      },
+                                      "valueB": {
+                                        "type": "number",
+                                        "value": 10
+                                      }
+                                    },
+                                    "valueB": {
+                                      "type": "lte",
+                                      "valueA": {
+                                        "type": "variable",
+                                        "value": "22"
+                                      },
+                                      "valueB": {
+                                        "type": "number",
+                                        "value": 11
+                                      }
+                                    }
+                                  },
+                                  "valueB": {
+                                    "type": "and",
+                                    "valueA": {
+                                      "type": "gte",
+                                      "valueA": {
+                                        "type": "variable",
+                                        "value": "21"
+                                      },
+                                      "valueB": {
+                                        "type": "number",
+                                        "value": -1
+                                      }
+                                    },
+                                    "valueB": {
+                                      "type": "lte",
+                                      "valueA": {
+                                        "type": "variable",
+                                        "value": "21"
+                                      },
+                                      "valueB": {
+                                        "type": "number",
+                                        "value": 1
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              "valueB": {
+                                "type": "and",
+                                "valueA": {
+                                  "type": "eq",
+                                  "valueA": {
+                                    "type": "variable",
+                                    "value": "23"
+                                  },
+                                  "valueB": {
+                                    "type": "number",
+                                    "value": 0
+                                  }
+                                },
+                                "valueB": {
+                                  "type": "and",
+                                  "valueA": {
+                                    "type": "and",
+                                    "valueA": {
+                                      "type": "gte",
+                                      "valueA": {
+                                        "type": "variable",
+                                        "value": "22"
+                                      },
+                                      "valueB": {
+                                        "type": "number",
+                                        "value": 6
+                                      }
+                                    },
+                                    "valueB": {
+                                      "type": "lte",
+                                      "valueA": {
+                                        "type": "variable",
+                                        "value": "22"
+                                      },
+                                      "valueB": {
+                                        "type": "number",
+                                        "value": 7
+                                      }
+                                    }
+                                  },
+                                  "valueB": {
+                                    "type": "and",
+                                    "valueA": {
+                                      "type": "gte",
+                                      "valueA": {
+                                        "type": "variable",
+                                        "value": "21"
+                                      },
+                                      "valueB": {
+                                        "type": "number",
+                                        "value": -1
+                                      }
+                                    },
+                                    "valueB": {
+                                      "type": "lte",
+                                      "valueA": {
+                                        "type": "variable",
+                                        "value": "21"
+                                      },
+                                      "valueB": {
+                                        "type": "number",
+                                        "value": 1
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "valueB": {
+                              "type": "or",
+                              "valueA": {
+                                "type": "and",
+                                "valueA": {
+                                  "type": "eq",
+                                  "valueA": {
+                                    "type": "variable",
+                                    "value": "23"
+                                  },
+                                  "valueB": {
+                                    "type": "number",
+                                    "value": 1
+                                  }
+                                },
+                                "valueB": {
+                                  "type": "and",
+                                  "valueA": {
+                                    "type": "and",
+                                    "valueA": {
+                                      "type": "gte",
+                                      "valueA": {
+                                        "type": "variable",
+                                        "value": "21"
+                                      },
+                                      "valueB": {
+                                        "type": "number",
+                                        "value": -3
+                                      }
+                                    },
+                                    "valueB": {
+                                      "type": "lte",
+                                      "valueA": {
+                                        "type": "variable",
+                                        "value": "21"
+                                      },
+                                      "valueB": {
+                                        "type": "number",
+                                        "value": -2
+                                      }
+                                    }
+                                  },
+                                  "valueB": {
+                                    "type": "and",
+                                    "valueA": {
+                                      "type": "gte",
+                                      "valueA": {
+                                        "type": "variable",
+                                        "value": "22"
+                                      },
+                                      "valueB": {
+                                        "type": "number",
+                                        "value": 8
+                                      }
+                                    },
+                                    "valueB": {
+                                      "type": "lte",
+                                      "valueA": {
+                                        "type": "variable",
+                                        "value": "22"
+                                      },
+                                      "valueB": {
+                                        "type": "number",
+                                        "value": 9
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              "valueB": {
+                                "type": "and",
+                                "valueA": {
+                                  "type": "eq",
+                                  "valueA": {
+                                    "type": "variable",
+                                    "value": "23"
+                                  },
+                                  "valueB": {
+                                    "type": "number",
+                                    "value": 3
+                                  }
+                                },
+                                "valueB": {
+                                  "type": "and",
+                                  "valueA": {
+                                    "type": "and",
+                                    "valueA": {
+                                      "type": "gte",
+                                      "valueA": {
+                                        "type": "variable",
+                                        "value": "21"
+                                      },
+                                      "valueB": {
+                                        "type": "number",
+                                        "value": 2
+                                      }
+                                    },
+                                    "valueB": {
+                                      "type": "lte",
+                                      "valueA": {
+                                        "type": "variable",
+                                        "value": "21"
+                                      },
+                                      "valueB": {
+                                        "type": "number",
+                                        "value": 3
+                                      }
+                                    }
+                                  },
+                                  "valueB": {
+                                    "type": "and",
+                                    "valueA": {
+                                      "type": "gte",
+                                      "valueA": {
+                                        "type": "variable",
+                                        "value": "22"
+                                      },
+                                      "valueB": {
+                                        "type": "number",
+                                        "value": 8
+                                      }
+                                    },
+                                    "valueB": {
+                                      "type": "lte",
+                                      "valueA": {
+                                        "type": "variable",
+                                        "value": "22"
+                                      },
+                                      "valueB": {
+                                        "type": "number",
+                                        "value": 9
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "__collapseElse": true
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "0656af0f-9e3f-5a77-88e8-92aff901d75e",
+                              "command": "EVENT_IF",
+                              "args": {
+                                "condition": {
+                                  "type": "variable",
+                                  "value": "79"
+                                },
+                                "__collapseElse": false
+                              },
+                              "children": {
+                                "true": [],
+                                "false": [
+                                  {
+                                    "id": "9195f5b7-63cc-520f-91aa-40b00a59eff2",
+                                    "command": "EVENT_CAMERA_SHAKE",
+                                    "args": {
+                                      "time": 0.4,
+                                      "frames": 24,
+                                      "units": "time",
+                                      "shakeDirection": "horizontal",
+                                      "magnitude": {
+                                        "type": "number",
+                                        "value": 4
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "id": "0535a46c-6c56-5ff3-8281-3f3e593b5c5e",
+                                    "command": "EVENT_SOUND_PLAY_EFFECT",
+                                    "args": {
+                                      "type": "crash",
+                                      "priority": "medium",
+                                      "pitch": 2,
+                                      "frequency": 200,
+                                      "duration": 0.4,
+                                      "wait": false,
+                                      "effect": 0
+                                    }
+                                  },
+                                  {
+                                    "id": "3be96bb6-eb55-51a7-aae9-063030efd25f",
+                                    "command": "EVENT_ACTOR_DEACTIVATE",
+                                    "args": {
+                                      "actorId": "c3191d20-8e92-5a06-991c-1e0aadcb759d"
+                                    }
+                                  },
+                                  {
+                                    "id": "35cc4da9-df2e-58bc-9b76-3bfa4862c7a5",
+                                    "command": "EVENT_SET_VALUE",
+                                    "args": {
+                                      "variable": "79",
+                                      "value": {
+                                        "type": "true"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "id": "daef5b42-a2c5-5b7e-9671-293f2dd2a4fa",
+                                    "command": "EVENT_TEXT",
+                                    "args": {
+                                      "text": "CRASH! It\ncrumbles.",
+                                      "avatarId": ""
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ],
+                          "false": []
+                        }
+                      },
+                      {
+                        "id": "e06f4d6d-772d-5f25-9778-2c3b878adfca",
+                        "command": "EVENT_WAIT",
+                        "args": {
+                          "time": {
+                            "type": "number",
+                            "value": 0.3
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 18
+                          },
+                          "units": "time"
+                        }
+                      },
+                      {
+                        "id": "7cef1583-3d7c-593f-894d-9325d6ae0222",
+                        "command": "EVENT_SET_VALUE",
+                        "args": {
+                          "variable": "54",
+                          "value": {
+                            "type": "false"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "false": []
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "playerHit1Script": [
+    {
+      "id": "b410a671-403f-58b0-b25e-0f6848de2b5c",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "54"
+        },
+        "__collapseElse": false
+      },
+      "children": {
+        "true": [],
+        "false": [
+          {
+            "id": "2c741a3e-c5c8-590b-ac80-252e25464063",
+            "command": "EVENT_RATE_LIMIT",
+            "args": {
+              "variable": "16",
+              "time": {
+                "type": "number",
+                "value": 1.5
+              },
+              "frames": {
+                "type": "number",
+                "value": 90
+              },
+              "units": "time"
+            },
+            "children": {
+              "true": [
+                {
+                  "id": "252cdd5e-0a82-5672-87af-2a429091a698",
+                  "command": "EVENT_DEC_VALUE",
+                  "args": {
+                    "variable": "9"
+                  }
+                },
+                {
+                  "id": "348e1baf-7636-5a49-a1d2-15bae48f426d",
+                  "command": "EVENT_IF",
+                  "args": {
+                    "condition": {
+                      "type": "eq",
+                      "valueA": {
+                        "type": "variable",
+                        "value": "19"
+                      },
+                      "valueB": {
+                        "type": "number",
+                        "value": 3
+                      }
+                    },
+                    "__collapseElse": true
+                  },
+                  "children": {
+                    "true": [
+                      {
+                        "id": "10beb9a1-8b1e-56ab-9344-dd0c7f14f134",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "lte",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "9"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 0
+                            }
+                          },
+                          "__collapseElse": true
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "8dce9d65-fc00-5194-97bf-81758a4433f2",
+                              "command": "EVENT_ACTOR_SET_STATE",
+                              "args": {
+                                "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                                "spriteStateId": "3_0",
+                                "loopAnim": true
+                              }
+                            }
+                          ],
+                          "false": []
+                        }
+                      },
+                      {
+                        "id": "8338ef41-ee62-564c-b374-5df0a6b47d56",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "eq",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "9"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 1
+                            }
+                          },
+                          "__collapseElse": true
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "d60c17f7-eca5-55bf-b683-24d7e0f47960",
+                              "command": "EVENT_ACTOR_SET_STATE",
+                              "args": {
+                                "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                                "spriteStateId": "3_1",
+                                "loopAnim": true
+                              }
+                            }
+                          ],
+                          "false": []
+                        }
+                      },
+                      {
+                        "id": "bc02260c-cfb4-5709-9a8d-fa209e19721e",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "eq",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "9"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 2
+                            }
+                          },
+                          "__collapseElse": true
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "07ca64ec-5c68-560b-b770-b5f63aee995d",
+                              "command": "EVENT_ACTOR_SET_STATE",
+                              "args": {
+                                "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                                "spriteStateId": "3_2",
+                                "loopAnim": true
+                              }
+                            }
+                          ],
+                          "false": []
+                        }
+                      },
+                      {
+                        "id": "d983dffb-1bea-5b1d-8aad-244446be4062",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "gte",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "9"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 3
+                            }
+                          },
+                          "__collapseElse": true
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "3911e57c-a02c-5580-9b0d-ba8ea6df1d83",
+                              "command": "EVENT_ACTOR_SET_STATE",
+                              "args": {
+                                "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                                "spriteStateId": "3_3",
+                                "loopAnim": true
+                              }
+                            }
+                          ],
+                          "false": []
+                        }
+                      }
+                    ],
+                    "false": []
+                  }
+                },
+                {
+                  "id": "2809bfd2-e16d-5c15-b114-940a88b067ed",
+                  "command": "EVENT_IF",
+                  "args": {
+                    "condition": {
+                      "type": "eq",
+                      "valueA": {
+                        "type": "variable",
+                        "value": "19"
+                      },
+                      "valueB": {
+                        "type": "number",
+                        "value": 4
+                      }
+                    },
+                    "__collapseElse": true
+                  },
+                  "children": {
+                    "true": [
+                      {
+                        "id": "78a3dad7-f558-5354-8ce5-2219ac65654d",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "lte",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "9"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 0
+                            }
+                          },
+                          "__collapseElse": true
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "bed452e4-80b4-53ea-9769-c1b07705f1de",
+                              "command": "EVENT_ACTOR_SET_STATE",
+                              "args": {
+                                "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                                "spriteStateId": "4_0",
+                                "loopAnim": true
+                              }
+                            }
+                          ],
+                          "false": []
+                        }
+                      },
+                      {
+                        "id": "3a483fbe-789d-5fed-b07f-9fc21b7d34ad",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "eq",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "9"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 1
+                            }
+                          },
+                          "__collapseElse": true
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "33a58b42-c214-5e06-933d-d1da77aa6cff",
+                              "command": "EVENT_ACTOR_SET_STATE",
+                              "args": {
+                                "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                                "spriteStateId": "4_1",
+                                "loopAnim": true
+                              }
+                            }
+                          ],
+                          "false": []
+                        }
+                      },
+                      {
+                        "id": "e1d848e4-b397-5d37-9d11-53e743dd6435",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "eq",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "9"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 2
+                            }
+                          },
+                          "__collapseElse": true
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "1392da60-2d44-5428-a742-963bcb7b5aae",
+                              "command": "EVENT_ACTOR_SET_STATE",
+                              "args": {
+                                "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                                "spriteStateId": "4_2",
+                                "loopAnim": true
+                              }
+                            }
+                          ],
+                          "false": []
+                        }
+                      },
+                      {
+                        "id": "8d42a635-489d-522d-81e7-94799a7dcf66",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "eq",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "9"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 3
+                            }
+                          },
+                          "__collapseElse": true
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "60e8ccdf-7cc2-5b99-9573-356c44b9c89b",
+                              "command": "EVENT_ACTOR_SET_STATE",
+                              "args": {
+                                "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                                "spriteStateId": "4_3",
+                                "loopAnim": true
+                              }
+                            }
+                          ],
+                          "false": []
+                        }
+                      },
+                      {
+                        "id": "86b1c3d8-37f7-5654-be39-2f13feec81ef",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "gte",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "9"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 4
+                            }
+                          },
+                          "__collapseElse": true
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "dc0b3924-bc3d-58af-9de5-9b35c550ec71",
+                              "command": "EVENT_ACTOR_SET_STATE",
+                              "args": {
+                                "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                                "spriteStateId": "4_4",
+                                "loopAnim": true
+                              }
+                            }
+                          ],
+                          "false": []
+                        }
+                      }
+                    ],
+                    "false": []
+                  }
+                },
+                {
+                  "id": "e4d852de-1c7f-5bf3-998d-80aeae2ad311",
+                  "command": "EVENT_IF",
+                  "args": {
+                    "condition": {
+                      "type": "gte",
+                      "valueA": {
+                        "type": "variable",
+                        "value": "19"
+                      },
+                      "valueB": {
+                        "type": "number",
+                        "value": 5
+                      }
+                    },
+                    "__collapseElse": true
+                  },
+                  "children": {
+                    "true": [
+                      {
+                        "id": "1a7a40b0-9e88-5864-be62-4e3e29ed3ffc",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "lte",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "9"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 0
+                            }
+                          },
+                          "__collapseElse": true
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "3e12ddaf-d558-5b87-a20a-b6df2e91d4a7",
+                              "command": "EVENT_ACTOR_SET_STATE",
+                              "args": {
+                                "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                                "spriteStateId": "5_0",
+                                "loopAnim": true
+                              }
+                            }
+                          ],
+                          "false": []
+                        }
+                      },
+                      {
+                        "id": "95fdcc45-c7e2-5529-954a-7d30bdea9f83",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "eq",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "9"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 1
+                            }
+                          },
+                          "__collapseElse": true
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "9ff88c37-af5c-57c5-ba55-904bc195257e",
+                              "command": "EVENT_ACTOR_SET_STATE",
+                              "args": {
+                                "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                                "spriteStateId": "5_1",
+                                "loopAnim": true
+                              }
+                            }
+                          ],
+                          "false": []
+                        }
+                      },
+                      {
+                        "id": "b318da2c-f013-58b6-8f07-d205ef0fdf1d",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "eq",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "9"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 2
+                            }
+                          },
+                          "__collapseElse": true
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "bb60e1da-706f-592c-9677-20f20bbf49d6",
+                              "command": "EVENT_ACTOR_SET_STATE",
+                              "args": {
+                                "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                                "spriteStateId": "5_2",
+                                "loopAnim": true
+                              }
+                            }
+                          ],
+                          "false": []
+                        }
+                      },
+                      {
+                        "id": "87562624-2d51-526d-a554-cb6b30c18fbc",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "eq",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "9"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 3
+                            }
+                          },
+                          "__collapseElse": true
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "fa8271cf-d1ca-5f99-9799-dd69c4495a04",
+                              "command": "EVENT_ACTOR_SET_STATE",
+                              "args": {
+                                "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                                "spriteStateId": "5_3",
+                                "loopAnim": true
+                              }
+                            }
+                          ],
+                          "false": []
+                        }
+                      },
+                      {
+                        "id": "1312e6fd-1375-502d-a177-fa2d0cd4ff21",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "eq",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "9"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 4
+                            }
+                          },
+                          "__collapseElse": true
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "243a172d-1f4e-5fad-b5d8-6ff729884eea",
+                              "command": "EVENT_ACTOR_SET_STATE",
+                              "args": {
+                                "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                                "spriteStateId": "5_4",
+                                "loopAnim": true
+                              }
+                            }
+                          ],
+                          "false": []
+                        }
+                      },
+                      {
+                        "id": "dabf7ab3-4c0c-5f3c-a838-5617f894e0d5",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "gte",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "9"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 5
+                            }
+                          },
+                          "__collapseElse": true
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "d315c12b-475e-57bd-902d-066b524df752",
+                              "command": "EVENT_ACTOR_SET_STATE",
+                              "args": {
+                                "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                                "spriteStateId": "5_5",
+                                "loopAnim": true
+                              }
+                            }
+                          ],
+                          "false": []
+                        }
+                      }
+                    ],
+                    "false": []
+                  }
+                },
+                {
+                  "id": "81f02e53-ae87-522d-8524-f10cd4a13552",
+                  "command": "EVENT_SOUND_PLAY_EFFECT",
+                  "args": {
+                    "type": "crash",
+                    "priority": "medium",
+                    "pitch": 4,
+                    "frequency": 200,
+                    "duration": 0.2,
+                    "wait": false,
+                    "effect": 0
+                  }
+                },
+                {
+                  "id": "1f91e20e-a476-5f83-9ef8-c72c69a34169",
+                  "command": "EVENT_CAMERA_SHAKE",
+                  "args": {
+                    "time": 0.25,
+                    "frames": 15,
+                    "units": "time",
+                    "shakeDirection": "horizontal",
+                    "magnitude": {
+                      "type": "number",
+                      "value": 3
+                    }
+                  }
+                },
+                {
+                  "id": "4d6c1129-1055-5a90-acbd-59d5746d825e",
+                  "command": "EVENT_IF",
+                  "args": {
+                    "condition": {
+                      "type": "lte",
+                      "valueA": {
+                        "type": "variable",
+                        "value": "9"
+                      },
+                      "valueB": {
+                        "type": "number",
+                        "value": 0
+                      }
+                    },
+                    "__collapseElse": true
+                  },
+                  "children": {
+                    "true": [
+                      {
+                        "id": "5e7ad610-29f0-5462-9652-16d02ee2e171",
+                        "command": "EVENT_TEXT",
+                        "args": {
+                          "text": "Bufo has been\nmoved to a\nnew team.",
+                          "avatarId": ""
+                        }
+                      },
+                      {
+                        "id": "b50cf269-e56e-5a91-b15e-134da3cc57d9",
+                        "command": "EVENT_TEXT",
+                        "args": {
+                          "text": "(Game over. Bufo\nwakes up at the\nstairs.)",
+                          "avatarId": ""
+                        }
+                      },
+                      {
+                        "id": "ebf2e843-19d3-50e8-a7bf-88a8fabe6738",
+                        "command": "EVENT_SET_VALUE",
+                        "args": {
+                          "variable": "9",
+                          "value": {
+                            "type": "variable",
+                            "value": "19"
+                          }
+                        }
+                      },
+                      {
+                        "id": "5c81f09a-75c7-56fc-9d1a-e4f2c885f9cf",
+                        "command": "EVENT_SWITCH_SCENE",
+                        "args": {
+                          "sceneId": "a82f52d2-6048-5c42-aebd-5fe6d5230ffa",
+                          "x": {
+                            "type": "number",
+                            "value": 9
+                          },
+                          "y": {
+                            "type": "number",
+                            "value": 14
+                          },
+                          "direction": "up",
+                          "fadeSpeed": "2"
+                        }
+                      }
+                    ],
+                    "false": []
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "playerHit2Script": [],
+  "playerHit3Script": [
+    {
+      "id": "b410a671-403f-58b0-b25e-0f6848de2b5c",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "54"
+        },
+        "__collapseElse": false
+      },
+      "children": {
+        "true": [],
+        "false": [
+          {
+            "id": "2c741a3e-c5c8-590b-ac80-252e25464063",
+            "command": "EVENT_RATE_LIMIT",
+            "args": {
+              "variable": "16",
+              "time": {
+                "type": "number",
+                "value": 1.5
+              },
+              "frames": {
+                "type": "number",
+                "value": 90
+              },
+              "units": "time"
+            },
+            "children": {
+              "true": [
+                {
+                  "id": "252cdd5e-0a82-5672-87af-2a429091a698",
+                  "command": "EVENT_DEC_VALUE",
+                  "args": {
+                    "variable": "9"
+                  }
+                },
+                {
+                  "id": "348e1baf-7636-5a49-a1d2-15bae48f426d",
+                  "command": "EVENT_IF",
+                  "args": {
+                    "condition": {
+                      "type": "eq",
+                      "valueA": {
+                        "type": "variable",
+                        "value": "19"
+                      },
+                      "valueB": {
+                        "type": "number",
+                        "value": 3
+                      }
+                    },
+                    "__collapseElse": true
+                  },
+                  "children": {
+                    "true": [
+                      {
+                        "id": "10beb9a1-8b1e-56ab-9344-dd0c7f14f134",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "lte",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "9"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 0
+                            }
+                          },
+                          "__collapseElse": true
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "8dce9d65-fc00-5194-97bf-81758a4433f2",
+                              "command": "EVENT_ACTOR_SET_STATE",
+                              "args": {
+                                "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                                "spriteStateId": "3_0",
+                                "loopAnim": true
+                              }
+                            }
+                          ],
+                          "false": []
+                        }
+                      },
+                      {
+                        "id": "8338ef41-ee62-564c-b374-5df0a6b47d56",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "eq",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "9"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 1
+                            }
+                          },
+                          "__collapseElse": true
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "d60c17f7-eca5-55bf-b683-24d7e0f47960",
+                              "command": "EVENT_ACTOR_SET_STATE",
+                              "args": {
+                                "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                                "spriteStateId": "3_1",
+                                "loopAnim": true
+                              }
+                            }
+                          ],
+                          "false": []
+                        }
+                      },
+                      {
+                        "id": "bc02260c-cfb4-5709-9a8d-fa209e19721e",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "eq",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "9"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 2
+                            }
+                          },
+                          "__collapseElse": true
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "07ca64ec-5c68-560b-b770-b5f63aee995d",
+                              "command": "EVENT_ACTOR_SET_STATE",
+                              "args": {
+                                "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                                "spriteStateId": "3_2",
+                                "loopAnim": true
+                              }
+                            }
+                          ],
+                          "false": []
+                        }
+                      },
+                      {
+                        "id": "d983dffb-1bea-5b1d-8aad-244446be4062",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "gte",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "9"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 3
+                            }
+                          },
+                          "__collapseElse": true
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "3911e57c-a02c-5580-9b0d-ba8ea6df1d83",
+                              "command": "EVENT_ACTOR_SET_STATE",
+                              "args": {
+                                "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                                "spriteStateId": "3_3",
+                                "loopAnim": true
+                              }
+                            }
+                          ],
+                          "false": []
+                        }
+                      }
+                    ],
+                    "false": []
+                  }
+                },
+                {
+                  "id": "2809bfd2-e16d-5c15-b114-940a88b067ed",
+                  "command": "EVENT_IF",
+                  "args": {
+                    "condition": {
+                      "type": "eq",
+                      "valueA": {
+                        "type": "variable",
+                        "value": "19"
+                      },
+                      "valueB": {
+                        "type": "number",
+                        "value": 4
+                      }
+                    },
+                    "__collapseElse": true
+                  },
+                  "children": {
+                    "true": [
+                      {
+                        "id": "78a3dad7-f558-5354-8ce5-2219ac65654d",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "lte",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "9"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 0
+                            }
+                          },
+                          "__collapseElse": true
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "bed452e4-80b4-53ea-9769-c1b07705f1de",
+                              "command": "EVENT_ACTOR_SET_STATE",
+                              "args": {
+                                "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                                "spriteStateId": "4_0",
+                                "loopAnim": true
+                              }
+                            }
+                          ],
+                          "false": []
+                        }
+                      },
+                      {
+                        "id": "3a483fbe-789d-5fed-b07f-9fc21b7d34ad",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "eq",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "9"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 1
+                            }
+                          },
+                          "__collapseElse": true
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "33a58b42-c214-5e06-933d-d1da77aa6cff",
+                              "command": "EVENT_ACTOR_SET_STATE",
+                              "args": {
+                                "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                                "spriteStateId": "4_1",
+                                "loopAnim": true
+                              }
+                            }
+                          ],
+                          "false": []
+                        }
+                      },
+                      {
+                        "id": "e1d848e4-b397-5d37-9d11-53e743dd6435",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "eq",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "9"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 2
+                            }
+                          },
+                          "__collapseElse": true
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "1392da60-2d44-5428-a742-963bcb7b5aae",
+                              "command": "EVENT_ACTOR_SET_STATE",
+                              "args": {
+                                "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                                "spriteStateId": "4_2",
+                                "loopAnim": true
+                              }
+                            }
+                          ],
+                          "false": []
+                        }
+                      },
+                      {
+                        "id": "8d42a635-489d-522d-81e7-94799a7dcf66",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "eq",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "9"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 3
+                            }
+                          },
+                          "__collapseElse": true
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "60e8ccdf-7cc2-5b99-9573-356c44b9c89b",
+                              "command": "EVENT_ACTOR_SET_STATE",
+                              "args": {
+                                "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                                "spriteStateId": "4_3",
+                                "loopAnim": true
+                              }
+                            }
+                          ],
+                          "false": []
+                        }
+                      },
+                      {
+                        "id": "86b1c3d8-37f7-5654-be39-2f13feec81ef",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "gte",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "9"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 4
+                            }
+                          },
+                          "__collapseElse": true
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "dc0b3924-bc3d-58af-9de5-9b35c550ec71",
+                              "command": "EVENT_ACTOR_SET_STATE",
+                              "args": {
+                                "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                                "spriteStateId": "4_4",
+                                "loopAnim": true
+                              }
+                            }
+                          ],
+                          "false": []
+                        }
+                      }
+                    ],
+                    "false": []
+                  }
+                },
+                {
+                  "id": "e4d852de-1c7f-5bf3-998d-80aeae2ad311",
+                  "command": "EVENT_IF",
+                  "args": {
+                    "condition": {
+                      "type": "gte",
+                      "valueA": {
+                        "type": "variable",
+                        "value": "19"
+                      },
+                      "valueB": {
+                        "type": "number",
+                        "value": 5
+                      }
+                    },
+                    "__collapseElse": true
+                  },
+                  "children": {
+                    "true": [
+                      {
+                        "id": "1a7a40b0-9e88-5864-be62-4e3e29ed3ffc",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "lte",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "9"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 0
+                            }
+                          },
+                          "__collapseElse": true
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "3e12ddaf-d558-5b87-a20a-b6df2e91d4a7",
+                              "command": "EVENT_ACTOR_SET_STATE",
+                              "args": {
+                                "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                                "spriteStateId": "5_0",
+                                "loopAnim": true
+                              }
+                            }
+                          ],
+                          "false": []
+                        }
+                      },
+                      {
+                        "id": "95fdcc45-c7e2-5529-954a-7d30bdea9f83",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "eq",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "9"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 1
+                            }
+                          },
+                          "__collapseElse": true
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "9ff88c37-af5c-57c5-ba55-904bc195257e",
+                              "command": "EVENT_ACTOR_SET_STATE",
+                              "args": {
+                                "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                                "spriteStateId": "5_1",
+                                "loopAnim": true
+                              }
+                            }
+                          ],
+                          "false": []
+                        }
+                      },
+                      {
+                        "id": "b318da2c-f013-58b6-8f07-d205ef0fdf1d",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "eq",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "9"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 2
+                            }
+                          },
+                          "__collapseElse": true
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "bb60e1da-706f-592c-9677-20f20bbf49d6",
+                              "command": "EVENT_ACTOR_SET_STATE",
+                              "args": {
+                                "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                                "spriteStateId": "5_2",
+                                "loopAnim": true
+                              }
+                            }
+                          ],
+                          "false": []
+                        }
+                      },
+                      {
+                        "id": "87562624-2d51-526d-a554-cb6b30c18fbc",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "eq",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "9"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 3
+                            }
+                          },
+                          "__collapseElse": true
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "fa8271cf-d1ca-5f99-9799-dd69c4495a04",
+                              "command": "EVENT_ACTOR_SET_STATE",
+                              "args": {
+                                "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                                "spriteStateId": "5_3",
+                                "loopAnim": true
+                              }
+                            }
+                          ],
+                          "false": []
+                        }
+                      },
+                      {
+                        "id": "1312e6fd-1375-502d-a177-fa2d0cd4ff21",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "eq",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "9"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 4
+                            }
+                          },
+                          "__collapseElse": true
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "243a172d-1f4e-5fad-b5d8-6ff729884eea",
+                              "command": "EVENT_ACTOR_SET_STATE",
+                              "args": {
+                                "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                                "spriteStateId": "5_4",
+                                "loopAnim": true
+                              }
+                            }
+                          ],
+                          "false": []
+                        }
+                      },
+                      {
+                        "id": "dabf7ab3-4c0c-5f3c-a838-5617f894e0d5",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "gte",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "9"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 5
+                            }
+                          },
+                          "__collapseElse": true
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "d315c12b-475e-57bd-902d-066b524df752",
+                              "command": "EVENT_ACTOR_SET_STATE",
+                              "args": {
+                                "actorId": "f5913bc2-f818-58d0-887a-48f64f3751af",
+                                "spriteStateId": "5_5",
+                                "loopAnim": true
+                              }
+                            }
+                          ],
+                          "false": []
+                        }
+                      }
+                    ],
+                    "false": []
+                  }
+                },
+                {
+                  "id": "81f02e53-ae87-522d-8524-f10cd4a13552",
+                  "command": "EVENT_SOUND_PLAY_EFFECT",
+                  "args": {
+                    "type": "crash",
+                    "priority": "medium",
+                    "pitch": 4,
+                    "frequency": 200,
+                    "duration": 0.2,
+                    "wait": false,
+                    "effect": 0
+                  }
+                },
+                {
+                  "id": "1f91e20e-a476-5f83-9ef8-c72c69a34169",
+                  "command": "EVENT_CAMERA_SHAKE",
+                  "args": {
+                    "time": 0.25,
+                    "frames": 15,
+                    "units": "time",
+                    "shakeDirection": "horizontal",
+                    "magnitude": {
+                      "type": "number",
+                      "value": 3
+                    }
+                  }
+                },
+                {
+                  "id": "4d6c1129-1055-5a90-acbd-59d5746d825e",
+                  "command": "EVENT_IF",
+                  "args": {
+                    "condition": {
+                      "type": "lte",
+                      "valueA": {
+                        "type": "variable",
+                        "value": "9"
+                      },
+                      "valueB": {
+                        "type": "number",
+                        "value": 0
+                      }
+                    },
+                    "__collapseElse": true
+                  },
+                  "children": {
+                    "true": [
+                      {
+                        "id": "5e7ad610-29f0-5462-9652-16d02ee2e171",
+                        "command": "EVENT_TEXT",
+                        "args": {
+                          "text": "Bufo has been\nmoved to a\nnew team.",
+                          "avatarId": ""
+                        }
+                      },
+                      {
+                        "id": "b50cf269-e56e-5a91-b15e-134da3cc57d9",
+                        "command": "EVENT_TEXT",
+                        "args": {
+                          "text": "(Game over. Bufo\nwakes up at the\nstairs.)",
+                          "avatarId": ""
+                        }
+                      },
+                      {
+                        "id": "ebf2e843-19d3-50e8-a7bf-88a8fabe6738",
+                        "command": "EVENT_SET_VALUE",
+                        "args": {
+                          "variable": "9",
+                          "value": {
+                            "type": "variable",
+                            "value": "19"
+                          }
+                        }
+                      },
+                      {
+                        "id": "5c81f09a-75c7-56fc-9d1a-e4f2c885f9cf",
+                        "command": "EVENT_SWITCH_SCENE",
+                        "args": {
+                          "sceneId": "a82f52d2-6048-5c42-aebd-5fe6d5230ffa",
+                          "x": {
+                            "type": "number",
+                            "value": 9
+                          },
+                          "y": {
+                            "type": "number",
+                            "value": 14
+                          },
+                          "direction": "up",
+                          "fadeSpeed": "2"
+                        }
+                      }
+                    ],
+                    "false": []
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "collisions": "0f2c+00c+0f8+00c+0f6+004+0f2+00a+0f4+004+0f2+00a+0f4+00c+0f2+002+0f4+00c+0f2+002+0f2+0012+0f2+0012+0f4+002+0f2+00c+0f4+002+0f2+00c+0f4+00a+0f2+004+0f4+00a+0f2+004+0f6+00c+0f8+00c+0f2c+"
+}

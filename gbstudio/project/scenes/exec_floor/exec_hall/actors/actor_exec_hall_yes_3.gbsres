@@ -1,0 +1,160 @@
+{
+  "_resourceType": "actor",
+  "id": "96a186c0-c2e9-5e0f-8667-c16259218d08",
+  "_index": 10,
+  "symbol": "actor_exec_hall_yes_3",
+  "prefabId": "",
+  "name": "Yes Man",
+  "coordinateType": "tiles",
+  "x": 14,
+  "y": 13,
+  "frame": 0,
+  "animate": true,
+  "spriteSheetId": "45829609-4d2f-57ef-912f-e4a3ef97abd0",
+  "paletteId": "",
+  "direction": "down",
+  "moveSpeed": 0.5,
+  "animSpeed": 15,
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "1",
+  "collisionExtraFlags": [],
+  "prefabScriptOverrides": {},
+  "script": [],
+  "startScript": [],
+  "updateScript": [
+    {
+      "id": "8ec645fb-8599-5c74-984a-ec7cf3ead635",
+      "command": "EVENT_WAIT",
+      "args": {
+        "time": {
+          "type": "number",
+          "value": 0.9
+        },
+        "frames": {
+          "type": "number",
+          "value": 54
+        },
+        "units": "time"
+      }
+    },
+    {
+      "id": "5b2e9057-c4d7-572a-a381-ec4d592f718b",
+      "command": "EVENT_ACTOR_GET_POSITION",
+      "args": {
+        "actorId": "player",
+        "vectorX": "52",
+        "vectorY": "53",
+        "units": "tiles"
+      }
+    },
+    {
+      "id": "6ad5a73e-8d25-5307-889e-077b076c67e6",
+      "command": "EVENT_ACTOR_MOVE_TO",
+      "args": {
+        "actorId": "96a186c0-c2e9-5e0f-8667-c16259218d08",
+        "x": {
+          "type": "variable",
+          "value": "52"
+        },
+        "y": {
+          "type": "variable",
+          "value": "53"
+        },
+        "moveType": "horizontal",
+        "collideWith": [
+          "walls",
+          "actors"
+        ],
+        "lockDirection": [],
+        "units": "tiles"
+      }
+    },
+    {
+      "id": "20d31891-a40f-5575-93e1-466ef594adab",
+      "command": "EVENT_WAIT",
+      "args": {
+        "time": {
+          "type": "number",
+          "value": 0.5
+        },
+        "frames": {
+          "type": "number",
+          "value": 30
+        },
+        "units": "time"
+      }
+    },
+    {
+      "id": "d1f3f7dc-d1c6-5c89-8798-0b52bf2f861b",
+      "command": "EVENT_ACTOR_GET_POSITION",
+      "args": {
+        "actorId": "player",
+        "vectorX": "52",
+        "vectorY": "53",
+        "units": "tiles"
+      }
+    },
+    {
+      "id": "4bab83e9-13de-53fa-970b-5c5d2aebd402",
+      "command": "EVENT_ACTOR_MOVE_TO",
+      "args": {
+        "actorId": "96a186c0-c2e9-5e0f-8667-c16259218d08",
+        "x": {
+          "type": "variable",
+          "value": "52"
+        },
+        "y": {
+          "type": "variable",
+          "value": "53"
+        },
+        "moveType": "vertical",
+        "collideWith": [
+          "walls",
+          "actors"
+        ],
+        "lockDirection": [],
+        "units": "tiles"
+      }
+    },
+    {
+      "id": "236979e4-4651-54c7-a7ba-b4854a173bbc",
+      "command": "EVENT_WAIT",
+      "args": {
+        "time": {
+          "type": "number",
+          "value": 0.5
+        },
+        "frames": {
+          "type": "number",
+          "value": 30
+        },
+        "units": "time"
+      }
+    }
+  ],
+  "hit1Script": [],
+  "hit2Script": [
+    {
+      "id": "bcb580de-9e8b-5c82-bd6a-54a2d7bc9494",
+      "command": "EVENT_SOUND_PLAY_EFFECT",
+      "args": {
+        "type": "crash",
+        "priority": "medium",
+        "pitch": 6,
+        "frequency": 200,
+        "duration": 0.15,
+        "wait": false,
+        "effect": 0
+      }
+    },
+    {
+      "id": "60585177-637a-5840-8c50-322e99041958",
+      "command": "EVENT_ACTOR_DEACTIVATE",
+      "args": {
+        "actorId": "96a186c0-c2e9-5e0f-8667-c16259218d08"
+      }
+    }
+  ],
+  "hit3Script": []
+}

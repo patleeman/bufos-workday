@@ -1,0 +1,137 @@
+{
+  "_resourceType": "actor",
+  "id": "9960ca80-23de-54f3-b183-3b5fb45df595",
+  "_index": 15,
+  "symbol": "actor_boardroom_coo",
+  "prefabId": "",
+  "name": "THE COO",
+  "coordinateType": "tiles",
+  "x": 10,
+  "y": 3,
+  "frame": 0,
+  "animate": false,
+  "spriteSheetId": "13e8cecb-0a09-521b-990b-e23fc2c02179",
+  "paletteId": "",
+  "direction": "down",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "1",
+  "collisionExtraFlags": [],
+  "prefabScriptOverrides": {},
+  "script": [],
+  "startScript": [
+    {
+      "id": "f97a957d-083f-57de-8385-402b3d1d5f23",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "89"
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "7ea47a81-9c1a-5c93-a8cb-324ee35df4e2",
+            "command": "EVENT_ACTOR_DEACTIVATE",
+            "args": {
+              "actorId": "9960ca80-23de-54f3-b183-3b5fb45df595"
+            }
+          }
+        ],
+        "false": []
+      }
+    }
+  ],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [
+    {
+      "id": "7f4865e3-1995-55a5-8bc5-9226f6e2f69f",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "eq",
+          "valueA": {
+            "type": "variable",
+            "value": "87"
+          },
+          "valueB": {
+            "type": "number",
+            "value": 3
+          }
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "0478b7a0-9195-5683-b590-58cf7438b5e0",
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "87",
+              "value": {
+                "type": "number",
+                "value": 0
+              }
+            }
+          },
+          {
+            "id": "1c98d574-b9e6-5ceb-ad9d-bf6056a6ffc3",
+            "command": "EVENT_CAMERA_SHAKE",
+            "args": {
+              "time": 0.4,
+              "frames": 24,
+              "units": "time",
+              "shakeDirection": "horizontal",
+              "magnitude": {
+                "type": "number",
+                "value": 4
+              }
+            }
+          },
+          {
+            "id": "1cfc4672-54b6-5074-9349-0fcd42003f7f",
+            "command": "EVENT_SOUND_PLAY_EFFECT",
+            "args": {
+              "type": "crash",
+              "priority": "medium",
+              "pitch": 5,
+              "frequency": 200,
+              "duration": 0.3,
+              "wait": false,
+              "effect": 0
+            }
+          },
+          {
+            "id": "a21f5c32-5ba8-5637-b9a8-f624a31f7236",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "THE COO is\nfired.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "2307e550-0e04-542c-bb80-3a3b3a937637",
+            "command": "EVENT_ACTOR_DEACTIVATE",
+            "args": {
+              "actorId": "9960ca80-23de-54f3-b183-3b5fb45df595"
+            }
+          },
+          {
+            "id": "069fc69c-3a7c-54b7-af6d-05c02d7ec9ea",
+            "command": "EVENT_INC_VALUE",
+            "args": {
+              "variable": "86"
+            }
+          }
+        ],
+        "false": []
+      }
+    }
+  ],
+  "hit3Script": []
+}

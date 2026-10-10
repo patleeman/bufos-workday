@@ -1,0 +1,417 @@
+{
+  "_resourceType": "actor",
+  "id": "65881c69-11ce-5559-a8b7-a3cd902af519",
+  "_index": 17,
+  "symbol": "actor_boardroom_brock",
+  "prefabId": "",
+  "name": "BROCK",
+  "coordinateType": "tiles",
+  "x": 16,
+  "y": 3,
+  "frame": 0,
+  "animate": false,
+  "spriteSheetId": "ad5b675d-d998-5c94-b809-409a5debd260",
+  "paletteId": "",
+  "direction": "down",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "1",
+  "collisionExtraFlags": [],
+  "prefabScriptOverrides": {},
+  "script": [],
+  "startScript": [
+    {
+      "id": "a91c07df-b9d0-5e89-8841-93b64b42f59f",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "89"
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "748535f4-a9ab-53f6-8380-e3cb5f2465c7",
+            "command": "EVENT_ACTOR_DEACTIVATE",
+            "args": {
+              "actorId": "65881c69-11ce-5559-a8b7-a3cd902af519"
+            }
+          }
+        ],
+        "false": []
+      }
+    }
+  ],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [
+    {
+      "id": "f2da59fb-2f38-5b2a-8089-c7c1ac8fb6d8",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "eq",
+          "valueA": {
+            "type": "variable",
+            "value": "87"
+          },
+          "valueB": {
+            "type": "number",
+            "value": 5
+          }
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "70e70dfa-f494-5ee0-8bef-9464522fc8cc",
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "87",
+              "value": {
+                "type": "number",
+                "value": 0
+              }
+            }
+          },
+          {
+            "id": "35e13ea3-d022-5d21-95ad-88410b596282",
+            "command": "EVENT_CAMERA_SHAKE",
+            "args": {
+              "time": 0.4,
+              "frames": 24,
+              "units": "time",
+              "shakeDirection": "horizontal",
+              "magnitude": {
+                "type": "number",
+                "value": 4
+              }
+            }
+          },
+          {
+            "id": "8058b3c8-aa4e-584e-bc6f-38fbe7771a0b",
+            "command": "EVENT_SOUND_PLAY_EFFECT",
+            "args": {
+              "type": "crash",
+              "priority": "medium",
+              "pitch": 5,
+              "frequency": 200,
+              "duration": 0.3,
+              "wait": false,
+              "effect": 0
+            }
+          },
+          {
+            "id": "8826e2c5-ec54-5103-b389-fb10ce26588b",
+            "command": "EVENT_ACTOR_STOP_UPDATE",
+            "args": {
+              "actorId": "069f1aa0-99c8-581b-a54a-d86161473497"
+            }
+          },
+          {
+            "id": "2b85b4ff-f6ae-572e-b785-a29250f452d2",
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "89",
+              "value": {
+                "type": "true"
+              }
+            }
+          },
+          {
+            "id": "7e2cfb04-f76a-5bb0-bc8c-9cc401196697",
+            "command": "EVENT_CAMERA_SHAKE",
+            "args": {
+              "time": 1.0,
+              "frames": 60,
+              "units": "time",
+              "shakeDirection": "horizontal",
+              "magnitude": {
+                "type": "number",
+                "value": 4
+              }
+            }
+          },
+          {
+            "id": "5459cb8d-bcfb-5d75-aed2-8a9a5c8af2e8",
+            "command": "EVENT_SOUND_PLAY_EFFECT",
+            "args": {
+              "type": "crash",
+              "priority": "medium",
+              "pitch": 2,
+              "frequency": 200,
+              "duration": 0.8,
+              "wait": false,
+              "effect": 0
+            }
+          },
+          {
+            "id": "40044996-231d-50a8-8882-2e5478884378",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "BROCK: You can't\nstop Project\nLilypad!",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "e53c8c4e-bb08-5528-9538-a8e36afed58b",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "BROCK: It's\nalready printed!",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "a6629285-1b5e-58a0-a2c6-0c250dc25968",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "KEVIN: YES. IT IS.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "72c3ce3a-9df6-5607-9999-988bcac86e46",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "KEVIN: I PRINTED\nIT.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "536e35a3-db2e-5edf-98b5-00e5068f08cd",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "KEVIN: ON EVERY\nPRINTER. ON EVERY\nFLOOR.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "d9533f31-fe53-5547-a524-fe3b95beaa6c",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "KEVIN: EVEN THE\nBASEMENT ONE. IT\nWORKS NOW.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "5d7e679e-6e79-53c7-b34e-c7ed74db7c55",
+            "command": "EVENT_MUSIC_PLAY",
+            "args": {
+              "musicId": "a871821e-8e68-526f-a1e3-d8cde81c1679",
+              "loop": true
+            }
+          },
+          {
+            "id": "faca5e60-aa0f-53ea-8792-63623a8facb3",
+            "command": "EVENT_ACTOR_ACTIVATE",
+            "args": {
+              "actorId": "02605900-3e04-5c7b-9616-d7abaf1ac6cc"
+            }
+          },
+          {
+            "id": "e8230a0b-5f40-5887-91c9-92b7f2ee8e09",
+            "command": "EVENT_ACTOR_ACTIVATE",
+            "args": {
+              "actorId": "327e5c57-2b44-5ef3-b1f4-8f3b076ee756"
+            }
+          },
+          {
+            "id": "e5ffb4d8-e99a-5481-a46c-5c25fee203ba",
+            "command": "EVENT_ACTOR_MOVE_TO",
+            "args": {
+              "actorId": "02605900-3e04-5c7b-9616-d7abaf1ac6cc",
+              "x": {
+                "type": "number",
+                "value": 6
+              },
+              "y": {
+                "type": "number",
+                "value": 11
+              },
+              "moveType": "horizontal",
+              "collideWith": [],
+              "lockDirection": []
+            }
+          },
+          {
+            "id": "bc78b83c-8418-574a-8a50-2e59f7a47296",
+            "command": "EVENT_ACTOR_MOVE_TO",
+            "args": {
+              "actorId": "327e5c57-2b44-5ef3-b1f4-8f3b076ee756",
+              "x": {
+                "type": "number",
+                "value": 12
+              },
+              "y": {
+                "type": "number",
+                "value": 11
+              },
+              "moveType": "horizontal",
+              "collideWith": [],
+              "lockDirection": []
+            }
+          },
+          {
+            "id": "56f612be-be24-5854-a35b-493cf0fd7161",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "The staff storm\nthe boardroom.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "b4358971-8c35-5b31-841b-a344f796e449",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "They're holding\nthe\nprintouts.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "1da09d85-5892-592f-92af-e0dc50f136b5",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "IT: I read it.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "c5fc9ca9-3421-518e-994e-082295738da8",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "BUFO-COFFEE-HAPPY:\nDecaf. YOU did\nthat.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "8e6b56cf-1adc-51cd-943d-63b8f85b976e",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "BUFO-ALL-WARM-AND-\nFUZZY-INSIDE: Your\nmeeting is over.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "d7a9e4c3-4b5d-5fef-a0d3-1360e81649ae",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "BROCK: This is...\nnot synergy.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "7f0b4391-f83c-5d7d-bd15-1b5040ceed2d",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "The Board is\nreplaced. By a\nvote",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "68bcb4f6-24b1-5f66-8135-646328207a8b",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "of 1,204 to 5.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "ea171518-231f-5b5e-a495-e9a94fc8fd56",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "The new CEO:",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "5e3f6b53-d98e-5296-9672-aded85b8e09e",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "KEVIN.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "9f620fd7-8120-58a5-8aef-19b4de172a3f",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "KEVIN: MY FIRST\nACT\nAS CEO:",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "b591e6a6-5654-58e5-b9b6-e47f0c3f3b2d",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "KEVIN: REAL\nCOFFEE.\nFOR EVERYONE.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "9bf23db4-fd0d-5456-b99d-6600d51b360a",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "Everyone cheers.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "011e559b-6aeb-5d92-b585-466f75909c83",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "Bufo: ...",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "3e1253c1-e6c0-5a88-9abe-9160eee1a97e",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "Bufo: :)",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "03a06dc4-a571-5710-bd08-eca4f96a3e51",
+            "command": "EVENT_WAIT",
+            "args": {
+              "time": {
+                "type": "number",
+                "value": 0.5
+              },
+              "frames": {
+                "type": "number",
+                "value": 30
+              },
+              "units": "time"
+            }
+          },
+          {
+            "id": "68c9720d-b8ac-582a-bd78-b96b5cfe3eda",
+            "command": "EVENT_SWITCH_SCENE",
+            "args": {
+              "sceneId": "2e716613-01e9-5809-9395-ff3f2fc21a33",
+              "x": {
+                "type": "number",
+                "value": 8
+              },
+              "y": {
+                "type": "number",
+                "value": 4
+              },
+              "direction": "up",
+              "fadeSpeed": "2"
+            }
+          }
+        ],
+        "false": []
+      }
+    }
+  ],
+  "hit3Script": []
+}

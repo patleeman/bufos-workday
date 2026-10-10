@@ -1,0 +1,148 @@
+{
+  "_resourceType": "actor",
+  "id": "3fd11a5b-7f92-57fc-a1c4-80de0804ed68",
+  "_index": 6,
+  "symbol": "actor_quiet_room_chest_headphones",
+  "prefabId": "",
+  "name": "chest_headphones",
+  "coordinateType": "tiles",
+  "x": 8,
+  "y": 3,
+  "frame": 0,
+  "animate": false,
+  "spriteSheetId": "9ad2b5af-9849-52e0-bc49-9fa6d005432d",
+  "paletteId": "",
+  "direction": "down",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "",
+  "collisionExtraFlags": [],
+  "prefabScriptOverrides": {},
+  "script": [
+    {
+      "id": "59310746-e75a-5156-a798-c5355317d245",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "62"
+        },
+        "__collapseElse": false
+      },
+      "children": {
+        "true": [
+          {
+            "id": "3aca6bd3-9022-527b-af4e-b22fc2405264",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "It's empty.",
+              "avatarId": ""
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "055b48a2-2d09-54fb-a399-f2e66018f64a",
+            "command": "EVENT_ACTOR_SET_STATE",
+            "args": {
+              "actorId": "3fd11a5b-7f92-57fc-a1c4-80de0804ed68",
+              "spriteStateId": "Open",
+              "loopAnim": true
+            }
+          },
+          {
+            "id": "fbc36a72-1975-50b7-930f-3350dcbdc198",
+            "command": "EVENT_MUSIC_PLAY",
+            "args": {
+              "musicId": "427db685-fdd7-5d97-9c53-3d2c06a010c3",
+              "loop": true
+            }
+          },
+          {
+            "id": "869022c5-a5bd-538c-ab8f-00e8e1970340",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "You got NOISE-\nCANCELLING\nHEADPHONES!",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "5fbb5597-42c8-583e-a942-2feeee3a7df1",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "Bufo puts them on.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "3142d445-f087-5815-8f53-4ec791b11669",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "Blessed silence.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "e2417858-9c9d-547c-9126-a9bebc4c66e8",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "(Now Bufo can walk\npast the standup.)",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "7fd547a0-d600-5d6b-8f39-25e142103b95",
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "62",
+              "value": {
+                "type": "true"
+              }
+            }
+          },
+          {
+            "id": "8dd18798-84b7-52b4-bf40-79f95130b1d6",
+            "command": "EVENT_MUSIC_PLAY",
+            "args": {
+              "musicId": "87d92324-fa93-5e56-a65d-2a254231724d",
+              "loop": true
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "startScript": [
+    {
+      "id": "bcaaf37e-82a0-5a9d-8267-72baf9244a4a",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "62"
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "16598fa6-bf29-519a-8d18-66c19ca0edd2",
+            "command": "EVENT_ACTOR_SET_STATE",
+            "args": {
+              "actorId": "3fd11a5b-7f92-57fc-a1c4-80de0804ed68",
+              "spriteStateId": "Open",
+              "loopAnim": true
+            }
+          }
+        ],
+        "false": []
+      }
+    }
+  ],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [],
+  "hit3Script": []
+}

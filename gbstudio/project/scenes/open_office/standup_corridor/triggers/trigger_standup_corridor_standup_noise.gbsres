@@ -1,0 +1,92 @@
+{
+  "_resourceType": "trigger",
+  "id": "a578d2ab-a4c9-5fc4-a79e-a2f5d34af1f2",
+  "_index": 3,
+  "symbol": "trigger_standup_corridor_standup_noise",
+  "prefabId": "",
+  "name": "standup_noise",
+  "x": 2,
+  "y": 10,
+  "width": 16,
+  "height": 1,
+  "prefabScriptOverrides": {},
+  "script": [
+    {
+      "id": "86fc8e4c-232f-5118-8d13-92b537396437",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "62"
+        },
+        "__collapseElse": false
+      },
+      "children": {
+        "true": [],
+        "false": [
+          {
+            "id": "4b1bae5d-f40b-5c2e-8f4f-6abe378e72f6",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "STANDUP: ...and\nthen, YESTERDAY-",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "96593d4a-979e-51d5-9a4e-00c2237475ef",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "STANDUP:\n-BLOCKERS!\nSYNERGY! CIRCLE",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "bd7a3857-d956-53de-b56f-1faac369b163",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "BACK!",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "8bbb19e1-bdc6-5fb6-a8a6-ff0a0b016f05",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "It's too loud.\nBufo can't think.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "d2364ded-b199-5354-89b1-d3475dd22fec",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "Bufo backs away.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "e0536e62-2060-5b68-880d-e413acaef689",
+            "command": "EVENT_ACTOR_MOVE_TO",
+            "args": {
+              "actorId": "player",
+              "x": {
+                "type": "number",
+                "value": 9
+              },
+              "y": {
+                "type": "number",
+                "value": 13
+              },
+              "moveType": "vertical",
+              "collideWith": [
+                "walls"
+              ],
+              "lockDirection": []
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "leaveScript": []
+}

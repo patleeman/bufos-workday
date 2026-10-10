@@ -1,0 +1,140 @@
+{
+  "_resourceType": "actor",
+  "id": "fbd08c00-6e04-5a8c-8b91-9bf225172992",
+  "_index": 6,
+  "symbol": "actor_scheduling_chest_invite",
+  "prefabId": "",
+  "name": "chest_invite",
+  "coordinateType": "tiles",
+  "x": 14,
+  "y": 5,
+  "frame": 0,
+  "animate": false,
+  "spriteSheetId": "9ad2b5af-9849-52e0-bc49-9fa6d005432d",
+  "paletteId": "",
+  "direction": "down",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "",
+  "collisionExtraFlags": [],
+  "prefabScriptOverrides": {},
+  "script": [
+    {
+      "id": "da02dc44-1d17-5fd9-8515-60d46c88d16a",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "63"
+        },
+        "__collapseElse": false
+      },
+      "children": {
+        "true": [
+          {
+            "id": "0bb3fe09-34cf-5413-8902-2599745ab2d9",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "It's empty.",
+              "avatarId": ""
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "afbdc68c-d41d-5f35-a9ef-51a4345357a3",
+            "command": "EVENT_ACTOR_SET_STATE",
+            "args": {
+              "actorId": "fbd08c00-6e04-5a8c-8b91-9bf225172992",
+              "spriteStateId": "Open",
+              "loopAnim": true
+            }
+          },
+          {
+            "id": "4b58a935-243c-5084-a7e1-7a4422851634",
+            "command": "EVENT_MUSIC_PLAY",
+            "args": {
+              "musicId": "427db685-fdd7-5d97-9c53-3d2c06a010c3",
+              "loop": true
+            }
+          },
+          {
+            "id": "2988f4be-08d3-5599-bcb0-fe504b2b8964",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "You got a MEETING\nINVITE!",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "d9995460-2447-51ac-a5b7-66a4b9a782a6",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "SUBJECT: All-Hands\n(Mandatory).\nLOCATION: The Big",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "aa2baddd-c40d-50fe-938b-456421c5de05",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "Conference Room.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "e23e382c-1297-5e81-a978-2098f41ce852",
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "63",
+              "value": {
+                "type": "true"
+              }
+            }
+          },
+          {
+            "id": "ac28582c-df0c-5b58-8379-1474e0b6952f",
+            "command": "EVENT_MUSIC_PLAY",
+            "args": {
+              "musicId": "87d92324-fa93-5e56-a65d-2a254231724d",
+              "loop": true
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "startScript": [
+    {
+      "id": "9303dfc1-5ce3-5c92-9908-40282b98b5b8",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "63"
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "4fb38b6e-ea3f-55fc-9d24-072fbd2baa23",
+            "command": "EVENT_ACTOR_SET_STATE",
+            "args": {
+              "actorId": "fbd08c00-6e04-5a8c-8b91-9bf225172992",
+              "spriteStateId": "Open",
+              "loopAnim": true
+            }
+          }
+        ],
+        "false": []
+      }
+    }
+  ],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [],
+  "hit3Script": []
+}

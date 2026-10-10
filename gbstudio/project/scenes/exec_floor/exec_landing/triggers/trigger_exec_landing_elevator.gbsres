@@ -1,0 +1,457 @@
+{
+  "_resourceType": "trigger",
+  "id": "7b3378e7-b8f4-5723-969b-c15d34c7005f",
+  "_index": 2,
+  "symbol": "trigger_exec_landing_elevator",
+  "prefabId": "",
+  "name": "elevator",
+  "x": 10,
+  "y": 17,
+  "width": 2,
+  "height": 1,
+  "prefabScriptOverrides": {},
+  "script": [
+    {
+      "id": "598bfb2c-89ac-5db4-906e-6600f337b2f0",
+      "command": "EVENT_TEXT",
+      "args": {
+        "text": "ELEVATOR.",
+        "avatarId": ""
+      }
+    },
+    {
+      "id": "3ea30f1a-0608-544f-912e-b13023c9b895",
+      "command": "EVENT_MENU",
+      "args": {
+        "variable": "90",
+        "items": 6,
+        "cancelOnLastOption": false,
+        "cancelOnB": true,
+        "layout": "menu",
+        "option1": "Lobby",
+        "option2": "Floor 2",
+        "option3": "Floor 3",
+        "option4": "Floor 4",
+        "option5": "Floor 5",
+        "option6": "Floor 6"
+      }
+    },
+    {
+      "id": "96429fd3-f6d4-5ec6-a451-c77393ebc9f1",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "eq",
+          "valueA": {
+            "type": "variable",
+            "value": "90"
+          },
+          "valueB": {
+            "type": "number",
+            "value": 1
+          }
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "16f53224-2f2a-5ed5-b955-d29b6a9448f2",
+            "command": "EVENT_SWITCH_SCENE",
+            "args": {
+              "sceneId": "baf1e2e3-5001-5ce0-84cb-9ac4693340cf",
+              "x": {
+                "type": "number",
+                "value": 9
+              },
+              "y": {
+                "type": "number",
+                "value": 3
+              },
+              "direction": "down",
+              "fadeSpeed": "2"
+            }
+          }
+        ],
+        "false": []
+      }
+    },
+    {
+      "id": "30feee0c-40ad-5836-a72b-c236b44511e0",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "eq",
+          "valueA": {
+            "type": "variable",
+            "value": "90"
+          },
+          "valueB": {
+            "type": "number",
+            "value": 2
+          }
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "61bd6aaa-8d88-5091-a0ab-31a9a52ba0b4",
+            "command": "EVENT_IF",
+            "args": {
+              "condition": {
+                "type": "variable",
+                "value": "8"
+              },
+              "__collapseElse": false
+            },
+            "children": {
+              "true": [
+                {
+                  "id": "280e53a9-06f3-5880-b6cf-77af927971ba",
+                  "command": "EVENT_SWITCH_SCENE",
+                  "args": {
+                    "sceneId": "37c505e7-860a-5ba9-af7d-299b69bb3d8f",
+                    "x": {
+                      "type": "number",
+                      "value": 9
+                    },
+                    "y": {
+                      "type": "number",
+                      "value": 14
+                    },
+                    "direction": "up",
+                    "fadeSpeed": "2"
+                  }
+                }
+              ],
+              "false": [
+                {
+                  "id": "5dea24c6-4bfa-501b-a13c-1c7e113cefc4",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "That floor is\nlocked.",
+                    "avatarId": ""
+                  }
+                },
+                {
+                  "id": "9c565fb6-1574-5837-b113-96c5bbbe7b8e",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "Beat the printer\nin the basement.",
+                    "avatarId": ""
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "false": []
+      }
+    },
+    {
+      "id": "2e8f9cb1-c2cc-51e5-8a1b-9129fd44d36e",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "eq",
+          "valueA": {
+            "type": "variable",
+            "value": "90"
+          },
+          "valueB": {
+            "type": "number",
+            "value": 3
+          }
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "2b647796-a8e4-577f-83da-b34f3b0aa3f2",
+            "command": "EVENT_IF",
+            "args": {
+              "condition": {
+                "type": "variable",
+                "value": "39"
+              },
+              "__collapseElse": false
+            },
+            "children": {
+              "true": [
+                {
+                  "id": "e1433645-28d5-5840-989c-f9afdbeaf0cc",
+                  "command": "EVENT_SWITCH_SCENE",
+                  "args": {
+                    "sceneId": "a706be3f-dee0-5565-aaea-613e61088a52",
+                    "x": {
+                      "type": "number",
+                      "value": 9
+                    },
+                    "y": {
+                      "type": "number",
+                      "value": 14
+                    },
+                    "direction": "up",
+                    "fadeSpeed": "2"
+                  }
+                }
+              ],
+              "false": [
+                {
+                  "id": "7393187a-612a-5246-8cf6-cd21dd43c157",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "That floor is\nlocked.",
+                    "avatarId": ""
+                  }
+                },
+                {
+                  "id": "0772ff43-c6c8-5fe6-b201-4a814d486377",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "Floor 2's espresso\nmachine first.",
+                    "avatarId": ""
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "false": []
+      }
+    },
+    {
+      "id": "67a93fe2-1468-5ffc-bda4-1285d29ddc58",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "eq",
+          "valueA": {
+            "type": "variable",
+            "value": "90"
+          },
+          "valueB": {
+            "type": "number",
+            "value": 4
+          }
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "37130f43-20e3-5c89-9826-ea4979e351ce",
+            "command": "EVENT_IF",
+            "args": {
+              "condition": {
+                "type": "variable",
+                "value": "67"
+              },
+              "__collapseElse": false
+            },
+            "children": {
+              "true": [
+                {
+                  "id": "edecbb71-befe-57fe-94c6-9e842694bdcf",
+                  "command": "EVENT_SWITCH_SCENE",
+                  "args": {
+                    "sceneId": "a99c5c94-7177-5af9-aee7-3eebf272d2ea",
+                    "x": {
+                      "type": "number",
+                      "value": 9
+                    },
+                    "y": {
+                      "type": "number",
+                      "value": 14
+                    },
+                    "direction": "up",
+                    "fadeSpeed": "2"
+                  }
+                }
+              ],
+              "false": [
+                {
+                  "id": "bc60a201-74cc-5cdc-bc42-53e6ccfc0f0c",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "That floor is\nlocked.",
+                    "avatarId": ""
+                  }
+                },
+                {
+                  "id": "10b5a7ac-b500-5456-b6bf-9d9074589e4b",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "Floor 3 first. HR\nis always last.",
+                    "avatarId": ""
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "false": []
+      }
+    },
+    {
+      "id": "52644641-c04f-5aa1-9c81-bf3595250e82",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "eq",
+          "valueA": {
+            "type": "variable",
+            "value": "90"
+          },
+          "valueB": {
+            "type": "number",
+            "value": 5
+          }
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "804ba367-3bc5-58a8-b3de-f8350174373f",
+            "command": "EVENT_IF",
+            "args": {
+              "condition": {
+                "type": "variable",
+                "value": "74"
+              },
+              "__collapseElse": false
+            },
+            "children": {
+              "true": [
+                {
+                  "id": "61e78c82-177b-5c3d-9957-934419b1f5cb",
+                  "command": "EVENT_SWITCH_SCENE",
+                  "args": {
+                    "sceneId": "c029f608-ec2c-54d6-b9ad-31ac06ed23b5",
+                    "x": {
+                      "type": "number",
+                      "value": 9
+                    },
+                    "y": {
+                      "type": "number",
+                      "value": 14
+                    },
+                    "direction": "up",
+                    "fadeSpeed": "2"
+                  }
+                }
+              ],
+              "false": [
+                {
+                  "id": "0cc3a48f-d7d5-5602-9a62-b2cf2ab3fe3d",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "That floor is\nlocked.",
+                    "avatarId": ""
+                  }
+                },
+                {
+                  "id": "8faa4835-a66b-50fb-bd23-10e89327cc59",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "Floor 4 first.\nCompliance!",
+                    "avatarId": ""
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "false": []
+      }
+    },
+    {
+      "id": "ff9d4272-1837-572f-95f4-091d815a5319",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "eq",
+          "valueA": {
+            "type": "variable",
+            "value": "90"
+          },
+          "valueB": {
+            "type": "number",
+            "value": 6
+          }
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "8e2e693c-255e-5ead-b567-ed5fe5ca5626",
+            "command": "EVENT_IF",
+            "args": {
+              "condition": {
+                "type": "variable",
+                "value": "82"
+              },
+              "__collapseElse": false
+            },
+            "children": {
+              "true": [
+                {
+                  "id": "55f010aa-aea0-5cf9-99d2-6288d60fdd6c",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "Bufo is already\non this floor.",
+                    "avatarId": ""
+                  }
+                }
+              ],
+              "false": [
+                {
+                  "id": "1ca83345-7dfc-512a-be25-b44fed2e4cac",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "That floor is\nlocked.",
+                    "avatarId": ""
+                  }
+                },
+                {
+                  "id": "2bb9161c-fe88-5a07-8fe1-2a371eb9a836",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": "EXECUTIVES ONLY.\n(Bufo needs help.)",
+                    "avatarId": ""
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "false": []
+      }
+    },
+    {
+      "id": "6434ffa0-2bf7-54c9-921b-b0b6a77b8696",
+      "command": "EVENT_ACTOR_MOVE_TO",
+      "args": {
+        "actorId": "player",
+        "x": {
+          "type": "number",
+          "value": 9
+        },
+        "y": {
+          "type": "number",
+          "value": 13
+        },
+        "moveType": "vertical",
+        "collideWith": [
+          "walls"
+        ],
+        "lockDirection": []
+      }
+    }
+  ],
+  "leaveScript": []
+}

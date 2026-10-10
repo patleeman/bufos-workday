@@ -1,0 +1,140 @@
+{
+  "_resourceType": "actor",
+  "id": "cd2f06ec-b0be-588f-87ed-b8e5bcc09ebb",
+  "_index": 5,
+  "symbol": "actor_cable_vault_chest_note5",
+  "prefabId": "",
+  "name": "chest_note5",
+  "coordinateType": "tiles",
+  "x": 8,
+  "y": 9,
+  "frame": 0,
+  "animate": false,
+  "spriteSheetId": "9ad2b5af-9849-52e0-bc49-9fa6d005432d",
+  "paletteId": "",
+  "direction": "down",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "",
+  "collisionExtraFlags": [],
+  "prefabScriptOverrides": {},
+  "script": [
+    {
+      "id": "5f0e5268-3a7f-54d4-945d-9342af87d082",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "80"
+        },
+        "__collapseElse": false
+      },
+      "children": {
+        "true": [
+          {
+            "id": "66f83f89-d48b-5222-994b-458460bc9b80",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "It's empty.",
+              "avatarId": ""
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "edf56627-812c-5489-955c-196175ba2f77",
+            "command": "EVENT_ACTOR_SET_STATE",
+            "args": {
+              "actorId": "cd2f06ec-b0be-588f-87ed-b8e5bcc09ebb",
+              "spriteStateId": "Open",
+              "loopAnim": true
+            }
+          },
+          {
+            "id": "98a035f6-db4b-5f54-a51a-239f1cbd79d0",
+            "command": "EVENT_MUSIC_PLAY",
+            "args": {
+              "musicId": "427db685-fdd7-5d97-9c53-3d2c06a010c3",
+              "loop": true
+            }
+          },
+          {
+            "id": "b77f699c-b398-5307-afd8-ffb48e6857da",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "A sticky note:",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "66b397f4-c61f-55ee-af63-2409d4a5d0a9",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "'KEVIN's password\nis also\npassword123. -IT'",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "35e1b174-9064-538f-ba5b-8cbfeb6fd0bd",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "Bufo: ...",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "78f9b5d0-8f5c-52f8-9127-88170816accb",
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "80",
+              "value": {
+                "type": "true"
+              }
+            }
+          },
+          {
+            "id": "eccdfbd0-162b-5cca-823a-35a5bf46bec8",
+            "command": "EVENT_MUSIC_PLAY",
+            "args": {
+              "musicId": "87d92324-fa93-5e56-a65d-2a254231724d",
+              "loop": true
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "startScript": [
+    {
+      "id": "92e0a5f3-b527-5bac-9fbf-f35a45d3efe8",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "80"
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "ec0fe664-0526-512c-96ca-8f7891aa81ff",
+            "command": "EVENT_ACTOR_SET_STATE",
+            "args": {
+              "actorId": "cd2f06ec-b0be-588f-87ed-b8e5bcc09ebb",
+              "spriteStateId": "Open",
+              "loopAnim": true
+            }
+          }
+        ],
+        "false": []
+      }
+    }
+  ],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [],
+  "hit3Script": []
+}

@@ -1,0 +1,140 @@
+{
+  "_resourceType": "actor",
+  "id": "d8207ad1-7904-58e4-a0bf-01f890b0f6f6",
+  "_index": 7,
+  "symbol": "actor_brock_suite_chest_board_invite",
+  "prefabId": "",
+  "name": "chest_board_invite",
+  "coordinateType": "tiles",
+  "x": 10,
+  "y": 13,
+  "frame": 0,
+  "animate": false,
+  "spriteSheetId": "9ad2b5af-9849-52e0-bc49-9fa6d005432d",
+  "paletteId": "",
+  "direction": "down",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "",
+  "collisionExtraFlags": [],
+  "prefabScriptOverrides": {},
+  "script": [
+    {
+      "id": "207b3dcb-359c-5325-aa27-58999346bf4c",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "84"
+        },
+        "__collapseElse": false
+      },
+      "children": {
+        "true": [
+          {
+            "id": "3cc4ab95-ff98-5f20-bc9d-297e726ca492",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "It's empty.",
+              "avatarId": ""
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "e9c80897-1b70-5f26-97e4-cc2ef72122dc",
+            "command": "EVENT_ACTOR_SET_STATE",
+            "args": {
+              "actorId": "d8207ad1-7904-58e4-a0bf-01f890b0f6f6",
+              "spriteStateId": "Open",
+              "loopAnim": true
+            }
+          },
+          {
+            "id": "f450703a-ed41-5962-a745-23acff1e1abb",
+            "command": "EVENT_MUSIC_PLAY",
+            "args": {
+              "musicId": "427db685-fdd7-5d97-9c53-3d2c06a010c3",
+              "loop": true
+            }
+          },
+          {
+            "id": "69ce5895-1798-5339-bef8-b5a570ef8b8d",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "You got a BOARD\nMEETING INVITE!",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "34428d38-56a7-5617-a74a-71a45313fbe6",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "AGENDA: 1. Project\nLilypad. 2. Lunch\n(gold).",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "30914e73-a3b2-55bb-973b-8207cf4e303d",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "KEVIN: I CAN FORGE\nTHE SIGNATURE.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "c1b76864-fffa-5097-8c31-1d801adb24e7",
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "84",
+              "value": {
+                "type": "true"
+              }
+            }
+          },
+          {
+            "id": "4ee26a82-d2a3-521b-98a2-32152b5f89ad",
+            "command": "EVENT_MUSIC_PLAY",
+            "args": {
+              "musicId": "87d92324-fa93-5e56-a65d-2a254231724d",
+              "loop": true
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "startScript": [
+    {
+      "id": "b571350e-6f6d-5732-ba08-f656af6528c0",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "84"
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "8c2561bb-56e3-517f-a474-9a847b7c7249",
+            "command": "EVENT_ACTOR_SET_STATE",
+            "args": {
+              "actorId": "d8207ad1-7904-58e4-a0bf-01f890b0f6f6",
+              "spriteStateId": "Open",
+              "loopAnim": true
+            }
+          }
+        ],
+        "false": []
+      }
+    }
+  ],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [],
+  "hit3Script": []
+}

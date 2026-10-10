@@ -1,0 +1,140 @@
+{
+  "_resourceType": "actor",
+  "id": "4a508de4-76cc-5755-9f16-6b116dabc4bd",
+  "_index": 7,
+  "symbol": "actor_personnel_files_chest_keycard",
+  "prefabId": "",
+  "name": "chest_keycard",
+  "coordinateType": "tiles",
+  "x": 2,
+  "y": 3,
+  "frame": 0,
+  "animate": false,
+  "spriteSheetId": "9ad2b5af-9849-52e0-bc49-9fa6d005432d",
+  "paletteId": "",
+  "direction": "down",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "",
+  "collisionExtraFlags": [],
+  "prefabScriptOverrides": {},
+  "script": [
+    {
+      "id": "2655d7ce-1d35-51bc-8ca3-66d9a4b9773d",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "70"
+        },
+        "__collapseElse": false
+      },
+      "children": {
+        "true": [
+          {
+            "id": "98bbcb0f-de95-5dee-a502-8d86c1b7f244",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "It's empty.",
+              "avatarId": ""
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "e2ce162e-433f-5f74-86c6-8a4366fd1aaf",
+            "command": "EVENT_ACTOR_SET_STATE",
+            "args": {
+              "actorId": "4a508de4-76cc-5755-9f16-6b116dabc4bd",
+              "spriteStateId": "Open",
+              "loopAnim": true
+            }
+          },
+          {
+            "id": "866aeb04-9ce7-5f4f-898f-7aa56eebcd3d",
+            "command": "EVENT_MUSIC_PLAY",
+            "args": {
+              "musicId": "427db685-fdd7-5d97-9c53-3d2c06a010c3",
+              "loop": true
+            }
+          },
+          {
+            "id": "f711adfe-a180-58b8-8a2b-0e0f339ad176",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "You got a KEYCARD!",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "2a5673a8-477d-568c-a71b-55c5f9e911e9",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "It says: VISITOR.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "5f271fcd-4231-512b-a323-28691eb00ada",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "It opens\neverything. Of\ncourse it does.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "fceca422-bde9-5933-a45a-38e7e5d5f47c",
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "70",
+              "value": {
+                "type": "true"
+              }
+            }
+          },
+          {
+            "id": "b463167f-bc8c-555d-8d9c-45726578f318",
+            "command": "EVENT_MUSIC_PLAY",
+            "args": {
+              "musicId": "87d92324-fa93-5e56-a65d-2a254231724d",
+              "loop": true
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "startScript": [
+    {
+      "id": "d4751977-e5cf-5d2a-92a8-e404759855d2",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "70"
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "f759b806-cd29-5f23-a36a-6c0a4f1cfd0c",
+            "command": "EVENT_ACTOR_SET_STATE",
+            "args": {
+              "actorId": "4a508de4-76cc-5755-9f16-6b116dabc4bd",
+              "spriteStateId": "Open",
+              "loopAnim": true
+            }
+          }
+        ],
+        "false": []
+      }
+    }
+  ],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [],
+  "hit3Script": []
+}

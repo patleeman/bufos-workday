@@ -1,0 +1,86 @@
+{
+  "_resourceType": "trigger",
+  "id": "33be8296-c972-5389-9c42-3a3bf4046353",
+  "_index": 0,
+  "symbol": "trigger_boardroom_door_south",
+  "prefabId": "",
+  "name": "door_south",
+  "x": 8,
+  "y": 16,
+  "width": 4,
+  "height": 2,
+  "prefabScriptOverrides": {},
+  "script": [
+    {
+      "id": "0f8dec30-5972-5f20-8338-08ad2afee58a",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "89"
+        },
+        "__collapseElse": false
+      },
+      "children": {
+        "true": [
+          {
+            "id": "172a7dfd-23de-536c-ac5e-f83e58ce8e66",
+            "command": "EVENT_SWITCH_SCENE",
+            "args": {
+              "sceneId": "824949d3-00df-5bfd-8dca-b71fca0aa6eb",
+              "x": {
+                "type": "number",
+                "value": 9
+              },
+              "y": {
+                "type": "number",
+                "value": 3
+              },
+              "direction": "down",
+              "fadeSpeed": "2"
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "e00934f7-4ec2-5234-aaf9-433482b47846",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "Security locks\nthe door.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "ebfaa484-34bf-5efd-8b0b-ef47e665b753",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "There's no way out\nbut through.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "262fc8e9-22ea-5a8e-911a-dda7c905ec86",
+            "command": "EVENT_ACTOR_MOVE_TO",
+            "args": {
+              "actorId": "player",
+              "x": {
+                "type": "number",
+                "value": 9
+              },
+              "y": {
+                "type": "number",
+                "value": 13
+              },
+              "moveType": "vertical",
+              "collideWith": [
+                "walls"
+              ],
+              "lockDirection": []
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "leaveScript": []
+}

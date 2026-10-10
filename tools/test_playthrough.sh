@@ -23,14 +23,8 @@ if [ -f tools/make_open_office.py ]; then
   BUFO_START=office_landing,9,14 BUFO_HP=20 BUFO_MAX_HP=5 tools/build.sh
   run playthrough_level3 playthrough_level3.txt
 fi
-# Focused tests for the later floors.
-grep -v '^#' tools/segments.txt | while IFS='|' read -r name start items steps; do
-  name=$(echo $name); start=$(echo $start); items=$(echo $items)
-  BUFO_START=$start BUFO_ITEMS=$items BUFO_HP=20 BUFO_MAX_HP=5 tools/build.sh > /dev/null
-  printf '%s: ' "$name"
-  echo "$steps" > "build/segment_$name.txt"
-  run "segment_$name" "../build/segment_$name.txt" | tr '\n' ' '; echo
-done
+# Focused tests for each key step on the later floors.
+tools/run_segments.sh || { echo "A focused test failed"; exit 1; }
 tools/build.sh
-grep -l FAIL build/*.log 2>/dev/null && exit 1
+grep -l FAIL build/playthrough*.log 2>/dev/null && exit 1
 echo "Playthroughs passed. Screenshots: build/playthrough/ and build/playthrough_level2/"

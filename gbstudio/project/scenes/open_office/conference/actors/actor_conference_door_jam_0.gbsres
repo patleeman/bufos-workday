@@ -1,0 +1,60 @@
+{
+  "_resourceType": "actor",
+  "id": "1af75274-f9ba-5d51-a36f-b56c90e337df",
+  "_index": 13,
+  "symbol": "actor_conference_door_jam_0",
+  "prefabId": "",
+  "name": "Emails",
+  "coordinateType": "tiles",
+  "x": 8,
+  "y": 17,
+  "frame": 0,
+  "animate": false,
+  "spriteSheetId": "676150cb-5e4f-5510-990c-8c76327558eb",
+  "paletteId": "",
+  "direction": "down",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "",
+  "collisionExtraFlags": [],
+  "prefabScriptOverrides": {},
+  "script": [],
+  "startScript": [
+    {
+      "id": "e6844aa1-324a-523e-8e7d-741a1d359a1b",
+      "command": "EVENT_ACTOR_COLLISIONS_DISABLE",
+      "args": {
+        "actorId": "1af75274-f9ba-5d51-a36f-b56c90e337df"
+      }
+    },
+    {
+      "id": "d004c71e-101a-5206-8c62-e4b54d787618",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "67"
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "8a99e83f-a5d0-593d-9622-2d69b60a71b7",
+            "command": "EVENT_ACTOR_DEACTIVATE",
+            "args": {
+              "actorId": "1af75274-f9ba-5d51-a36f-b56c90e337df"
+            }
+          }
+        ],
+        "false": []
+      }
+    }
+  ],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [],
+  "hit3Script": []
+}

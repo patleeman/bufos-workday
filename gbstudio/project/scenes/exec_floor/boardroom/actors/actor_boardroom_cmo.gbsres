@@ -1,0 +1,137 @@
+{
+  "_resourceType": "actor",
+  "id": "778e8759-2b2d-5860-bc78-cf1de2b6c454",
+  "_index": 14,
+  "symbol": "actor_boardroom_cmo",
+  "prefabId": "",
+  "name": "THE CMO",
+  "coordinateType": "tiles",
+  "x": 6,
+  "y": 3,
+  "frame": 0,
+  "animate": false,
+  "spriteSheetId": "3ba1e673-385b-5931-9644-487bcc4075f5",
+  "paletteId": "",
+  "direction": "down",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "1",
+  "collisionExtraFlags": [],
+  "prefabScriptOverrides": {},
+  "script": [],
+  "startScript": [
+    {
+      "id": "bde53a54-dfc2-5288-99c9-e23523cb8197",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "89"
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "9f4a7094-e7b5-5841-ac9f-7f4654a6d57a",
+            "command": "EVENT_ACTOR_DEACTIVATE",
+            "args": {
+              "actorId": "778e8759-2b2d-5860-bc78-cf1de2b6c454"
+            }
+          }
+        ],
+        "false": []
+      }
+    }
+  ],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [
+    {
+      "id": "e5ec2237-b4a7-5ed9-ba47-104410d8cd9f",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "eq",
+          "valueA": {
+            "type": "variable",
+            "value": "87"
+          },
+          "valueB": {
+            "type": "number",
+            "value": 2
+          }
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "b07f105c-5bff-5317-b91f-1675698cf107",
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "87",
+              "value": {
+                "type": "number",
+                "value": 0
+              }
+            }
+          },
+          {
+            "id": "05142b6e-de45-551f-b0e6-c27376ef18b7",
+            "command": "EVENT_CAMERA_SHAKE",
+            "args": {
+              "time": 0.4,
+              "frames": 24,
+              "units": "time",
+              "shakeDirection": "horizontal",
+              "magnitude": {
+                "type": "number",
+                "value": 4
+              }
+            }
+          },
+          {
+            "id": "03449bbf-85db-56a4-afb6-26e1eb7627a8",
+            "command": "EVENT_SOUND_PLAY_EFFECT",
+            "args": {
+              "type": "crash",
+              "priority": "medium",
+              "pitch": 5,
+              "frequency": 200,
+              "duration": 0.3,
+              "wait": false,
+              "effect": 0
+            }
+          },
+          {
+            "id": "7f9ca3a4-2c75-540b-b6b6-4362df578d3e",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "THE CMO is\nfired.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "fa793bf1-1108-5802-a531-72843d5959a4",
+            "command": "EVENT_ACTOR_DEACTIVATE",
+            "args": {
+              "actorId": "778e8759-2b2d-5860-bc78-cf1de2b6c454"
+            }
+          },
+          {
+            "id": "2d4f7f1a-d9a9-5c00-af4a-97a0dd537760",
+            "command": "EVENT_INC_VALUE",
+            "args": {
+              "variable": "86"
+            }
+          }
+        ],
+        "false": []
+      }
+    }
+  ],
+  "hit3Script": []
+}

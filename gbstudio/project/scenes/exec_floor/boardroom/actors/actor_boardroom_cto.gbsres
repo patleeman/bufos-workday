@@ -1,0 +1,137 @@
+{
+  "_resourceType": "actor",
+  "id": "43c7d626-e41e-5976-94de-6e49af79cdaf",
+  "_index": 16,
+  "symbol": "actor_boardroom_cto",
+  "prefabId": "",
+  "name": "THE CTO",
+  "coordinateType": "tiles",
+  "x": 14,
+  "y": 3,
+  "frame": 0,
+  "animate": false,
+  "spriteSheetId": "fdc4a2d5-338e-5bd1-a6b2-1b6bbb7efa57",
+  "paletteId": "",
+  "direction": "down",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "1",
+  "collisionExtraFlags": [],
+  "prefabScriptOverrides": {},
+  "script": [],
+  "startScript": [
+    {
+      "id": "fc576844-79bf-5541-88b4-cf1f0aa84587",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "89"
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "f31520dd-8f1b-59f9-8a3d-0cf372a97073",
+            "command": "EVENT_ACTOR_DEACTIVATE",
+            "args": {
+              "actorId": "43c7d626-e41e-5976-94de-6e49af79cdaf"
+            }
+          }
+        ],
+        "false": []
+      }
+    }
+  ],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [
+    {
+      "id": "90cc03fd-92fe-5924-869e-f5d9465f7c76",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "eq",
+          "valueA": {
+            "type": "variable",
+            "value": "87"
+          },
+          "valueB": {
+            "type": "number",
+            "value": 4
+          }
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "a3484bfc-6793-547e-9eb9-741b0fcff5c0",
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "87",
+              "value": {
+                "type": "number",
+                "value": 0
+              }
+            }
+          },
+          {
+            "id": "e2289e10-b5f2-5dc7-9a80-37b8d978f354",
+            "command": "EVENT_CAMERA_SHAKE",
+            "args": {
+              "time": 0.4,
+              "frames": 24,
+              "units": "time",
+              "shakeDirection": "horizontal",
+              "magnitude": {
+                "type": "number",
+                "value": 4
+              }
+            }
+          },
+          {
+            "id": "245e0ebf-0faf-5437-8e91-f43d71a98af9",
+            "command": "EVENT_SOUND_PLAY_EFFECT",
+            "args": {
+              "type": "crash",
+              "priority": "medium",
+              "pitch": 5,
+              "frequency": 200,
+              "duration": 0.3,
+              "wait": false,
+              "effect": 0
+            }
+          },
+          {
+            "id": "0bff7f23-73c4-5031-9433-1d74cbabcffc",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "THE CTO is\nfired.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "4be03a0e-b29a-5610-8ac3-5a95f6a0ec13",
+            "command": "EVENT_ACTOR_DEACTIVATE",
+            "args": {
+              "actorId": "43c7d626-e41e-5976-94de-6e49af79cdaf"
+            }
+          },
+          {
+            "id": "9ef16a7e-1b48-5ad8-b7b9-20965426275f",
+            "command": "EVENT_INC_VALUE",
+            "args": {
+              "variable": "86"
+            }
+          }
+        ],
+        "false": []
+      }
+    }
+  ],
+  "hit3Script": []
+}

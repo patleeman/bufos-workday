@@ -519,8 +519,8 @@ def room_rows(room):
 
 def collisions(room, rows=None, tiles=None):
     """Per 8x8 tile: 0x0f solid, 0 walkable. Door tiles are always walkable; triggers guard them."""
-    rows = rows or room_rows(room)
-    tiles = tiles or LEVELS[room][0].TILES
+    rows = rows if rows is not None else room_rows(room)
+    tiles = tiles if tiles is not None else LEVELS[room][0].TILES
     out = [0] * (20 * 18)
     for my, row in enumerate(rows):
         for mx, ch in enumerate(row):
@@ -1225,17 +1225,30 @@ def chapter_menu():
                             "has_badge", "boss2_door_open"]
     chapters = [
         ("Basement", 3, story, ("stairwell", 9, 14)),
-        ("The Printer", 3, level1, ("printer_room", 9, 14)),
+        ("Printer", 3, level1, ("printer_room", 9, 14)),
     ]
+    level2_done = level2 + ["espresso_defeated", "office_intro"]
+    level3_done = level2_done + ["has_headphones", "has_invite", "boss3_door_open", "storm_defeated", "hr_intro"]
+    level4_done = level3_done + ["has_keycard", "keycard_used", "has_folder", "boss4_door_open", "hydra_defeated",
+                                 "server_intro", "hr_talked"]
+    level5_done = level4_done + ["kevin_met", "has_kevin", "exec_hacked", "exec_intro"]
     if breakroom:
         chapters += [("Floor 2", 4, level1_done, ("elevator_landing", 9, 14)),
-                     ("Espresso Bar", 4, level2, ("espresso_room", 9, 14))]
+                     ("Espresso", 4, level2, ("espresso_room", 9, 14))]
+    if landing_exists("office_landing"):
+        chapters.append(("Floor 3", 5, level2_done, ("office_landing", 9, 14)))
+    if landing_exists("hr_landing"):
+        chapters.append(("Floor 4", 5, level3_done, ("hr_landing", 9, 14)))
+    if landing_exists("server_landing"):
+        chapters.append(("Floor 5", 5, level4_done, ("server_landing", 9, 14)))
+    if landing_exists("exec_landing"):
+        chapters.append(("Floor 6", 5, level5_done, ("exec_landing", 9, 14)))
     picks = []
     for i, (label, hp, flags, (room, x, y)) in enumerate(chapters, start=1):
         picks.append(if_expr(EQ(V["menu_pick"], i), [*chapter_setup(hp, flags), switch_scene(room, x, y, "up")]))
     menu = lambda var_name, options: ev("EVENT_MENU", {
         "variable": V[var_name], "items": len(options), "cancelOnLastOption": False, "cancelOnB": True,
-        "layout": "dialogue", **{f"option{i + 1}": o for i, o in enumerate(options)}})
+        "layout": "menu" if len(options) > 4 else "dialogue", **{f"option{i + 1}": o for i, o in enumerate(options)}})
     return [
         menu("menu_pick", ["Start work", "Chapter select"]),
         if_expr(EQ(V["menu_pick"], 2), [
@@ -1506,6 +1519,84 @@ LEVEL2_PROPS.update({
         (3, 0, ["A framed policy:\nAll fights must\nbe pre-approved."], None),
         (2, 1, ["A tower of files.\nIt sways."], None),
         (7, 1, ["Another tower of\nfiles. It sways\nthe other way."], None),
+    ],
+})
+
+# Floor 5 and 6 props.
+LEVEL2_PROPS.update({
+    "server_landing": [
+        (2, 0, ["RESTRICTED."], None),
+        (7, 0, ["AUTHORIZED AI ONLY.", "Bufo is not an AI.\nBufo goes in\nanyway."], None),
+        (1, 2, ["A lonely server\nrack. It hums to\nitself."], ["Warm. Lonely."]),
+        (1, 6, ["A fire suppression\ntank. Please do\nnot suppress."], None),
+    ],
+    "cold_aisle": [
+        (3, 0, ["COLD AISLE.", "Bufo's tongue may\nfreeze to things."], None),
+        (2, 2, ["A server. It runs\nthe coffee order\nsystem. Decaf."], None),
+        (7, 2, ["A blinking rack.\nBlink. Blink.\nIt's waving?"], ["Bufo licks it. It\nblinks faster."]),
+        (2, 6, ["A label: KEVIN\n(DO NOT UNPLUG).", "Someone crossed out\n'NOT'. Then wrote\nit back."], None),
+        (6, 0, ["A thermostat: 12C.", "Someone put a\nsticky note on it:\n'Brrr.'"], None),
+    ],
+    "ups_room": [
+        (1, 0, ["EMERGENCY POWER\nSWITCH.", "Bufo does not\ntouch it."], ["Bufo licks it.\nNothing happens.\nPhew."]),
+        (6, 6, (["A coffee maker.\nIt WORKS.", "REAL coffee.\nBufo is overcome.\nCoffee refilled."], "heal"),
+         ["Real coffee.\nBufo weeps."]),
+        (5, 0, ["UPS STATUS: OK.", "The only thing on\nthis floor that's\nOK."], None),
+        (3, 2, ["A bank of\nbatteries. They're\nall at 100%."], None),
+        (8, 0, ["Another\nthermostat. Also\nfreezing."], None),
+    ],
+    "cable_vault": [
+        (3, 2, ["A cable knot.\nIt's untangling\nitself. Slowly."], None),
+        (8, 1, ["A spool of cable.\nCat5. Of course."], None),
+        (4, 0, ["A cable tray,\nsagging with\ndecades of cable."], None),
+        (7, 3, ["A GIANT cable knot.", "Somewhere inside: a\nmouse. A real one."], ["Squeak."]),
+    ],
+    "kevin_core": [
+        (3, 0, ["A wall of monitors.\nThey all show the\nsame smile."], None),
+        (4, 1, ["KEVIN's console.\nA sticky note:\n'Be kind. -K'"], None),
+        (2, 1, ["A coolant column.\nBubbling gently."], None),
+        (7, 1, ["Another coolant\ncolumn. It bubbles\nin harmony."], None),
+    ],
+    "exec_landing": [
+        (2, 0, ["EXECUTIVES ONLY."], None),
+        (7, 0, ["A gilded mirror.\nBufo looks...\nconcerned."], ["Smudged now."]),
+        (1, 1, ["A potted palm.\nReal. Expensive.\nSmug."], None),
+        (1, 3, ["A velvet bench.\nToo nice to sit on."], None),
+    ],
+    "exec_hall": [
+        (1, 0, ["A portrait of a\nyacht. Brock's\nthird."], None),
+        (3, 0, ["A portrait of a\ngolf course. Brock\nowns it."], None),
+        (6, 0, ["A portrait of a\nstock chart. Only\ngoes up."], None),
+        (8, 0, ["A portrait of\nmoney. Just\nmoney."], None),
+        (2, 1, ["A bust. No face.\nThe sculptor quit."], None),
+        (8, 7, ["Another faceless\nbust. Same\nsculptor. Same\nreason."], None),
+    ],
+    "exec_lounge": [
+        (3, 3, (["A champagne\nfountain.", "It's sparkling\nwater. Coffee\nrefilled anyway."], "heal"), ["Bubbly."]),
+        (8, 1, ["A leather armchair.\nIt costs more than\nBufo."], None),
+        (1, 1, ["A cigar humidor.\nBufo coughs just\nlooking at it."], None),
+        (6, 6, ["Another putting\ngreen. Golf is\nwork, apparently."], None),
+        (2, 0, ["A stock ticker:\nPONDCORP: UP.\nMORALE: DOWN."], None),
+        (6, 0, ["VIP.", "Very Important\nPondcorp-person."], None),
+    ],
+    "brock_suite": [
+        (1, 0, ["Self-help books:", "'Synergy for One'.\n'Think Bigger'.\n'Think Bigger 2'."], None),
+        (2, 1, ["A gold throne.\nThere's a\ncushion on it\nthat says BOSS."], None),
+        (5, 0, ["A vault.", "Through the\nkeyhole: lily\npads. Gold ones."], None),
+        (2, 2, ["Brock's desk. A\nphoto: Brock with\nBrock."], None),
+        (7, 2, ["A gold silk bed.\nIn the office."], None),
+        (1, 7, ["A gold statue of\nBrock. Lifesize.\nPlus 20%."], None),
+    ],
+    "board_antechamber": [
+        (1, 2, ["A pompous gong.", "Bufo gongs it.\nBONNNG.", "Nobody comes."], ["BONG."]),
+        (3, 4, ["A velvet rope.\nFor keeping out\nfrogs like Bufo."], None),
+        (7, 0, ["PLEASE WAIT.", "(Forever.)"], None),
+        (8, 6, ["A waiting chair.\nStill warm from the\nlast employee."], None),
+    ],
+    "boardroom": [
+        (2, 3, ["The boardroom\ntable. Longer than\nthe basement."], None),
+        (5, 3, ["A gavel. For\nsmashing ideas."], None),
+        (7, 3, ["The quarterly\nreport. In gold\nleaf. It's blank."], None),
     ],
 })
 
@@ -1845,7 +1936,8 @@ def build_espresso(r):
               "Bufo: (Maybe the\nCEO just likes\ndecaf.)"),
         *text("You got a MUG\nUPGRADE! Bufo can\nhold more coffee."),
         set_var(V["bufo_max_hp"], 5), set_var(V["bufo_hp"], 5), *hud_update("espresso_room"),
-        *text("11:45 AM.\nTo be continued..."),
+        *(text("11:45 AM.", "Floor 3 is open.\nTake the elevator.") if "office" in FLOORS
+          else text("11:45 AM.\nTo be continued...")),
         music(level2_song("break_room_theme", "office_theme")),
     ]
     hit = [if_var(V["espresso_hot"], [
@@ -1940,7 +2032,7 @@ def elevator_script(here):
     return [
         *text("ELEVATOR."),
         ev("EVENT_MENU", {"variable": V["elevator_pick"], "items": len(floors), "cancelOnLastOption": False,
-                          "cancelOnB": True, "layout": "dialogue",
+                          "cancelOnB": True, "layout": "menu" if len(floors) > 4 else "dialogue",
                           **{f"option{i + 1}": f[0] for i, f in enumerate(floors)}}),
         *picks,
     ]
@@ -2437,8 +2529,9 @@ def build_boardroom(r):
     aim = warning_actor(r, "aim_warning", 9, 12)
     x_spots = [(14, 6), (14, 13), (4, 13), (4, 6)]
     x_warn = [warning_actor(r, f"x_warning_{i}", wx, wy) for i, (wx, wy) in enumerate(x_spots)]
+    # GB Studio allows 21 actors per scene, so the lane warnings reuse two of the X markers.
     lanes = {"left": (4, -24), "middle": (9, 8), "right": (14, 40)}
-    lane_warn = {k: warning_actor(r, f"lane_{k}", lx, 12) for k, (lx, _) in lanes.items()}
+    lane_warn = {"left": x_warn[0], "right": x_warn[1]}
     holes = []
     for i in range(3):
         hid = uid("actor", "boardroom", f"hole_{i}")
@@ -2451,7 +2544,8 @@ def build_boardroom(r):
         if kind == "spreadsheets":
             return [*marked_shot(source, "spreadsheet", aim), wait(0.3), *marked_shot(source, "spreadsheet", aim)]
         if kind == "megaphone":
-            return [*[activate(w) for w in x_warn], sound("beep", 3, 0.3), wait(1.2), *[deactivate(w) for w in x_warn],
+            return [*[set_pos(w, wx, wy) for w, (wx, wy) in zip(x_warn, x_spots)],
+                    *[activate(w) for w in x_warn], sound("beep", 3, 0.3), wait(1.2), *[deactivate(w) for w in x_warn],
                     *[projectile("spreadsheet", source, group="3", mask=("player",), speed=1, life=2.0,
                                  dx=8, dy=8, angle=a) for a in (32, 96, 160, 224)]]
         if kind == "holes":
@@ -2469,7 +2563,8 @@ def build_boardroom(r):
             return out
         if kind == "lanes":
             which = ("left", "right")
-            return [*[activate(lane_warn[k]) for k in which], sound("noise", 3, 0.6), wait(1.2),
+            return [*[set_pos(lane_warn[k], lanes[k][0], 12) for k in which],
+                    *[activate(lane_warn[k]) for k in which], sound("noise", 3, 0.6), wait(1.2),
                     *[deactivate(lane_warn[k]) for k in which],
                     *[projectile("spreadsheet", source, direction="down", group="3", mask=("player",), speed=2,
                                  life=1.4, dx=lanes[k][1], dy=0) for k in which]]
@@ -2504,8 +2599,8 @@ def build_boardroom(r):
               "KEVIN: YES. IT IS.", "KEVIN: I PRINTED\nIT.", "KEVIN: ON EVERY\nPRINTER. ON EVERY\nFLOOR.",
               "KEVIN: EVEN THE\nBASEMENT ONE. IT\nWORKS NOW."),
         music("ending_theme" if "ending_theme" in SONGS else "fanfare"),
-        *[activate(uid("actor", "boardroom", f"staff_{i}")) for i in range(4)],
-        *[move_to(uid("actor", "boardroom", f"staff_{i}"), 4 + i * 3, 11, walls=False) for i in range(4)],
+        *[activate(uid("actor", "boardroom", f"staff_{i}")) for i in range(2)],
+        *[move_to(uid("actor", "boardroom", f"staff_{i}"), 6 + i * 6, 11, walls=False) for i in range(2)],
         *text("The staff storm\nthe boardroom.", "They're holding the\nprintouts.",
               "IT: I read it.", "BUFO-COFFEE-HAPPY:\nDecaf. YOU did\nthat.",
               "BUFO-ALL-WARM-AND-\nFUZZY-INSIDE: Your\nmeeting is over.",
@@ -2529,14 +2624,10 @@ def build_boardroom(r):
         r.actor(key, sprite, x, y, name=name, group="1",
                 start=[if_var(V["board_defeated"], [deactivate(eid)])],
                 hit2=on_hit)
-    for i in range(4):
+    for i in range(2):
         sid = uid("actor", "boardroom", f"staff_{i}")
-        r.actor(f"staff_{i}", "staff_frog", 8 + (i % 2) * 2, 17, name="Staff", animate=True, anim_speed=15,
+        r.actor(f"staff_{i}", "staff_frog", 8 + i * 2, 17, name="Staff", animate=True, anim_speed=15,
                 solid=False, start=[deactivate(sid)])
-    for i, x in enumerate((8, 10)):
-        jid = uid("actor", "boardroom", f"door_jam_{i}")
-        r.actor(f"door_jam_{i}", "spreadsheet", x, 17, name="Security", solid=False,
-                start=[if_var(V["board_defeated"], [deactivate(jid)])])
     r.init += [
         music(level2_song("final_boss_theme", "boss_theme")),
         if_var(V["board_intro_done"], [], [
@@ -2583,16 +2674,17 @@ def build_ending():
         ev("EVENT_AWAIT_INPUT", {"input": ["a", "start"]}),
         switch_scene("title", 0, 0, "down"),
     ]
-    for r, bg_name, label, gx in ((end, "ending_cubicle", "Ending", 3), (credits, "credits", "Credits", 4)):
-        title, layout = exec_mod.STANDALONE[bg_name]
-        rows = layout.strip().splitlines() if isinstance(layout, str) else list(layout)
-        story_like(r, rows, exec_mod.TILES, bg_name, label, (gx, -1))
-        r.hit = []
+    rows = exec_mod.STANDALONE["ending_cubicle"][1].strip().splitlines()
+    story_like(end, rows, exec_mod.ENDING_TILES, "ending_cubicle", "Ending", (3, -1))
+    story_like(credits, [], {}, "credits", "Credits", (4, -1))
     credits.collision_map = [0x0F] * (20 * 18)
+    end.hit = credits.hit = []
     return {"ending_cubicle": end, "credits": credits}
 
 
 def write_room(room, index):
+    if len(room.actors) > 20:
+        raise SystemExit(f"{room.name} has {len(room.actors)} actors; GB Studio allows 20 plus Bufo")
     if room.name in LEVELS:
         level, _, folder = LEVELS[room.name]
         gx, gy, title, _ = level.ROOMS[room.name]
@@ -2666,12 +2758,15 @@ def main():
     story_bgs = [("story_" + n, n) for n in ("cubicle", "ceo_office", "title")]
     if breakroom:
         story_bgs.append(("lobby", "lobby"))
+    if "exec" in FLOORS:
+        story_bgs += [("ending_cubicle", "lobby_x_ending"), ("credits", "lobby_x_credits")]
     for file_name, name in story_bgs:
         src = ROOT / "assets/backgrounds" / f"{file_name}.png"
         dst = PROJ / "assets/backgrounds" / src.name
         shutil.copy(src, dst)
         write(dst.with_name(dst.name + ".gbsres"), {
-            "_resourceType": "background", "id": uid("background", file_name if name == "lobby" else f"story_{name}"),
+            "_resourceType": "background",
+            "id": uid("background", file_name if name.startswith("lobby") else f"story_{name}"),
             "name": file_name, "symbol": f"bg_{file_name}", "tileColors": "", "filename": dst.name,
             "width": 20, "height": 18, "imageWidth": 160, "imageHeight": 144, "autoColor": True,
         })

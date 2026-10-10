@@ -1,0 +1,196 @@
+{
+  "_resourceType": "actor",
+  "id": "e33071d8-eb7a-5ebb-8c12-51fffdfddbd8",
+  "_index": 6,
+  "symbol": "actor_complaints_chest_folder",
+  "prefabId": "",
+  "name": "chest_folder",
+  "coordinateType": "tiles",
+  "x": 16,
+  "y": 3,
+  "frame": 0,
+  "animate": false,
+  "spriteSheetId": "9ad2b5af-9849-52e0-bc49-9fa6d005432d",
+  "paletteId": "",
+  "direction": "down",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "",
+  "collisionExtraFlags": [],
+  "prefabScriptOverrides": {},
+  "script": [
+    {
+      "id": "127a2faa-2866-52f4-9d4b-64c943fecac4",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "71"
+        },
+        "__collapseElse": false
+      },
+      "children": {
+        "true": [
+          {
+            "id": "159ad9a3-c53e-5d15-802d-5e5f5f6d3c62",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "It's empty.",
+              "avatarId": ""
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "05fdbf47-1c84-5243-9337-6328791b175d",
+            "command": "EVENT_ACTOR_SET_STATE",
+            "args": {
+              "actorId": "e33071d8-eb7a-5ebb-8c12-51fffdfddbd8",
+              "spriteStateId": "Open",
+              "loopAnim": true
+            }
+          },
+          {
+            "id": "f1449c30-d5bd-5c9f-8596-4e7237a9229e",
+            "command": "EVENT_MUSIC_PLAY",
+            "args": {
+              "musicId": "427db685-fdd7-5d97-9c53-3d2c06a010c3",
+              "loop": true
+            }
+          },
+          {
+            "id": "937c4624-bb8e-5969-befc-d8fdd8e401b5",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "You found a\nfolder:\nPROJECT LILYPAD.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "370c5e2f-92c0-511e-9edd-1414aca39a0f",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "Step 1: Blame the\nAI.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "a6410e97-33ba-56e2-8e10-cb0a85d6a8ac",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "Step 2: Fire\neveryone.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "ac27ff8c-6177-51b9-97ce-95bc09785cfa",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "Step 3: Lily pad\n(gold).",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "bece06d9-141a-5d27-bc4d-75c2c2a3c11f",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "Approved by:\nB. Ribbitson.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "f298f968-b4e7-5b6b-89de-1b4a59ea9844",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "...",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "0967ccca-f2e5-53a2-90fb-1e1e01d737a9",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "......",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "06c104a1-b4cd-518e-a435-5d47b3de8fc4",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "Bufo: ...",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "6dbee821-b6db-5b89-be80-0fb59edcb6c1",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "Clipped to the\nfolder: an\nAPPROVED",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "af5b1c3b-4bb8-51a4-a160-d8d7eda8860c",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": "stamp.",
+              "avatarId": ""
+            }
+          },
+          {
+            "id": "3ddb8d28-420a-5b0b-97a9-5bc5b7f3b303",
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "71",
+              "value": {
+                "type": "true"
+              }
+            }
+          },
+          {
+            "id": "ae52d8ba-0106-5fdc-b5c8-922fa3382c54",
+            "command": "EVENT_MUSIC_PLAY",
+            "args": {
+              "musicId": "87d92324-fa93-5e56-a65d-2a254231724d",
+              "loop": true
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "startScript": [
+    {
+      "id": "b594ba55-7016-568a-975f-18fb40683f78",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "71"
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "id": "06cefb52-5e10-5109-8cf4-d558cde30224",
+            "command": "EVENT_ACTOR_SET_STATE",
+            "args": {
+              "actorId": "e33071d8-eb7a-5ebb-8c12-51fffdfddbd8",
+              "spriteStateId": "Open",
+              "loopAnim": true
+            }
+          }
+        ],
+        "false": []
+      }
+    }
+  ],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [],
+  "hit3Script": []
+}
