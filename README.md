@@ -20,7 +20,8 @@ About 200 things to look at (A) and lick (B), and 11 original songs.
 ## Play it
 
 - **In GB Studio:** open `gbstudio/project.gbsproj` and press Play.
-- **In a browser:** run `tools/make_site.sh`, then `python3 -m http.server -d site` and open http://localhost:8000.
+- **In a browser:** https://patleeman.github.io/bufos-workday/. To preview locally, run `tools/make_site.sh`,
+  then `python3 -m http.server -d site` and open http://localhost:8000. `tools/make_site.sh --deploy` publishes it.
 - **As a ROM:** `build/bufos_workday.gb` runs in any Game Boy Color emulator
   (SameBoy, Emulicious), or on the Chromatic from a flash cart.
 - **Skipping ahead:** press Start during the opening to skip it. On the title card,

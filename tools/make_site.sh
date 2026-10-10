@@ -1,6 +1,7 @@
 #!/bin/sh
 # Build the website into site/: the landing page, the web player, and the ROM download.
 # Needs the GB Studio CLI (tools/setup_cli.sh). Builds from gbstudio/ (or BUFO_PROJECT_DIR).
+# With --deploy, also publishes site/ to the gh-pages branch (https://patleeman.github.io/bufos-workday/).
 set -e
 cd "$(dirname "$0")/.."
 GBS_CLI="${GBS_CLI:-/tmp/gbs-src/out/cli/gb-studio-cli.js}"
@@ -20,3 +21,17 @@ for y in range(16):
         if px[x, y][:3] == (0x65, 0xFF, 0x00): px[x, y] = (0, 0, 0, 0)
 im.resize((64, 64), Image.NEAREST).save('site/img/bufo.png')"
 echo "Built site/ (open site/index.html through a local server: python3 -m http.server -d site)"
+
+if [ "$1" = "--deploy" ]; then
+  REMOTE=$(git remote get-url origin)
+  OUT=$(mktemp -d)
+  cp -R site/. "$OUT"
+  touch "$OUT/.nojekyll"
+  cd "$OUT"
+  git init -q -b gh-pages
+  git add -A
+  git commit -qm "Publish site"
+  git push -qf "$REMOTE" gh-pages
+  rm -rf "$OUT"
+  echo "Deployed. GitHub Pages updates in a minute or two."
+fi
