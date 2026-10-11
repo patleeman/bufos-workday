@@ -73,6 +73,7 @@ another folder, which is handy while GB Studio has `gbstudio/` open.
 ```sh
 BUFO_START=printer_room,9,14 BUFO_ITEMS=has_cable,has_password BUFO_HP=20 tools/build.sh
 BUFO_START_HP=9 tools/build.sh   # normal start, but Bufo begins with 9 coffee
+BUFO_START=boardroom,9,14 BUFO_ITEMS=has_kevin,board_intro_done,board_stage=3 tools/build.sh   # the CTO's turn
 ```
 
 ### Setup for the command-line tools

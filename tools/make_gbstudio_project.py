@@ -242,7 +242,7 @@ VARS = [
     "head_a_open", "head_b_open", "head_c_open",
     "server_panel_broken", "has_note5", "kevin_met", "has_kevin", "exec_hacked",
     "has_board_invite", "boss6_door_open", "board_stage", "board_vuln", "board_intro_done", "board_defeated",
-    "elevator_pick", "keycard_used",
+    "elevator_pick", "keycard_used", "align_wait",
 ]
 V = {name: str(i) for i, name in enumerate(VARS)}
 
@@ -677,6 +677,41 @@ def chase(aid, pause):
     ]
 
 
+DPAD = ("left", "right", "up", "down")
+
+
+def hold_dpad():
+    """Swallow D-pad presses (an override input script with nothing in it) so Bufo stays put."""
+    return [ev("EVENT_SET_INPUT_SCRIPT", {"input": list(DPAD), "override": True, "__collapse": False},
+               true=[ev("EVENT_WAIT", {"time": num(0.02), "frames": num(1), "units": "frames"})])]
+
+
+def release_dpad():
+    return [remove_input(b) for b in DPAD]
+
+
+def finish_step():
+    """Wait (up to 16 frames) for Bufo to finish his current step and stand on the 8 px grid.
+
+    Bufo keeps walking until he reaches the grid. A tongue launched mid-step gets walked into, and the
+    engine's hit test finds Bufo before the enemy, so the lick misses. A scripted move started mid-step
+    can get stuck. Snapping him instead could push him into a wall he was walking away from.
+    """
+    pos = ev("EVENT_ACTOR_GET_POSITION", {"actorId": "player", "vectorX": V["lick_x"],
+                                          "vectorY": V["lick_y"], "units": "pixels"})
+    off_grid = OR({"type": "ne", "valueA": {"type": "mod", "valueA": var(V["lick_x"]), "valueB": num(8)},
+                   "valueB": num(0)},
+                  {"type": "ne", "valueA": {"type": "mod", "valueA": var(V["lick_y"]), "valueB": num(8)},
+                   "valueB": num(0)})
+    return [
+        set_var(V["align_wait"], 0), pos,
+        ev("EVENT_LOOP_WHILE", {"condition": AND(off_grid, cmp("lt", V["align_wait"], 16))}, true=[
+            ev("EVENT_WAIT", {"time": num(0.02), "frames": num(1), "units": "frames"}),
+            inc(V["align_wait"]), pos,
+        ]),
+    ]
+
+
 def tongue_controls(room):
     # The tongue doesn't fly: it pops out in front of Bufo, holds, and retracts (half, full, full, half).
     # It hits enemies (group 1). Props can't be both talkable and hittable, so licking a prop is
@@ -684,19 +719,23 @@ def tongue_controls(room):
     checks = []
     for mx, my, lines in reversed(lickables(room)):
         checks = [if_expr(facing(mx, my), text(*lines), checks)]
-    return input_script("b", [
+    # No licking mid-dash: the lick's D-pad release would cut the dash's hold short.
+    return input_script("b", [if_var(V["dashing"], [], [
         ev("EVENT_RATE_LIMIT", {"variable": V["tongue_cooldown"], "time": num(0.35), "frames": num(20),
                                 "units": "time"},
            true=[
+               # Bufo stands still to lick: finish his step, then hold the D-pad while the tongue is out.
+               *hold_dpad(), *finish_step(),
                sound("beep", 6, 0.05),
                projectile("tongue", "player", group="2", mask=("1",), speed=0, life=0.25, offset=16,
                           anim_speed=3, loop=False),
                ev("EVENT_ACTOR_GET_POSITION", {"actorId": "player", "vectorX": V["lick_x"],
                                                "vectorY": V["lick_y"], "units": "tiles"}),
                ev("EVENT_ACTOR_GET_DIRECTION", {"actorId": "player", "direction": V["lick_dir"]}),
+               wait(0.25), *release_dpad(),
                *checks,
            ]),
-    ])
+    ])])
 
 
 def hud_update(room):
@@ -1633,30 +1672,35 @@ def dash_controls(room, boss_hit=None):
     for d in (3, 2, 1, 0):
         dx, dy, mtype = move[d]
         moves = [if_expr(EQ(V["lick_dir"], d), [move_rel("player", dx, dy, mtype)], moves)]
-    return input_script("select", [
+
+    # A dash that stops against an actor (an enemy, a boss) can leave Bufo between tiles, and Bufo can't
+    # walk from there. Snap him back onto the 8 px grid, toward where he dashed from (he's been there).
+    def grid(v, back):
+        val = {"type": "add", "valueA": var(v), "valueB": num(7)} if back else var(v)
+        return {"type": "mul", "valueA": {"type": "div", "valueA": val, "valueB": num(8)}, "valueB": num(8)}
+    snap = []
+    for back in (False, True):
+        snap.append(ev("EVENT_ACTOR_SET_POSITION", {"actorId": "player", "x": grid(V["lick_x"], back),
+                                                    "y": grid(V["lick_y"], back), "units": "pixels"}))
+    snap = [ev("EVENT_ACTOR_GET_POSITION", {"actorId": "player", "vectorX": V["lick_x"],
+                                            "vectorY": V["lick_y"], "units": "pixels"}),
+            # Dashing left or up, "back" is right or down: round up. Otherwise round down.
+            if_expr(OR(EQ(V["lick_dir"], 2), EQ(V["lick_dir"], 3)), [snap[1]], [snap[0]])]
+    return ev("EVENT_GROUP", {}, true=[set_var(V["dashing"], False), input_script("select", [
         if_var(V["has_mug"], [
             ev("EVENT_RATE_LIMIT", {"variable": V["dash_cooldown"], "time": num(0.6), "frames": num(36),
                                     "units": "time"}, true=[
                 ev("EVENT_ACTOR_GET_DIRECTION", {"actorId": "player", "direction": V["lick_dir"]}),
-                # A scripted move that starts mid-step can get stuck, so wait until Bufo finishes his
-                # current step and stands exactly on the 8 px grid. (Snapping him instead could push him
-                # into a wall he was walking away from.)
-                ev("EVENT_ACTOR_GET_POSITION", {"actorId": "player", "vectorX": V["lick_x"],
-                                                "vectorY": V["lick_y"], "units": "pixels"}),
-                ev("EVENT_LOOP_WHILE", {"condition": OR(
-                    {"type": "ne", "valueA": {"type": "mod", "valueA": var(V["lick_x"]), "valueB": num(8)},
-                     "valueB": num(0)},
-                    {"type": "ne", "valueA": {"type": "mod", "valueA": var(V["lick_y"]), "valueB": num(8)},
-                     "valueB": num(0)})}, true=[
-                    ev("EVENT_WAIT", {"time": num(0.02), "frames": num(1), "units": "frames"}),
-                    ev("EVENT_ACTOR_GET_POSITION", {"actorId": "player", "vectorX": V["lick_x"],
-                                                    "vectorY": V["lick_y"], "units": "pixels"}),
-                ]),
+                # Hold the D-pad for the whole dash: holding the opposite direction fought the scripted
+                # move so it never finished, and Bufo stayed stuck in his dash.
+                *hold_dpad(), *finish_step(),
                 ev("EVENT_ACTOR_SET_SPRITE", {"actorId": "player", "spriteSheetId": SPRITES["bufo_dash"]["id"]}),
                 ev("EVENT_ACTOR_SET_MOVEMENT_SPEED", {"actorId": "player", "speed": 4}),
                 set_var(V["dashing"], True),  # Bufo can't be hurt while dashing (or ramming a boss)
                 sound("noise", 6, 0.15),
                 *moves,
+                *snap,
+                *release_dpad(),
                 ev("EVENT_ACTOR_SET_MOVEMENT_SPEED", {"actorId": "player", "speed": 1}),
                 ev("EVENT_ACTOR_SET_SPRITE", {"actorId": "player", "spriteSheetId": SPRITES["bufo"]["id"]}),
                 ev("EVENT_ACTOR_GET_POSITION", {"actorId": "player", "vectorX": V["lick_x"],
@@ -1666,7 +1710,7 @@ def dash_controls(room, boss_hit=None):
                 set_var(V["dashing"], False),
             ]),
         ]),
-    ])
+    ])])
 
 
 RECEPTIONIST_LINES = text("BUFO-OFFERS: Welcome\nto Pondcorp! Can I\noffer you a mint?",
@@ -2031,9 +2075,12 @@ def elevator_script(here):
         picks.append(if_expr(EQ(V["elevator_pick"], i), go))
     return [
         *text("ELEVATOR."),
+        # Sprites draw over the menu, so hide Bufo while it's open.
+        ev("EVENT_ACTOR_HIDE", {"actorId": "player"}),
         ev("EVENT_MENU", {"variable": V["elevator_pick"], "items": len(floors), "cancelOnLastOption": False,
                           "cancelOnB": True, "layout": "menu" if len(floors) > 4 else "dialogue",
                           **{f"option{i + 1}": f[0] for i, f in enumerate(floors)}}),
+        ev("EVENT_ACTOR_SHOW", {"actorId": "player"}),
         *picks,
     ]
 
@@ -2530,7 +2577,8 @@ def build_boardroom(r):
     x_spots = [(14, 6), (14, 13), (4, 13), (4, 6)]
     x_warn = [warning_actor(r, f"x_warning_{i}", wx, wy) for i, (wx, wy) in enumerate(x_spots)]
     # GB Studio allows 21 actors per scene, so the lane warnings reuse two of the X markers.
-    lanes = {"left": (4, -24), "middle": (9, 8), "right": (14, 40)}
+    cto_x = next(mx for key, _, mx, *_ in BOARD if key == "cto") * 2
+    lanes = {k: (x, (x - cto_x) * 8) for k, x in (("left", 4), ("right", 14))}
     lane_warn = {"left": x_warn[0], "right": x_warn[1]}
     holes = []
     for i in range(3):
@@ -2670,7 +2718,7 @@ def build_ending():
         *text("BUFO'S WORKDAY", "Starring BUFO,\na frog who was\nconcerned.",
               "KEVIN as KEVIN\n(CEO).", "Brock Ribbitson as\nhimself (fired).",
               "bufo-coffee-happy\nis happy again.", "The printer works.\nNobody knows why.",
-              "Made for the\nModRetro Chromatic.", "THE END.", "Thanks for playing!"),
+              "THE END.", "Thanks for playing!"),
         ev("EVENT_AWAIT_INPUT", {"input": ["a", "start"]}),
         switch_scene("title", 0, 0, "down"),
     ]
@@ -2819,7 +2867,8 @@ def main():
     rooms = {**build_story(), **build_rooms(), **build_level2(), **build_floor3(), **build_floor4(),
              **build_floor5(), **build_floor6(), **build_ending()}
 
-    # Playtesting: BUFO_START=room,x,y starts elsewhere; BUFO_ITEMS=has_cable,... grants items.
+    # Playtesting: BUFO_START=room,x,y starts elsewhere; BUFO_ITEMS=has_cable,board_stage=3,... grants
+    # items and sets numbers.
     start = os.environ.get("BUFO_START")
     if start:
         room, x, y = start.split(",")
@@ -2830,7 +2879,10 @@ def main():
         rooms[room].init[:0] = [set_var(V["game_started"], True), set_var(V["bufo_hp"], hp),
                                 set_var(V["bufo_max_hp"], int(os.environ.get("BUFO_MAX_HP", min(hp, 4)))),
                                 *hud_update(room),
-                                *[set_var(V[i], True) for i in items]]
+                                *[set_var(V[i], True) for i in items if "=" not in i]]
+        # name=N sets a number, after the room's own setup (e.g. board_stage=3 starts at the CTO).
+        rooms[room].init += [ev("EVENT_SET_VALUE", {"variable": V[k], "value": num(int(n))})
+                             for k, n in (i.split("=") for i in items if "=" in i)]
         print(f"Playtest build: starting in {room} at {x},{y} with {items or 'no items'}")
 
     for i, room in enumerate(rooms.values()):
